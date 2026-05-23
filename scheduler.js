@@ -9,7 +9,7 @@ const fetch = require('node-fetch');
 
 const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInNextDays, buildCalendarSection, todaySgt, OPENING_MATCH } = require('./services/countdownService');
 const { isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeDayPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
-const { fetchWC2026News, fetchTeamNews, formatNews } = require('./services/newsService');
+const { fetchWC2026News, fetchTeamNews, fetchTopNews, formatNews, writeNewsToObsidian, isNewsSent, markNewsSent } = require('./services/newsService');
 const { readResults, writeResult, fetchFullMatchData, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
 const { fetchKnockoutResults, readKnockout } = require('./services/knockoutService');
 const { onResultReceived, onKnockoutResultReceived } = require('./services/liveDataService');
@@ -51,6 +51,54 @@ async function readObsidianNote(filename) {
     return data.content || '';
   } catch {
     return '';
+  }
+}
+
+/**
+ * Write upcoming fixtures to Obsidian so Qwen always has the schedule.
+ * @returns {Promise<void>}
+ */
+async function writeFixturesToObsidian() {
+  if (!FIXTURES.length) return;
+  const now = new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' });
+  const upcoming = FIXTURES
+    .filter((f) => new Date(f.dateIso) > Date.now())
+    .sort((a, b) => new Date(a.dateIso) - new Date(b.dateIso))
+    .slice(0, 30);
+
+  const byDay = {};
+  for (const f of upcoming) {
+    const day = f.dateSgt;
+    if (!byDay[day]) byDay[day] = [];
+    byDay[day].push(f);
+  }
+
+  const lines = [
+    `# WC2026 Upcoming Fixtures`,
+    `<!-- last-updated: ${now} SGT -->`,
+    ``,
+    `*Qwen: use this file to answer questions about upcoming matches, kickoff times, and venues.*`,
+    ``,
+  ];
+
+  for (const [day, matches] of Object.entries(byDay)) {
+    lines.push(`## ${day} SGT`);
+    for (const m of matches) {
+      lines.push(`- **${m.timeSgt}** — ${m.team1} vs ${m.team2} | Group ${m.group} | ${m.venue}`);
+    }
+    lines.push('');
+  }
+
+  try {
+    await fetch(`${OBSIDIAN_MCP}/write`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: 'WC2026/upcoming-fixtures.md', content: lines.join('\n') }),
+      timeout: 8000,
+    });
+    console.log('[SCHEDULER] Obsidian upcoming-fixtures.md updated');
+  } catch (err) {
+    console.error('[SCHEDULER] writeFixturesToObsidian error:', err.message);
   }
 }
 
@@ -251,21 +299,21 @@ async function sendMidnightCountdown() {
   const lines = [];
 
   if (!countdown.started) {
-    lines.push(`⏳ *WC2026 Countdown*`);
+    lines.push(`⏳ *WC2026 Countdown* | 世界杯倒计时`);
     lines.push(``);
-    lines.push(`🏆 Opening match:  *Mexico vs South Africa*`);
+    lines.push(`🏆 Opening match | 揭幕战：*Mexico vs South Africa*`);
     lines.push(`📅 12 Jun 2026 at 01:00 SGT`);
     lines.push(``);
-    lines.push(`⏰ ${countdown.text} to go`);
+    lines.push(`⏰ ${countdown.text} to go | 还有 ${countdown.days} 天 ${countdown.hours} 小时 ${countdown.minutes} 分钟`);
   } else {
-    lines.push(`🏆 *FIFA World Cup 2026 is live\\!*`);
+    lines.push(`🏆 *FIFA World Cup 2026 is live\\!* | 世界杯正在进行中！`);
     lines.push(``);
-    lines.push(`📅 Today — ${today} SGT`);
+    lines.push(`📅 Today | 今天 — ${today} SGT`);
   }
 
   if (todayMatches.length > 0) {
     lines.push(``);
-    lines.push(`⚽ *Today's Matches*`);
+    lines.push(`⚽ *Today's Matches | 今日赛程*`);
     for (const m of todayMatches) {
       lines.push(`  ${m.timeSgt} — *${m.team1} vs ${m.team2}* | Group ${m.group}`);
       lines.push(`  🏟 ${m.venue}`);
@@ -273,7 +321,7 @@ async function sendMidnightCountdown() {
   } else if (countdown.started) {
     const next = getMatchesInNextDays(FIXTURES, 3).slice(0, 1)[0];
     lines.push(``);
-    lines.push(`No matches today${next ? ` — next up: *${next.team1} vs ${next.team2}* on ${next.dateSgt}` : ''}`);
+    lines.push(`No matches today | 今天没有比赛${next ? ` — next up | 下一场：*${next.team1} vs ${next.team2}* on ${next.dateSgt}` : ''}`);
   }
 
   const msg = lines.join('\n');
@@ -283,6 +331,58 @@ async function sendMidnightCountdown() {
   } catch (err) {
     console.error('[SCHEDULER] Midnight countdown error:', err.message);
   }
+}
+
+// ─── JOB 5: NEWS ALERTS ──────────────────────────────────────────────────────
+
+/**
+ * Fetch top WC2026 news from FIFA, vet it, post new stories to Telegram,
+ * and update Obsidian. Runs every 4 hours.
+ */
+async function checkNewsUpdates() {
+  console.log('[SCHEDULER] Checking for new WC2026 news...');
+
+  const articles = await fetchTopNews(5);  // up to 5 unseen, scored articles
+
+  if (articles.length === 0) {
+    console.log('[SCHEDULER] No new news stories to post');
+    // Still refresh Obsidian with latest regardless of sent status
+    const latest = await fetchTopNews(8, true);  // skipSentCheck for Obsidian
+    await writeNewsToObsidian(latest);
+    return;
+  }
+
+  // Post top 3 new stories to Telegram
+  const toPost = articles.slice(0, 3);
+  const escapeMd = (t) => String(t).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, (c) => `\\${c}`);
+
+  const lines = [
+    `📰 *WC2026 News Update | 世界杯最新消息*`,
+    ``,
+  ];
+
+  for (const a of toPost) {
+    const age = Math.round((Date.now() - new Date(a.publishedAt).getTime()) / 3600000);
+    const ageLabel = age < 1 ? 'just now | 刚刚' : `${age}h ago | ${age}小时前`;
+    lines.push(`📌 *${escapeMd(a.title)}*`);
+    if (a.summary) lines.push(`${escapeMd(a.summary.slice(0, 120))}${a.summary.length > 120 ? '\\.\\.\\.' : ''}`);
+    lines.push(`_${escapeMd(a.source)} • ${ageLabel}_`);
+    lines.push(``);
+  }
+
+  lines.push(`_Source: FIFA\\.com Top Stories | 来源：FIFA官网精选_`);
+
+  try {
+    await sendToChannel(lines.join('\n'));
+    markNewsSent(toPost.map((a) => a.id));
+    console.log(`[SCHEDULER] News alert sent (${toPost.length} stories)`);
+  } catch (err) {
+    console.error('[SCHEDULER] News alert send error:', err.message);
+  }
+
+  // Write all fetched articles (including sent ones) to Obsidian
+  const allLatest = await fetchTopNews(8, true);
+  await writeNewsToObsidian(allLatest);
 }
 
 // ─── CRON SETUP ───────────────────────────────────────────────────────────────
@@ -312,17 +412,22 @@ async function start() {
   console.log(`[SCHEDULER] Opening match: ${OPENING_MATCH.team1} vs ${OPENING_MATCH.team2} — 12 Jun 2026, 01:00 SGT`);
   console.log(`[SCHEDULER] Countdown: ${countdown.text}`);
   console.log(`[SCHEDULER] Jobs scheduled:`);
-  console.log(`  - Midnight Countdown: every day at 00:00 SGT`);
-  console.log(`  - Daily Digest: every day at ${DIGEST_TIME_SGT} SGT`);
-  console.log(`  - 3-Day Alerts: checking every hour`);
-  console.log(`  - 1-Day Alerts: checking every hour`);
-  console.log(`  - Result Polling: every 5min during match windows`);
+  console.log(`  - Midnight Countdown:  every day at 00:00 SGT`);
+  console.log(`  - Daily Digest:        every day at ${DIGEST_TIME_SGT} SGT`);
+  console.log(`  - News Alerts:         every 4 hours (FIFA Top Stories → Telegram + Obsidian)`);
+  console.log(`  - 3-Day Alerts:        checking every hour`);
+  console.log(`  - 1-Day Alerts:        checking every hour`);
+  console.log(`  - Result Polling:      every 5min during match windows`);
+  console.log(`  - Knockout Polling:    every 5min from Jun 28 onwards`);
 
   // Midnight countdown every day at 00:00 SGT
   cron.schedule('0 0 * * *', sendMidnightCountdown, { timezone: 'Asia/Singapore' });
 
   // Daily digest at DIGEST_TIME_SGT
   cron.schedule(timeToCron(DIGEST_TIME_SGT), sendDailyDigest, { timezone: 'Asia/Singapore' });
+
+  // News check every 4 hours — fetches FIFA top stories, posts new ones to Telegram, updates Obsidian
+  cron.schedule('0 */4 * * *', checkNewsUpdates, { timezone: 'Asia/Singapore' });
 
   // Alert checks every hour
   cron.schedule('0 * * * *', async () => {
@@ -347,6 +452,13 @@ async function start() {
   }, { timezone: 'Asia/Singapore' });
 
   console.log(`  - Knockout Polling: every 5min from Jun 28 onwards`);
+
+  // Seed Obsidian with latest data on startup
+  console.log('[SCHEDULER] Seeding Obsidian vault on startup...');
+  await Promise.allSettled([
+    writeFixturesToObsidian(),
+    checkNewsUpdates(),
+  ]);
 
   // Check immediately on startup for any due alerts
   console.log('[SCHEDULER] Checking for due alerts on startup...');

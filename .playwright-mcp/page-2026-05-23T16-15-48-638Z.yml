@@ -1,0 +1,15 @@
+- generic [active]:
+  - img [ref=e14]
+  - dialog "Your Privacy" [ref=e20]:
+    - generic [ref=e22]:
+      - generic [ref=e24]:
+        - heading "Your Privacy" [level=2] [ref=e25]
+        - generic [ref=e26]:
+          - text: We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. You can select your cookie preferences by clicking the buttons on the right.
+          - link "More information about your privacy, opens in a new tab" [ref=e27] [cursor=pointer]:
+            - /url: https://www.fifa.com/legal/data-protection-portal/
+            - text: Data Protection Portal
+      - generic [ref=e29]:
+        - button "Preference Center, Opens the preference center dialog" [ref=e30] [cursor=pointer]: Preference Center
+        - button "Reject All" [ref=e31] [cursor=pointer]
+        - button "I'm OK with that" [ref=e32] [cursor=pointer]

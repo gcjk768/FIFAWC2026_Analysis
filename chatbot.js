@@ -304,7 +304,7 @@ async function startPolling() {
 async function sendStartupMessage() {
   if (!CHANNEL_ID) return;
   const now = new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' });
-  const text = `🟢 WC2026 Bot online — ${now} SGT\nqwen3.5:35b ready. Type /help for commands.`;
+  const text = `🟢 WC2026 Bot online | 机器人已上线 — ${now} SGT\nqwen3.5:35b ready. Type /help for commands.\nqwen3.5:35b 已就绪。输入 /help 查看指令。`;
   try {
     await sendMessage(CHANNEL_ID, text, null, TOPIC_ID);
     console.log('[CHATBOT] Startup message sent');
