@@ -5,6 +5,7 @@ const playerHandler = require('./queryHandlers/playerHandler');
 const predictionHandler = require('./queryHandlers/predictionHandler');
 const standingsHandler = require('./queryHandlers/standingsHandler');
 const teamHandler = require('./queryHandlers/teamHandler');
+const knockoutHandler = require('./queryHandlers/knockoutHandler');
 const generalHandler = require('./queryHandlers/generalHandler');
 
 // ─── INTENT PATTERNS ─────────────────────────────────────────────────────────
@@ -17,6 +18,8 @@ const INTENTS = {
   CMD_PREDICT:     /^\/predict\b/i,
   CMD_LINEUP:      /^\/lineup\b/i,
   CMD_INJURY:      /^\/injur/i,
+  CMD_BRACKET:     /^\/bracket\b/i,
+  CMD_GROUPS:      /^\/groups\b/i,
   CMD_GROUP:       /^\/group\b/i,
   CMD_PLAYER:      /^\/player\b/i,
   CMD_TOPSCORERS:  /^\/topscorers?\b/i,
@@ -29,6 +32,7 @@ const INTENTS = {
   CMD_HELP:        /^\/(help|start)\b/i,
 
   // Natural language — match
+  MATCH_OPENING:   /\b(opening match|opening game|first match|first game|first day|day 1|day one|开幕战|开幕赛|第一天|首日)\b/i,
   MATCH_TODAY:     /\b(today|tonight|now playing|happening now)\b/i,
   MATCH_TOMORROW:  /\b(tomorrow|next match|upcoming|when.{0,20}(play|kick))\b/i,
   MATCH_TIME:      /\b(what time|when is|kickoff|kick.?off|what time)\b/i,
@@ -46,7 +50,12 @@ const INTENTS = {
   PRED_SCORE:      /\b(score.{0,20}predict|predict.{0,20}score|final score)\b/i,
   PRED_WINTOURNEY: /\b(who.{0,20}win.{0,20}(world cup|wc|tournament)|champion|lift.{0,10}trophy)\b/i,
 
-  // Natural language — standings
+  // Natural language — knockout
+  KNOCKOUT_QUERY:  /\b(knockout|bracket|round of (16|32|sixteen|thirty)|quarter.?final|semi.?final|r16|r32|qf|sf|the final|who.{0,20}(win|won).{0,20}(final|cup|trophy)|champion|世界杯冠军|淘汰赛|四分之一|半决赛|决赛)\b/i,
+  ROUND_QUERY:     /\b(round of (16|32)|quarter.?final|semi.?final|third.?place|3rd place|bronze|r16|r32|qf|sf)\b/i,
+
+  // Natural language — standings / groups
+  GROUPS_QUERY:    /\b(all.{0,15}group|grouping|group.{0,10}draw|show.{0,10}group|what.{0,20}(the )?group|list.{0,10}group|分组|小组赛)\b/i,
   STAND_GROUP:     /\b(group.{0,20}stand|stand.{0,20}group|table|points|top of group)\b/i,
   STAND_SCORER:    /\b(top scor|golden boot|most goal|leading scor)\b/i,
 
@@ -82,10 +91,15 @@ Ask me anything about WC2026\\!
 • "who wins the World Cup?"
 
 📊 *Standings \\& Stats*
-• /group C
+• /groups — all 12 groups
+• /group C — Group C table
 • /topscorers
 • /standings
 • /stats
+
+🏆 *Knockout Bracket*
+• /bracket — full bracket \\(updates after Jun 28\\)
+• "quarter finals", "semi finals", "final"
 
 🧠 *Ask Anything*
 • /ask Will Argentina retain the title?
@@ -118,6 +132,8 @@ async function classifyAndHandle(msg, chatId) {
   if (INTENTS.CMD_PLAYER.test(text)) return playerHandler.handlePlayerInfo(text);
   if (INTENTS.CMD_COMPARE.test(text)) return playerHandler.handleCompare(text);
 
+  if (INTENTS.CMD_BRACKET.test(text)) return knockoutHandler.handleBracket();
+  if (INTENTS.CMD_GROUPS.test(text)) return standingsHandler.handleAllGroups();
   if (INTENTS.CMD_GROUP.test(text)) return standingsHandler.handleGroupStandings(text);
   if (INTENTS.CMD_TOPSCORERS.test(text)) return standingsHandler.handleTopScorers();
   if (INTENTS.CMD_STANDINGS.test(text)) return standingsHandler.handleAllStandings();
@@ -128,6 +144,7 @@ async function classifyAndHandle(msg, chatId) {
   if (INTENTS.CMD_ASK.test(text)) return generalHandler.handle(text.replace(/^\/ask\s*/i, ''), chatId);
 
   // ── Natural language — match ──
+  if (INTENTS.MATCH_OPENING.test(t)) return matchHandler.handleOpeningDay();
   if (INTENTS.MATCH_TODAY.test(t)) return matchHandler.handleToday();
   if (INTENTS.MATCH_TOMORROW.test(t)) return matchHandler.handleTomorrow();
   if (INTENTS.MATCH_TIME.test(t)) return matchHandler.handleMatchTime(text);
@@ -143,7 +160,12 @@ async function classifyAndHandle(msg, chatId) {
   if (INTENTS.PRED_WINTOURNEY.test(t)) return predictionHandler.handleTournamentWinner();
   if (INTENTS.PRED_WINMATCH.test(t) || INTENTS.PRED_SCORE.test(t)) return predictionHandler.handlePrediction(text);
 
-  // ── Natural language — standings ──
+  // ── Natural language — knockout bracket ──
+  if (INTENTS.ROUND_QUERY.test(t)) return knockoutHandler.handleRound(t);
+  if (INTENTS.KNOCKOUT_QUERY.test(t)) return knockoutHandler.handleBracket();
+
+  // ── Natural language — standings / groups ──
+  if (INTENTS.GROUPS_QUERY.test(t)) return standingsHandler.handleAllGroups();
   if (INTENTS.STAND_GROUP.test(t)) return standingsHandler.handleGroupStandings(text);
   if (INTENTS.STAND_SCORER.test(t)) return standingsHandler.handleTopScorers();
 

@@ -11,6 +11,8 @@ const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInN
 const { isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeDayPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
 const { fetchWC2026News, fetchTeamNews, formatNews } = require('./services/newsService');
 const { readResults, writeResult, fetchMatchResult, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
+const { fetchKnockoutResults, readKnockout } = require('./services/knockoutService');
+const { onResultReceived, onKnockoutResultReceived } = require('./services/liveDataService');
 
 const DIGEST_TIME_SGT = process.env.DIGEST_TIME_SGT || '08:00';
 const SERVER_URL = `http://localhost:${process.env.PORT || 3001}`;
@@ -219,7 +221,14 @@ async function checkResults() {
       await sendToChannel(msg);
       markAlertSent(alertKey);
       writeResult(fixture.matchId, result);
+
+      // Write individual match result note to Obsidian
       await writeResultToObsidian(fixture.matchId, fixture, result, prediction);
+
+      // Refresh live standings, team form, and invalidate stale predictions
+      const allResults = readResults();
+      await onResultReceived(fixture.team1, fixture.team2, FIXTURES, allResults);
+
       console.log(`[SCHEDULER] Result alert sent: ${fixture.matchId}`);
     } catch (err) {
       console.error(`[SCHEDULER] Result alert error: ${err.message}`);
@@ -323,6 +332,18 @@ async function start() {
 
   // Result polling every 5 minutes
   cron.schedule('*/5 * * * *', checkResults, { timezone: 'Asia/Singapore' });
+
+  // Knockout bracket polling — every 5 minutes from Jun 28 onwards
+  cron.schedule('*/5 * * * *', async () => {
+    const now = new Date();
+    const knockoutStart = new Date('2026-06-28T00:00:00+08:00');
+    if (now >= knockoutStart) {
+      const updated = await fetchKnockoutResults();
+      if (updated) console.log('[SCHEDULER] Knockout bracket updated');
+    }
+  }, { timezone: 'Asia/Singapore' });
+
+  console.log(`  - Knockout Polling: every 5min from Jun 28 onwards`);
 
   // Check immediately on startup for any due alerts
   console.log('[SCHEDULER] Checking for due alerts on startup...');

@@ -14,6 +14,7 @@ data/chat-history.json.tmp
 data/sent-alerts.json
 data/match-results.json
 data/calendar-events.json
+data/knockout.json
 
 # Predictions are regenerated — optional to include
 # data/predictions.json

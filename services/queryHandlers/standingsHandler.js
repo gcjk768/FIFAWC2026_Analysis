@@ -96,6 +96,74 @@ async function handleAllStandings() {
   return `📊 *WC2026 Group Standings*\n\nUse /group A through /group L to see specific group tables\\.\n\nGroups: A B C D E F G H I J K L\n\n_Tournament starts 12 Jun 2026_`;
 }
 
+// Short display names for the group table to keep columns tight
+const SHORT_NAME = {
+  'Bosnia and Herzegovina': 'Bosnia & Herz.',
+  'South Africa':           'South Africa',
+  'South Korea':            'South Korea',
+  'Ivory Coast':            'Ivory Coast',
+  'Saudi Arabia':           'Saudi Arabia',
+  'Cape Verde':             'Cape Verde',
+  'New Zealand':            'New Zealand',
+  'DR Congo':               'DR Congo',
+  'Turkiye':                'Türkiye',
+};
+
+/**
+ * Handle full group draw — all 12 groups as a formatted table.
+ */
+async function handleAllGroups() {
+  const { fixtures } = await getCache();
+
+  const groups = {};
+  for (const f of fixtures) {
+    if (!groups[f.group]) groups[f.group] = new Set();
+    groups[f.group].add(f.team1);
+    groups[f.group].add(f.team2);
+  }
+
+  const letters = Object.keys(groups).sort();
+  if (letters.length === 0) return '❓ No group data available.';
+
+  // Build code-block table (inside ``` no MarkdownV2 escaping needed)
+  const rows = letters.map((letter) => {
+    const teams = [...groups[letter]].map((t) => SHORT_NAME[t] || t);
+    return `  ${letter}  │ ${teams.join(' · ')}`;
+  });
+
+  const header = ' Grp │ Teams';
+  const divider = '─────┼' + '─'.repeat(55);
+  const tableLines = [header, divider, ...rows].join('\n');
+
+  // Chinese group names for bilingual section
+  const zhRows = letters.map((letter) => {
+    const teams = [...groups[letter]].map((t) => SHORT_NAME[t] || t);
+    return `  ${letter}组 │ ${teams.join(' · ')}`;
+  });
+  const zhTable = [' 组别 │ 球队', '──────┼' + '─'.repeat(55), ...zhRows].join('\n');
+
+  return [
+    '🏆 *WC2026 — Full Group Draw \\(12 Groups, 48 Teams\\)*',
+    '',
+    '```',
+    tableLines,
+    '```',
+    '',
+    '_Draw held 5 Dec 2025 in Washington D\\.C\\._',
+    '_/group A–L for standings • /predict Team1 Team2_',
+    '',
+    '\\-\\-\\-',
+    '🇨🇳 *2026世界杯 — 完整分组抽签结果*',
+    '',
+    '```',
+    zhTable,
+    '```',
+    '',
+    '_2025年12月5日华盛顿特区完成抽签_',
+    '_/group A–L 查看积分榜 · /predict 预测比赛_',
+  ].join('\n');
+}
+
 /**
  * Handle tournament stats summary.
  */
@@ -121,4 +189,4 @@ async function handleTournamentStats() {
   ].join('\n');
 }
 
-module.exports = { handleGroupStandings, handleTopScorers, handleAllStandings, handleTournamentStats };
+module.exports = { handleGroupStandings, handleTopScorers, handleAllStandings, handleTournamentStats, handleAllGroups };

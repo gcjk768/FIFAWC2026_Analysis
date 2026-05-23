@@ -89,6 +89,64 @@ async function handleMatchTime(text) {
 }
 
 /**
+ * Handle opening match / Day 1 query — returns all fixtures on the first match day.
+ */
+async function handleOpeningDay() {
+  const { fixtures } = await getCache();
+  if (fixtures.length === 0) return '❓ No fixture data available.';
+
+  // Find the earliest date in fixtures
+  const sorted = [...fixtures].sort((a, b) => new Date(a.dateIso) - new Date(b.dateIso));
+  const firstDateSgt = new Date(sorted[0].dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+
+  // All matches on that first date
+  const day1 = sorted.filter((f) => {
+    const d = new Date(f.dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+    return d === firstDateSgt;
+  });
+
+  const lines = [
+    `⚽ *WC2026 Opening Day — ${escapeMd(firstDateSgt)} SGT*`,
+    ``,
+    `🏆 *Opening Match:*`,
+    `⭐ *${escapeMd(day1[0].timeSgt)} SGT* — *${escapeMd(day1[0].team1)} vs ${escapeMd(day1[0].team2)}*`,
+    `   📍 Group ${day1[0].group} \\| ${escapeMd(day1[0].venue)}`,
+    ``,
+  ];
+
+  if (day1.length > 1) {
+    lines.push(`🗓 *Also on Day 1:*`);
+    for (const m of day1.slice(1)) {
+      lines.push(`⚽ *${escapeMd(m.timeSgt)} SGT* — ${escapeMd(m.team1)} vs ${escapeMd(m.team2)}`);
+      lines.push(`   📍 Group ${m.group} \\| ${escapeMd(m.venue)}`);
+    }
+    lines.push('');
+  }
+
+  lines.push(`_All times Singapore Time \\(SGT, UTC\\+8\\)_`);
+  lines.push('');
+  lines.push('\\-\\-\\-');
+  lines.push(`🇨🇳 *2026世界杯开幕日 — ${escapeMd(firstDateSgt)} 新加坡时间*`);
+  lines.push('');
+  lines.push(`🏆 *开幕战：*`);
+  lines.push(`⭐ *${escapeMd(day1[0].timeSgt)} SGT* — *${escapeMd(day1[0].team1)} vs ${escapeMd(day1[0].team2)}*`);
+  lines.push(`   📍 ${day1[0].group}组 \\| ${escapeMd(day1[0].venue)}`);
+
+  if (day1.length > 1) {
+    lines.push('');
+    lines.push(`🗓 *第一天其他比赛：*`);
+    for (const m of day1.slice(1)) {
+      lines.push(`⚽ *${escapeMd(m.timeSgt)} SGT* — ${escapeMd(m.team1)} vs ${escapeMd(m.team2)}`);
+    }
+  }
+
+  lines.push('');
+  lines.push(`_所有时间均为新加坡时间 \\(SGT, UTC\\+8\\)_`);
+
+  return lines.join('\n');
+}
+
+/**
  * Handle schedule query (next N matches).
  * @param {number} n
  */
@@ -131,4 +189,4 @@ async function handleResult(text) {
   ].join('\n');
 }
 
-module.exports = { handleToday, handleTomorrow, handleMatchTime, handleSchedule, handleResult };
+module.exports = { handleToday, handleTomorrow, handleMatchTime, handleSchedule, handleResult, handleOpeningDay };

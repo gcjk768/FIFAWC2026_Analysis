@@ -87,7 +87,7 @@ function saveToHistory(chatId, role, text) {
 const rateLimitMap = new Map();
 
 /**
- * Check if a user has exceeded their qwen query rate limit (3 per 5min).
+ * Check if a user has exceeded their qwen query rate limit (10 per 5min).
  * @param {string|number} userId
  * @returns {boolean} true if allowed
  */
@@ -95,7 +95,7 @@ function checkRateLimit(userId) {
   const key = String(userId);
   const now = Date.now();
   const window = 300000;
-  const max = 3;
+  const max = 10;
 
   const entry = rateLimitMap.get(key) || { count: 0, reset: now + window };
   if (now > entry.reset) {
@@ -179,23 +179,34 @@ function callOllamaQueued(prompt) {
 async function buildFullContext() {
   const { fixtures, teamStats, predictions, results } = await getCache();
 
-  const now = Date.now();
   const todaySgt = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
   const todayMatches = fixtures.filter((f) => {
     const d = new Date(f.dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
     return d === todaySgt;
   });
 
+  // Find opening match (earliest fixture)
+  const sorted = [...fixtures].sort((a, b) => new Date(a.dateIso) - new Date(b.dateIso));
+  const opener = sorted[0];
+  const openerLine = opener
+    ? `OPENING MATCH: ${opener.team1} vs ${opener.team2} on ${opener.dateSgt} at ${opener.timeSgt} SGT (Group ${opener.group}, ${opener.venue})`
+    : '';
+
   const recentResults = Object.entries(results).slice(-3).map(([id, r]) => `${id}: ${r.score1}-${r.score2}`).join(', ');
-
   const predSummary = Object.values(predictions).slice(-5).map((p) => `${p.team1} vs ${p.team2}: ${p.winner} ${p.predicted_score} (${p.confidence}%)`).join(', ');
-
   const teamList = Object.entries(teamStats).slice(0, 8).map(([t, s]) => `${t} rank#${s.rank} form ${s.form}`).join(', ');
 
+  // Group summary for quick reference
+  const groupSummary = 'GROUPS: A(Mexico,S.Africa,S.Korea,Czechia) B(Canada,Switzerland,Qatar,Bosnia) C(Brazil,Morocco,Haiti,Scotland) D(USA,Paraguay,Australia,Turkiye) E(Germany,Curacao,IvoryCoast,Ecuador) F(Netherlands,Japan,Sweden,Tunisia) G(Belgium,Egypt,Iran,NZ) H(Spain,CapeVerde,SaudiArabia,Uruguay) I(France,Senegal,Norway,Iraq) J(Argentina,Algeria,Austria,Jordan) K(Portugal,DRCongo,Uzbekistan,Colombia) L(England,Croatia,Ghana,Panama)';
+
   return [
+    `TOURNAMENT: FIFA World Cup 2026 — hosted by USA, Canada, Mexico`,
+    `DATES: June 11–July 19, 2026 | 48 teams | 12 groups | 104 matches`,
+    openerLine,
+    groupSummary,
     `TODAY (SGT): ${todaySgt}`,
-    todayMatches.length ? `TODAY'S MATCHES: ${todayMatches.map((f) => `${f.team1} vs ${f.team2} ${f.timeSgt}`).join(', ')}` : '',
-    recentResults ? `RESULTS: ${recentResults}` : '',
+    todayMatches.length ? `TODAY'S MATCHES: ${todayMatches.map((f) => `${f.team1} vs ${f.team2} ${f.timeSgt}`).join(', ')}` : 'NO MATCHES TODAY',
+    recentResults ? `RESULTS: ${recentResults}` : 'NO RESULTS YET — tournament has not started',
     `TOP TEAMS: ${teamList}`,
     predSummary ? `PREDICTIONS: ${predSummary}` : '',
   ].filter(Boolean).join('\n');

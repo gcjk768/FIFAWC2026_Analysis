@@ -136,11 +136,11 @@ async function handleMessage(msg, botUsername) {
   saveToHistory(chatId, 'user', rawText);
 
   // Determine if this needs Qwen (rate limit applies)
-  const isQuickCommand = /^\/?(today|tomorrow|schedule|group|standings|topscorers|stats|help|start)\b/i.test(rawText);
+  const isQuickCommand = /^\/?(today|tomorrow|schedule|groups?|standings|topscorers|stats|bracket|help|start)\b/i.test(rawText);
   const needsQwen = !isQuickCommand;
 
   if (needsQwen && !checkRateLimit(userId)) {
-    await sendMessage(chatId, '⏳ Slow down! Max 3 AI questions per 5 minutes.\n慢一点！每5分钟最多3个AI问题。\n\nTry /today or /help for quick info.', msgId, threadId);
+    await sendMessage(chatId, '🤖 Qwen is busy — you\'ve hit the limit of 10 AI questions per 5 minutes. Take a breather and try again shortly! ⚽\n🤖 Qwen 太忙了，你已达到每5分钟10个AI问题的上限，稍等片刻再试试吧！\n\nTip: /today /help for instant info without AI.', msgId, threadId);
     return;
   }
 
