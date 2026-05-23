@@ -15,6 +15,7 @@ data/sent-alerts.json
 data/match-results.json
 data/calendar-events.json
 data/knockout.json
+data/fixtures-api.json
 
 # Predictions are regenerated — optional to include
 # data/predictions.json

@@ -201,6 +201,84 @@ function generateFixtures() {
 
 const FIXTURES = generateFixtures();
 
+// ─── FIXTURE TIME SYNC FROM API ────────────────────────────────────────────
+
+const FIXTURE_CACHE_FILE = path.join(__dirname, 'data', 'fixtures-api.json');
+
+/** API team name → our canonical name */
+const API_TEAM_NORM = {
+  'bosnia-herzegovina': 'Bosnia and Herzegovina', 'united states': 'USA',
+  'czech republic': 'Czechia', 'türkiye': 'Turkiye', 'turkey': 'Turkiye',
+  "côte d'ivoire": 'Ivory Coast', 'democratic republic of the congo': 'DR Congo',
+  'republic of korea': 'South Korea',
+};
+const normTeam = (n) => API_TEAM_NORM[(n || '').toLowerCase()] || n;
+
+/**
+ * Sync fixture kickoff times from football-data.org API.
+ * Updates FIXTURES in-place so displayed times match the real schedule.
+ * Caches results in data/fixtures-api.json (re-syncs once per day).
+ */
+async function syncFixturesFromApi() {
+  const apiKey = process.env.FOOTBALL_API_KEY;
+  if (!apiKey) return;
+
+  // Use cache if fresh (< 24h)
+  try {
+    if (fs.existsSync(FIXTURE_CACHE_FILE)) {
+      const cached = JSON.parse(fs.readFileSync(FIXTURE_CACHE_FILE, 'utf8'));
+      if (Date.now() - new Date(cached.syncedAt).getTime() < 86400000) {
+        applyApiTimes(cached.matches);
+        console.log(`[WC2026] Fixture times loaded from cache (${cached.matches.length} matches)`);
+        return;
+      }
+    }
+  } catch {}
+
+  try {
+    const resp = await fetch('https://api.football-data.org/v4/competitions/WC/matches', {
+      headers: { 'X-Auth-Token': apiKey },
+      timeout: 15000,
+    });
+    if (!resp.ok) { console.warn('[WC2026] Fixture sync failed:', resp.status); return; }
+    const { matches } = await resp.json();
+    if (!matches) return;
+
+    // Save cache
+    const tmp = FIXTURE_CACHE_FILE + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify({ syncedAt: new Date().toISOString(), matches }, null, 2));
+    fs.renameSync(tmp, FIXTURE_CACHE_FILE);
+
+    applyApiTimes(matches);
+    console.log(`[WC2026] Fixture times synced from API (${matches.length} matches)`);
+  } catch (err) {
+    console.warn('[WC2026] Fixture sync error:', err.message);
+  }
+}
+
+/**
+ * Apply API match times to our FIXTURES array in-place.
+ * @param {object[]} apiMatches
+ */
+function applyApiTimes(apiMatches) {
+  for (const apiMatch of apiMatches) {
+    if (!apiMatch.utcDate) continue;
+    const home = normTeam(apiMatch.homeTeam?.name || '');
+    const away = normTeam(apiMatch.awayTeam?.name || '');
+    const fixture = FIXTURES.find((f) =>
+      (f.team1 === home && f.team2 === away) ||
+      (f.team1 === away && f.team2 === home)
+    );
+    if (!fixture) continue;
+    const d = new Date(apiMatch.utcDate);
+    fixture.dateIso = d.toISOString();
+    fixture.dateSgt = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+    fixture.timeSgt = d.toLocaleTimeString('en-SG', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', hour12: false });
+    // Also store API match ID for precise result fetching later
+    fixture.apiId = apiMatch.id;
+  }
+}
+
 /**
  * Format ISO date to "DD Mon YYYY, HH:mm" SGT label.
  * @param {string} iso
@@ -436,13 +514,57 @@ async function gatherObsidianContext(team1, team2) {
   try {
     const h2h = await obsidianGet('/read/WC2026%2Fhead-to-head.md');
     if (h2h.content) {
-      // Find section relevant to this matchup
       const section = extractH2HSection(h2h.content, team1, team2);
       if (section) parts.push(`--- Head-to-Head ---\n${section}`);
     }
   } catch {
     // H2H note doesn't exist — that's fine
   }
+
+  // Live standings — gives Qwen the real tournament table (updated after every result)
+  try {
+    const standings = await obsidianGet('/read/WC2026%2Flive-standings.md');
+    if (standings.content) parts.push(`--- LIVE STANDINGS (current) ---\n${standings.content.slice(0, 1500)}`);
+  } catch {}
+
+  // Tournament form — actual in-tournament performance of both teams
+  try {
+    const formNote = await obsidianGet('/read/WC2026%2Ftournament-form.md');
+    if (formNote.content) {
+      const formLines = formNote.content.split('\n');
+      // Extract only the sections for team1 and team2
+      const relevant = [];
+      let capture = false;
+      for (const line of formLines) {
+        if (line.startsWith(`## ${team1}`) || line.startsWith(`## ${team2}`)) capture = true;
+        else if (line.startsWith('## ') && capture) capture = false;
+        if (capture) relevant.push(line);
+      }
+      if (relevant.length > 0) parts.push(`--- TOURNAMENT FORM (actual WC2026 performance) ---\n${relevant.join('\n')}`);
+    }
+  } catch {}
+
+  // Knockout bracket if available
+  try {
+    const ko = await obsidianGet('/read/WC2026%2Fknockout-bracket.md');
+    if (ko.content) parts.push(`--- KNOCKOUT BRACKET ---\n${ko.content.slice(0, 800)}`);
+  } catch {}
+
+  // Squad news and injuries
+  try {
+    const squadNews = await obsidianGet('/read/WC2026%2Fsquad-news.md');
+    if (squadNews.content) {
+      const lines = squadNews.content.split('\n');
+      const relevant = [];
+      let capture = false;
+      for (const line of lines) {
+        if (line.startsWith(`## ${team1}`) || line.startsWith(`## ${team2}`)) capture = true;
+        else if (line.startsWith('## ') && capture) capture = false;
+        if (capture) relevant.push(line);
+      }
+      if (relevant.length > 0) parts.push(`--- SQUAD NEWS ---\n${relevant.join('\n')}`);
+    }
+  } catch {}
 
   return parts.join('\n\n');
 }
@@ -1107,4 +1229,6 @@ async function startupHealthCheck() {
 app.listen(PORT, () => {
   console.log(`[WC2026] Server running on http://localhost:${PORT}`);
   startupHealthCheck();
+  // Sync real kickoff times from football-data.org API (runs async, non-blocking)
+  setTimeout(syncFixturesFromApi, 3000);
 });

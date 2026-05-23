@@ -8,6 +8,36 @@ const FOOTBALL_API_KEY = process.env.FOOTBALL_API_KEY || '';
 const RESULTS_FILE = path.join(__dirname, '../data/match-results.json');
 const OBSIDIAN_MCP = 'http://localhost:3002';
 
+// football-data.org uses different team names — map to our canonical names
+const API_NAME_MAP = {
+  'bosnia-herzegovina':    'Bosnia and Herzegovina',
+  'united states':         'USA',
+  'republic of ireland':   'Ireland',
+  'czech republic':        'Czechia',
+  'türkiye':               'Turkiye',
+  'turkey':                'Turkiye',
+  'ivory coast':           'Ivory Coast',
+  "côte d'ivoire":         'Ivory Coast',
+  'democratic republic of the congo': 'DR Congo',
+  'dr congo':              'DR Congo',
+  'cape verde':            'Cape Verde',
+  'new zealand':           'New Zealand',
+  'south korea':           'South Korea',
+  'republic of korea':     'South Korea',
+  'saudi arabia':          'Saudi Arabia',
+  'south africa':          'South Africa',
+};
+
+/**
+ * Normalise an API team name to our canonical name.
+ * @param {string} name
+ * @returns {string}
+ */
+function normaliseTeamName(name) {
+  if (!name) return name;
+  return API_NAME_MAP[name.toLowerCase()] || name;
+}
+
 // ─── FILE HELPERS ────────────────────────────────────────────────────────────
 
 /**
@@ -57,21 +87,37 @@ async function fetchMatchResult(matchId, kickoffSgt) {
       headers: { 'X-Auth-Token': FOOTBALL_API_KEY },
       timeout: 10000,
     });
-    const data = await resp.json();
 
+    // Respect rate limit headers (free tier: 10 calls/min)
+    const remaining = resp.headers.get('X-Requests-Available-Minute');
+    const reset = resp.headers.get('X-RequestCounter-Reset');
+    if (remaining !== null && Number(remaining) <= 1) {
+      const waitMs = reset ? Math.max(0, Number(reset) * 1000 - Date.now()) : 30000;
+      console.warn(`[RESULTS] Rate limit almost reached — backing off ${Math.round(waitMs / 1000)}s`);
+      await new Promise((r) => setTimeout(r, waitMs));
+    }
+
+    if (resp.status === 429) {
+      console.warn('[RESULTS] Rate limited by football-data.org — will retry next poll cycle');
+      return null;
+    }
+
+    const data = await resp.json();
     if (!data.matches) return null;
 
-    // Try to match by approximate team name
-    const parts = matchId.split('-vs-');
-    if (parts.length < 2) return null;
-    const t1Slug = parts[0].split('-').slice(1).join(' ');
-    const t2Slug = parts[1].replace(/-/g, ' ');
+    // Parse team names from matchId slug (format: g-{group}-{team1}-vs-{team2})
+    const vsSplit = matchId.indexOf('-vs-');
+    if (vsSplit === -1) return null;
+    const t1Slug = matchId.slice(matchId.indexOf('-', 2) + 1, vsSplit).replace(/-/g, ' ');
+    const t2Slug = matchId.slice(vsSplit + 4).replace(/-/g, ' ');
 
     const match = data.matches.find((m) => {
-      const home = (m.homeTeam?.name || '').toLowerCase();
-      const away = (m.awayTeam?.name || '').toLowerCase();
-      return (home.includes(t1Slug) || away.includes(t1Slug)) &&
-             (home.includes(t2Slug) || away.includes(t2Slug));
+      const home = normaliseTeamName(m.homeTeam?.name || '').toLowerCase();
+      const away = normaliseTeamName(m.awayTeam?.name || '').toLowerCase();
+      const t1 = t1Slug.toLowerCase();
+      const t2 = t2Slug.toLowerCase();
+      return (home === t1 || away === t1 || home.includes(t1) || t1.includes(home)) &&
+             (home === t2 || away === t2 || away.includes(t2) || t2.includes(away));
     });
 
     if (!match || match.status !== 'FINISHED') return null;
@@ -79,8 +125,8 @@ async function fetchMatchResult(matchId, kickoffSgt) {
     return {
       score1: match.score?.fullTime?.home ?? 0,
       score2: match.score?.fullTime?.away ?? 0,
-      goalscorers: [],
-      cards: [],
+      goalscorers: (match.goals || []).map((g) => ({ player: g.scorer?.name || '?', team: normaliseTeamName(g.team?.name), minute: g.minute })),
+      cards: (match.bookings || []).map((b) => ({ player: b.player?.name || '?', team: normaliseTeamName(b.team?.name), type: b.card, minute: b.minute })),
       stats: {},
       source: 'football-data.org',
     };

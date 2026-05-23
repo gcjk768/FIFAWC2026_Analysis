@@ -339,7 +339,10 @@ async function start() {
     const knockoutStart = new Date('2026-06-28T00:00:00+08:00');
     if (now >= knockoutStart) {
       const updated = await fetchKnockoutResults();
-      if (updated) console.log('[SCHEDULER] Knockout bracket updated');
+      if (updated) {
+        console.log('[SCHEDULER] Knockout bracket updated');
+        await onKnockoutResultReceived(readKnockout());
+      }
     }
   }, { timezone: 'Asia/Singapore' });
 

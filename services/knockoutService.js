@@ -60,8 +60,10 @@ function normaliseMatch(m) {
   const dateSgt = kickoff ? kickoff.toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' }) : 'TBD';
   const timeSgt = kickoff ? kickoff.toLocaleTimeString('en-SG', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', hour12: false }) : 'TBD';
 
-  const team1 = m.homeTeam?.name || 'TBD';
-  const team2 = m.awayTeam?.name || 'TBD';
+  const API_NAME_MAP = { 'bosnia-herzegovina': 'Bosnia and Herzegovina', 'united states': 'USA', 'czech republic': 'Czechia', 'türkiye': 'Turkiye', 'turkey': 'Turkiye', "côte d'ivoire": 'Ivory Coast', 'democratic republic of the congo': 'DR Congo', 'republic of korea': 'South Korea' };
+  const norm = (n) => API_NAME_MAP[(n || '').toLowerCase()] || n;
+  const team1 = norm(m.homeTeam?.name) || 'TBD';
+  const team2 = norm(m.awayTeam?.name) || 'TBD';
   const score1 = m.score?.fullTime?.home ?? null;
   const score2 = m.score?.fullTime?.away ?? null;
   const status = m.status || 'SCHEDULED';
@@ -106,6 +108,20 @@ async function fetchKnockoutResults() {
       headers: { 'X-Auth-Token': FOOTBALL_API_KEY },
       timeout: 15000,
     });
+
+    // Respect rate limit headers
+    const remaining = resp.headers.get('X-Requests-Available-Minute');
+    const reset = resp.headers.get('X-RequestCounter-Reset');
+    if (remaining !== null && Number(remaining) <= 1) {
+      const waitMs = reset ? Math.max(0, Number(reset) * 1000 - Date.now()) : 30000;
+      console.warn(`[KNOCKOUT] Rate limit almost reached — backing off ${Math.round(waitMs / 1000)}s`);
+      await new Promise((r) => setTimeout(r, waitMs));
+    }
+
+    if (resp.status === 429) {
+      console.warn('[KNOCKOUT] Rate limited by football-data.org — will retry next poll cycle');
+      return false;
+    }
 
     if (!resp.ok) {
       console.error(`[KNOCKOUT] API error: HTTP ${resp.status}`);
