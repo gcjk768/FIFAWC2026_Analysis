@@ -82,9 +82,10 @@ function computeStandings(fixtures, results) {
 
 /**
  * Compute per-team tournament form from fixtures and results.
+ * Includes stat averages (possession, shots, passes) where ESPN data is available.
  * @param {object[]} fixtures
  * @param {object} results
- * @returns {object}  { teamName: { matches: [...], gf, ga, status } }
+ * @returns {object}
  */
 function computeTournamentForm(fixtures, results) {
   const form = {};
@@ -93,20 +94,51 @@ function computeTournamentForm(fixtures, results) {
     const r = results[f.matchId];
     if (!r) continue;
 
-    const { score1, score2 } = r;
+    const { score1, score2, stats = {} } = r;
     const result1 = score1 > score2 ? 'W' : score1 < score2 ? 'L' : 'D';
     const result2 = score1 < score2 ? 'W' : score1 > score2 ? 'L' : 'D';
 
-    for (const [team, score, conceded, res] of [
-      [f.team1, score1, score2, result1],
-      [f.team2, score2, score1, result2],
-    ]) {
-      if (!form[team]) form[team] = { matches: [], gf: 0, ga: 0, group: f.group };
+    const pairs = [
+      { team: f.team1, score, conceded: score2, res: result1, isHome: true },
+      { team: f.team2, score: score2, conceded: score1, res: result2, isHome: false },
+    ];
+
+    for (const { team, score, conceded, res, isHome } of pairs) {
+      if (!form[team]) form[team] = { matches: [], gf: 0, ga: 0, group: f.group, statsSum: {}, statsCount: 0 };
+
+      // Accumulate ESPN stats (team1 = home, team2 = away side of stored stats)
+      const teamStats = {};
+      if (stats.possession1 !== undefined) {
+        const possession = isHome ? stats.possession1 : stats.possession2;
+        const shots      = isHome ? stats.shots1      : stats.shots2;
+        const onTarget   = isHome ? stats.shotsOnTarget1 : stats.shotsOnTarget2;
+        const passes     = isHome ? stats.passes1     : stats.passes2;
+        const passAcc    = isHome ? stats.passAccuracy1 : stats.passAccuracy2;
+        const corners    = isHome ? stats.corners1    : stats.corners2;
+        const fouls      = isHome ? stats.fouls1      : stats.fouls2;
+
+        teamStats.possession = possession ? parseFloat(possession) : null;
+        teamStats.shots      = shots      ? parseFloat(shots)      : null;
+        teamStats.onTarget   = onTarget   ? parseFloat(onTarget)   : null;
+        teamStats.passes     = passes     ? parseFloat(passes)     : null;
+        teamStats.passAcc    = passAcc    ? parseFloat(passAcc)    : null;
+        teamStats.corners    = corners    ? parseFloat(corners)    : null;
+        teamStats.fouls      = fouls      ? parseFloat(fouls)      : null;
+
+        if (teamStats.possession !== null) {
+          form[team].statsCount++;
+          for (const [k, v] of Object.entries(teamStats)) {
+            if (v !== null) form[team].statsSum[k] = (form[team].statsSum[k] || 0) + v;
+          }
+        }
+      }
+
       form[team].matches.push({
-        opponent: team === f.team1 ? f.team2 : f.team1,
-        score: `${score}-${conceded}`,
-        result: res,
-        date: f.dateSgt,
+        opponent: isHome ? f.team2 : f.team1,
+        score:    `${score}-${conceded}`,
+        result:   res,
+        date:     f.dateSgt,
+        stats:    teamStats,
       });
       form[team].gf += score;
       form[team].ga += conceded;
@@ -187,9 +219,20 @@ async function writeTournamentFormToObsidian(fixtures, results) {
     lines.push(`## ${team} (Group ${data.group})`);
     lines.push(`- **Tournament form:** ${results_str || 'No matches yet'}`);
     lines.push(`- **Goals scored:** ${data.gf} | **Goals conceded:** ${data.ga} | **GD:** ${gd >= 0 ? '+' : ''}${gd}`);
+
+    // Stat averages (from ESPN data where available)
+    const n = data.statsCount || 0;
+    if (n > 0) {
+      const avg = (key) => data.statsSum[key] != null ? (data.statsSum[key] / n).toFixed(1) : '—';
+      lines.push(`- **Avg stats per game (${n} match${n > 1 ? 'es' : ''}):** Possession ${avg('possession')}% | Shots ${avg('shots')} (on target ${avg('onTarget')}) | Passes ${avg('passes')} (${avg('passAcc')}% acc) | Corners ${avg('corners')} | Fouls ${avg('fouls')}`);
+    }
+
     for (const m of data.matches) {
       const icon = m.result === 'W' ? '✅' : m.result === 'D' ? '🟡' : '❌';
-      lines.push(`- ${icon} vs ${m.opponent}: **${m.score}** (${m.date})`);
+      const statNote = m.stats?.possession != null
+        ? ` — ${m.stats.possession}% poss | ${m.stats.shots || '—'} shots | ${m.stats.passes || '—'} passes`
+        : '';
+      lines.push(`- ${icon} vs ${m.opponent}: **${m.score}** (${m.date})${statNote}`);
     }
 
     // Find next match

@@ -246,7 +246,7 @@ function buildOneDayPreview(fixture, prediction, weatherSection, newsSection, in
  */
 function buildResultMessage(fixture, result, prediction) {
   const { team1, team2, group, dateSgt, venue } = fixture;
-  const { score1, score2, goalscorers = [], cards = [], stats = {} } = result;
+  const { score1, score2, htScore1, htScore2, goalscorers = [], cards = [], substitutions = [], stats = {} } = result;
   const pred = prediction || {};
 
   const actual = `${score1}\\-${score2}`;
@@ -256,25 +256,31 @@ function buildResultMessage(fixture, result, prediction) {
 
   let accuracy = '❌ Wrong prediction';
   if (predWinner === actualWinner) {
-    if (pred.predicted_score === `${score1}-${score2}`) {
-      accuracy = '✅ Perfect prediction\\!';
-    } else {
-      accuracy = '🤏 Correct winner, wrong score';
-    }
+    accuracy = pred.predicted_score === `${score1}-${score2}`
+      ? '✅ Perfect prediction\\!'
+      : '🤏 Correct winner, wrong score';
   }
+
+  const htLine = htScore1 !== null && htScore2 !== null
+    ? `\n🕐 *Half Time:* ${htScore1} — ${htScore2}`
+    : '';
 
   const lines = [
     `🏁 *FULL TIME*`,
     ``,
     `⚽ *${escapeMd(team1)} ${score1} — ${score2} ${escapeMd(team2)}*`,
+    htLine,
     `📅 ${escapeMd(dateSgt)} SGT \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
     ``,
     `─────────────────────────`,
-  ];
+  ].filter((l) => l !== '');
 
   if (goalscorers.length) {
     lines.push(`⚽ *Goals*`);
-    goalscorers.forEach((g) => lines.push(`${escapeMd(String(g.minute))}\\'  ${escapeMd(g.player)} \\(${escapeMd(g.team)}\\)`));
+    goalscorers.forEach((g) => {
+      const tag = g.type === 'PENALTY' ? ' 🎯' : g.type === 'OWN_GOAL' ? ' \\(og\\)' : '';
+      lines.push(`${escapeMd(String(g.minute))}\\'  ${escapeMd(g.player)} \\(${escapeMd(g.team)}\\)${tag}`);
+    });
     lines.push(``);
   }
 
@@ -284,15 +290,24 @@ function buildResultMessage(fixture, result, prediction) {
     lines.push(``);
   }
 
-  if (Object.keys(stats).length) {
+  const hasStats = stats && Object.values(stats).some((v) => v !== null && v !== undefined && v !== 'espn');
+  if (hasStats) {
+    const pad = (v, w = 6) => String(v !== null && v !== undefined ? v : '—').padEnd(w);
+    const t1h = team1.slice(0, 10).padEnd(10);
+    const t2h = team2.slice(0, 10);
     lines.push(
       `─────────────────────────`,
       `📊 *Match Stats*`,
       `\`\`\``,
-      `               ${team1.padEnd(12)} ${team2}`,
-      `Possession:    ${String(stats.possession1 || '?').padEnd(12)} ${stats.possession2 || '?'}%`,
-      `Shots:         ${String(stats.shots1 || '?').padEnd(12)} ${stats.shots2 || '?'}`,
-      `On Target:     ${String(stats.onTarget1 || '?').padEnd(12)} ${stats.onTarget2 || '?'}`,
+      `             ${t1h}  ${t2h}`,
+      `Possession   ${pad(stats.possession1)}%   ${stats.possession2 !== null ? stats.possession2 + '%' : '—'}`,
+      `Shots        ${pad(stats.shots1)}    ${stats.shots2 !== null ? stats.shots2 : '—'}`,
+      `On Target    ${pad(stats.shotsOnTarget1)}    ${stats.shotsOnTarget2 !== null ? stats.shotsOnTarget2 : '—'}`,
+      `Passes       ${pad(stats.passes1)}    ${stats.passes2 !== null ? stats.passes2 : '—'}`,
+      `Pass Acc     ${pad(stats.passAccuracy1)}%   ${stats.passAccuracy2 !== null ? stats.passAccuracy2 + '%' : '—'}`,
+      `Corners      ${pad(stats.corners1)}    ${stats.corners2 !== null ? stats.corners2 : '—'}`,
+      `Fouls        ${pad(stats.fouls1)}    ${stats.fouls2 !== null ? stats.fouls2 : '—'}`,
+      `Saves        ${pad(stats.saves1)}    ${stats.saves2 !== null ? stats.saves2 : '—'}`,
       `\`\`\``,
     );
   }

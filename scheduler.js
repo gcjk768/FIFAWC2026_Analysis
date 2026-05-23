@@ -10,7 +10,7 @@ const fetch = require('node-fetch');
 const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInNextDays, buildCalendarSection, todaySgt, OPENING_MATCH } = require('./services/countdownService');
 const { isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeDayPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
 const { fetchWC2026News, fetchTeamNews, formatNews } = require('./services/newsService');
-const { readResults, writeResult, fetchMatchResult, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
+const { readResults, writeResult, fetchFullMatchData, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
 const { fetchKnockoutResults, readKnockout } = require('./services/knockoutService');
 const { onResultReceived, onKnockoutResultReceived } = require('./services/liveDataService');
 
@@ -204,7 +204,7 @@ async function checkResults() {
     const alertKey = `result-${fixture.matchId}`;
     if (isAlertSent(alertKey)) continue;
 
-    const result = await fetchMatchResult(fixture.matchId, fixture.dateIso);
+    const result = await fetchFullMatchData(fixture.matchId, fixture.team1, fixture.team2, fixture.dateIso);
     if (!result) continue;
 
     console.log(`[SCHEDULER] Result found: ${fixture.team1} ${result.score1}-${result.score2} ${fixture.team2}`);
