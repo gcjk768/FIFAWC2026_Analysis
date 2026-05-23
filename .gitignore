@@ -1,0 +1,40 @@
+# Environment — NEVER commit real credentials
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+mcp-servers/obsidian-mcp/node_modules/
+mcp-servers/telegram-mcp/node_modules/
+
+# Runtime data — contains real chat IDs, message history, personal data
+data/chat-history.json
+data/chat-history.json.tmp
+data/sent-alerts.json
+data/match-results.json
+data/calendar-events.json
+
+# Predictions are regenerated — optional to include
+# data/predictions.json
+
+# Obsidian vault — may contain personal notes
+vault/
+
+# Temp files
+*.tmp
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Claude Code project settings — local only
+.claude/
+
+# Obsidian app config — local only
+.obsidian/

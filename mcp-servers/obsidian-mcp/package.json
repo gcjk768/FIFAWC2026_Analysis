@@ -1,0 +1,13 @@
+{
+  "name": "obsidian-mcp",
+  "version": "1.0.0",
+  "description": "Obsidian vault MCP server for WC2026 Predictor",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

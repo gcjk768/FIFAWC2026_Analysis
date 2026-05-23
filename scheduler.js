@@ -1,0 +1,335 @@
+'use strict';
+
+require('dotenv').config({ override: true });
+
+const cron = require('node-cron');
+const fs = require('fs');
+const path = require('path');
+const fetch = require('node-fetch');
+
+const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInNextDays, buildCalendarSection, todaySgt, OPENING_MATCH } = require('./services/countdownService');
+const { isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeDayPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
+const { fetchWC2026News, fetchTeamNews, formatNews } = require('./services/newsService');
+const { readResults, writeResult, fetchMatchResult, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
+
+const DIGEST_TIME_SGT = process.env.DIGEST_TIME_SGT || '08:00';
+const SERVER_URL = `http://localhost:${process.env.PORT || 3001}`;
+const OBSIDIAN_MCP = 'http://localhost:3002';
+
+// ─── FIXTURES CACHE ──────────────────────────────────────────────────────────
+
+let FIXTURES = [];
+
+/**
+ * Load fixtures from main server API.
+ * @returns {Promise<void>}
+ */
+async function loadFixtures() {
+  try {
+    const resp = await fetch(`${SERVER_URL}/api/matches`, { timeout: 5000 });
+    const data = await resp.json();
+    FIXTURES = data;
+    console.log(`[SCHEDULER] Fixtures loaded: ${FIXTURES.length} matches`);
+  } catch (err) {
+    console.error('[SCHEDULER] Could not load fixtures from server:', err.message);
+  }
+}
+
+// ─── OBSIDIAN HELPERS ─────────────────────────────────────────────────────────
+
+/**
+ * Read a note from Obsidian vault.
+ * @param {string} filename
+ * @returns {Promise<string>}
+ */
+async function readObsidianNote(filename) {
+  try {
+    const resp = await fetch(`${OBSIDIAN_MCP}/read?filename=${encodeURIComponent(filename)}`, { timeout: 5000 });
+    const data = await resp.json();
+    return data.content || '';
+  } catch {
+    return '';
+  }
+}
+
+// ─── PREDICTION HELPERS ───────────────────────────────────────────────────────
+
+/**
+ * Get stored prediction for a matchId, triggering analysis if missing.
+ * @param {string} matchId
+ * @returns {Promise<object|null>}
+ */
+async function getPrediction(matchId) {
+  try {
+    const resp = await fetch(`${SERVER_URL}/api/predictions/${matchId}`, { timeout: 5000 });
+    if (resp.status === 404) {
+      // Trigger analysis
+      console.log(`[SCHEDULER] No prediction for ${matchId} — triggering analysis`);
+      await fetch(`${SERVER_URL}/api/analyze/${matchId}`, { method: 'POST', timeout: 180000 });
+      const r2 = await fetch(`${SERVER_URL}/api/predictions/${matchId}`, { timeout: 5000 });
+      if (r2.ok) return r2.json();
+    }
+    if (resp.ok) return resp.json();
+  } catch (err) {
+    console.error(`[SCHEDULER] getPrediction error for ${matchId}:`, err.message);
+  }
+  return null;
+}
+
+// ─── JOB 1: DAILY DIGEST ─────────────────────────────────────────────────────
+
+/**
+ * Build and send the daily digest.
+ */
+async function sendDailyDigest() {
+  console.log('[SCHEDULER] Sending daily digest...');
+  const today = todaySgt();
+  const { countdown, match: openingMatch } = getOpeningMatchCountdown();
+  const todayMatches = getMatchesForDate(FIXTURES, today);
+  const calendarSection = buildCalendarSection(FIXTURES, 7);
+
+  const newsArticles = await fetchWC2026News(3);
+  const newsSection = formatNews(newsArticles);
+
+  const injuryNote = await readObsidianNote('WC2026/injuries.md');
+  const injurySection = injuryNote
+    ? injuryNote.split('\n').filter((l) => l.startsWith('|') || l.startsWith('##')).slice(0, 8).join('\n')
+    : '';
+
+  const tournamentStarted = countdown.started;
+  const msg = buildDailyDigest({
+    dateSgt: today,
+    countdownText: countdown.text,
+    calendarSection: todayMatches.length
+      ? todayMatches.map((m) => `⚽ ${m.timeSgt} — ${m.team1} vs ${m.team2} | Group ${m.group}\n   🏟 ${m.venue}`).join('\n')
+      : `No matches today — next: ${getMatchesInNextDays(FIXTURES, 3).slice(0, 1).map((m) => `${m.team1} vs ${m.team2} on ${m.dateSgt}`)[0] || 'TBC'}`,
+    newsSection,
+    injurySection,
+    tournamentStarted,
+  });
+
+  try {
+    await sendToChannel(msg);
+    console.log(`[SCHEDULER] Daily digest sent (${today})`);
+  } catch (err) {
+    console.error('[SCHEDULER] Daily digest error:', err.message);
+  }
+}
+
+// ─── JOB 2: 3-DAY PRE-MATCH ALERTS ──────────────────────────────────────────
+
+/**
+ * Check and send 3-day previews for any match 3 days away.
+ */
+async function checkThreeDayAlerts() {
+  const threeDaysOut = getMatchesInNextDays(FIXTURES, 4).filter((f) => {
+    const daysUntil = (new Date(f.dateIso) - Date.now()) / 86400000;
+    return daysUntil >= 2.5 && daysUntil <= 3.5;
+  });
+
+  for (const fixture of threeDaysOut) {
+    const alertKey = `3day-${fixture.matchId}`;
+    if (isAlertSent(alertKey)) continue;
+
+    console.log(`[SCHEDULER] Sending 3-day preview: ${fixture.team1} vs ${fixture.team2}`);
+    const prediction = await getPrediction(fixture.matchId);
+    const injuryNote = await readObsidianNote('WC2026/injuries.md');
+    const h2hNote = await readObsidianNote('WC2026/head-to-head.md');
+
+    const msg = buildThreeDayPreview(fixture, prediction, injuryNote, h2hNote);
+
+    try {
+      await sendToChannel(msg);
+      markAlertSent(alertKey);
+      console.log(`[SCHEDULER] 3-day preview sent: ${fixture.matchId}`);
+    } catch (err) {
+      console.error(`[SCHEDULER] 3-day preview error: ${err.message}`);
+    }
+  }
+}
+
+// ─── JOB 3: 1-DAY PRE-MATCH ALERTS ──────────────────────────────────────────
+
+/**
+ * Check and send 1-day final previews for any match tomorrow.
+ */
+async function checkOneDayAlerts() {
+  const oneDayOut = getMatchesInNextDays(FIXTURES, 2).filter((f) => {
+    const daysUntil = (new Date(f.dateIso) - Date.now()) / 86400000;
+    return daysUntil >= 0.5 && daysUntil <= 1.5;
+  });
+
+  for (const fixture of oneDayOut) {
+    const alertKey = `1day-${fixture.matchId}`;
+    if (isAlertSent(alertKey)) continue;
+
+    console.log(`[SCHEDULER] Sending 1-day preview: ${fixture.team1} vs ${fixture.team2}`);
+    const prediction = await getPrediction(fixture.matchId);
+
+    const cityMatch = (fixture.venue || '').match(/,\s*(.+)$/);
+    const city = cityMatch ? cityMatch[1].trim() : 'USA';
+    const weather = await fetchWeather(city);
+    const newsArticles = await fetchTeamNews(fixture.team1, fixture.team2, 2);
+    const newsSection = formatNews(newsArticles);
+    const injuryNote = await readObsidianNote('WC2026/injuries.md');
+
+    const msg = buildOneDayPreview(fixture, prediction, weather, newsSection, injuryNote);
+
+    try {
+      await sendToChannel(msg);
+      markAlertSent(alertKey);
+      console.log(`[SCHEDULER] 1-day preview sent: ${fixture.matchId}`);
+    } catch (err) {
+      console.error(`[SCHEDULER] 1-day preview error: ${err.message}`);
+    }
+  }
+}
+
+// ─── JOB 4: RESULT POLLING ───────────────────────────────────────────────────
+
+/**
+ * Check if any match is currently in its result window (kickoff → kickoff + 130min)
+ * and poll for the result.
+ */
+async function checkResults() {
+  const now = Date.now();
+  const activeMatches = FIXTURES.filter((f) => {
+    const kickoff = new Date(f.dateIso).getTime();
+    return now >= kickoff && now <= kickoff + 130 * 60000;
+  });
+
+  for (const fixture of activeMatches) {
+    const alertKey = `result-${fixture.matchId}`;
+    if (isAlertSent(alertKey)) continue;
+
+    const result = await fetchMatchResult(fixture.matchId, fixture.dateIso);
+    if (!result) continue;
+
+    console.log(`[SCHEDULER] Result found: ${fixture.team1} ${result.score1}-${result.score2} ${fixture.team2}`);
+
+    let prediction = null;
+    try {
+      const r = await fetch(`${SERVER_URL}/api/predictions/${fixture.matchId}`, { timeout: 5000 });
+      if (r.ok) prediction = await r.json();
+    } catch {}
+
+    const msg = buildResultMessage(fixture, result, prediction);
+
+    try {
+      await sendToChannel(msg);
+      markAlertSent(alertKey);
+      writeResult(fixture.matchId, result);
+      await writeResultToObsidian(fixture.matchId, fixture, result, prediction);
+      console.log(`[SCHEDULER] Result alert sent: ${fixture.matchId}`);
+    } catch (err) {
+      console.error(`[SCHEDULER] Result alert error: ${err.message}`);
+    }
+  }
+}
+
+// ─── JOB 1b: MIDNIGHT COUNTDOWN ──────────────────────────────────────────────
+
+/**
+ * Send midnight countdown — fires at 00:00 SGT every day.
+ * Shows days/hours to opening match + today's fixtures.
+ */
+async function sendMidnightCountdown() {
+  console.log('[SCHEDULER] Sending midnight countdown...');
+  const { countdown } = getOpeningMatchCountdown();
+  const today = todaySgt();
+  const todayMatches = getMatchesForDate(FIXTURES, today);
+
+  const lines = [];
+
+  if (!countdown.started) {
+    lines.push(`⏳ *WC2026 Countdown*`);
+    lines.push(``);
+    lines.push(`🏆 Opening match:  *Mexico vs South Africa*`);
+    lines.push(`📅 12 Jun 2026 at 01:00 SGT`);
+    lines.push(``);
+    lines.push(`⏰ ${countdown.text} to go`);
+  } else {
+    lines.push(`🏆 *FIFA World Cup 2026 is live\\!*`);
+    lines.push(``);
+    lines.push(`📅 Today — ${today} SGT`);
+  }
+
+  if (todayMatches.length > 0) {
+    lines.push(``);
+    lines.push(`⚽ *Today's Matches*`);
+    for (const m of todayMatches) {
+      lines.push(`  ${m.timeSgt} — *${m.team1} vs ${m.team2}* | Group ${m.group}`);
+      lines.push(`  🏟 ${m.venue}`);
+    }
+  } else if (countdown.started) {
+    const next = getMatchesInNextDays(FIXTURES, 3).slice(0, 1)[0];
+    lines.push(``);
+    lines.push(`No matches today${next ? ` — next up: *${next.team1} vs ${next.team2}* on ${next.dateSgt}` : ''}`);
+  }
+
+  const msg = lines.join('\n');
+  try {
+    await sendToChannel(msg);
+    console.log(`[SCHEDULER] Midnight countdown sent (${today})`);
+  } catch (err) {
+    console.error('[SCHEDULER] Midnight countdown error:', err.message);
+  }
+}
+
+// ─── CRON SETUP ───────────────────────────────────────────────────────────────
+
+/**
+ * Parse DIGEST_TIME_SGT (HH:mm) to cron expression.
+ * @param {string} timeStr
+ * @returns {string}
+ */
+function timeToCron(timeStr) {
+  const [hh, mm] = (timeStr || '08:00').split(':').map(Number);
+  return `${mm || 0} ${hh || 8} * * *`;
+}
+
+// ─── STARTUP ─────────────────────────────────────────────────────────────────
+
+async function start() {
+  console.log('[SCHEDULER] WC2026 Alert Scheduler starting...');
+
+  // Wait for server to be ready
+  await new Promise((r) => setTimeout(r, 3000));
+  await loadFixtures();
+
+  const { countdown } = getOpeningMatchCountdown();
+  const sentAlerts = Object.keys(require('./services/alertService').isAlertSent ? {} : {});
+
+  console.log(`[SCHEDULER] Opening match: ${OPENING_MATCH.team1} vs ${OPENING_MATCH.team2} — 12 Jun 2026, 01:00 SGT`);
+  console.log(`[SCHEDULER] Countdown: ${countdown.text}`);
+  console.log(`[SCHEDULER] Jobs scheduled:`);
+  console.log(`  - Midnight Countdown: every day at 00:00 SGT`);
+  console.log(`  - Daily Digest: every day at ${DIGEST_TIME_SGT} SGT`);
+  console.log(`  - 3-Day Alerts: checking every hour`);
+  console.log(`  - 1-Day Alerts: checking every hour`);
+  console.log(`  - Result Polling: every 5min during match windows`);
+
+  // Midnight countdown every day at 00:00 SGT
+  cron.schedule('0 0 * * *', sendMidnightCountdown, { timezone: 'Asia/Singapore' });
+
+  // Daily digest at DIGEST_TIME_SGT
+  cron.schedule(timeToCron(DIGEST_TIME_SGT), sendDailyDigest, { timezone: 'Asia/Singapore' });
+
+  // Alert checks every hour
+  cron.schedule('0 * * * *', async () => {
+    await checkThreeDayAlerts();
+    await checkOneDayAlerts();
+  }, { timezone: 'Asia/Singapore' });
+
+  // Result polling every 5 minutes
+  cron.schedule('*/5 * * * *', checkResults, { timezone: 'Asia/Singapore' });
+
+  // Check immediately on startup for any due alerts
+  console.log('[SCHEDULER] Checking for due alerts on startup...');
+  await checkThreeDayAlerts();
+  await checkOneDayAlerts();
+  await checkResults();
+  console.log('[SCHEDULER] Startup check complete — scheduler running');
+}
+
+start().catch((err) => console.error('[SCHEDULER] Fatal startup error:', err.message));

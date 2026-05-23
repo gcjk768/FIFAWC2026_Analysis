@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WC2026 AI Match Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --card: #111827;
+      --card-hover: #1a2335;
+      --green: #22c55e;
+      --gold: #f59e0b;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --text: #f1f5f9;
+      --muted: #64748b;
+      --border: #1e293b;
+      --radius: 10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d1b2e 0%, #1a2a45 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+    .logo span { color: var(--text); }
+    .ollama-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+    .status-dot.online { background: var(--green); }
+    .status-dot.offline { background: var(--red); }
+    /* ── Tabs ── */
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      padding: 0 24px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 14px 20px;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    nav button:hover { color: var(--text); }
+    nav button.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    /* ── Main ── */
+    main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    /* ── Section Heading ── */
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 16px;
+      margin-top: 8px;
+    }
+    /* ── Match Card ── */
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+    .match-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .match-card:hover { border-color: var(--gold); }
+    .match-card.analyzed { border-color: var(--green); }
+    .match-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .match-teams {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .match-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .match-meta span { display: flex; align-items: center; gap: 4px; }
+    .group-badge {
+      background: #1e3a5f;
+      color: #60a5fa;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-weight: 600;
+      font-size: 10px;
+    }
+    .match-body { padding: 14px 16px; }
+    /* ── Analyze Button ── */
+    .btn-analyze {
+      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      width: 100%;
+      transition: opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-analyze:hover { opacity: 0.85; }
+    .btn-analyze:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* ── Prediction Panel ── */
+    .prediction-panel { margin-top: 12px; }
+    .pred-score-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .pred-team { font-weight: 600; font-size: 13px; }
+    .pred-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--gold);
+    }
+    .winner-badge {
+      background: var(--green);
+      color: #000;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .winner-badge.draw { background: var(--muted); color: var(--text); }
+    .confidence-bar {
+      margin: 10px 0;
+    }
+    .confidence-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .bar-track {
+      background: var(--border);
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--green);
+      transition: width 0.6s ease;
+    }
+    .key-factors { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .factor-pill {
+      background: #1e293b;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text);
+      font-size: 10px;
+      padding: 3px 10px;
+    }
+    .analysis-text {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+    .pred-indicators {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .pred-indicator {
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .pred-indicator.active { color: var(--green); }
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .btn-sm {
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: var(--card-hover);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 10px;
+      padding: 4px 10px;
+      transition: color 0.2s;
+    }
+    .btn-sm:hover { color: var(--text); }
+    .btn-sm.danger { border-color: var(--red); }
+    .btn-sm.danger:hover { color: var(--red); }
+    /* ── Spinner ── */
+    .spinner {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── Group Selector ── */
+    .group-selector {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .group-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      padding: 8px 16px;
+      transition: all 0.2s;
+    }
+    .group-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .group-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+    /* ── Today section ── */
+    .today-empty {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px;
+      text-align: center;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    /* ── Recent Feed ── */
+    .recent-feed { display: flex; flex-direction: column; gap: 10px; }
+    .feed-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .feed-match { font-weight: 600; font-size: 13px; }
+    .feed-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .feed-result { text-align: right; }
+    .feed-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+    }
+    .feed-conf { font-size: 11px; color: var(--muted); }
+    /* ── Calendar ── */
+    .calendar-day { margin-bottom: 24px; }
+    .calendar-day-header {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .calendar-match {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .cal-info { flex: 1; min-width: 200px; }
+    .cal-teams { font-weight: 600; font-size: 13px; }
+    .cal-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .btn-cal {
+      background: none;
+      border: 1px solid var(--blue);
+      border-radius: 6px;
+      color: var(--blue);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 5px 12px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-cal:hover { background: var(--blue); color: white; }
+    .btn-cal.done { border-color: var(--green); color: var(--green); cursor: default; }
+    /* ── Obsidian Tab ── */
+    .obsidian-list { display: flex; flex-direction: column; gap: 6px; }
+    .obs-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+    .obs-item:hover { border-color: var(--gold); }
+    .obs-filename { font-size: 12px; font-family: monospace; }
+    .obs-modified { font-size: 10px; color: var(--muted); }
+    .obs-content {
+      background: #0d1424;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      max-height: 400px;
+      overflow-y: auto;
+      color: #a5b4c3;
+    }
+    /* ── Settings Tab ── */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .settings-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .settings-card h3 { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .setting-key { color: var(--muted); }
+    .setting-val { font-family: monospace; color: var(--text); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn-test {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12px;
+      padding: 7px 14px;
+      transition: all 0.2s;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .btn-test:hover { border-color: var(--gold); color: var(--gold); }
+    .test-result {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      margin-top: 6px;
+      display: none;
+    }
+    .test-result.ok { background: #14532d; color: var(--green); display: block; }
+    .test-result.err { background: #450a0a; color: var(--red); display: block; }
+    /* ── Quick Action ── */
+    .quick-action {
+      background: linear-gradient(135deg, #14532d, #166534);
+      border: none;
+      border-radius: var(--radius);
+      color: white;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: opacity 0.2s;
+    }
+    .quick-action:hover { opacity: 0.9; }
+    /* ── Alert Banner ── */
+    .alert-banner {
+      background: #450a0a;
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      color: var(--red);
+      font-size: 12px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .alert-banner.visible { display: block; }
+    /* ── Notification toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 12px;
+      padding: 10px 16px;
+      z-index: 999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      max-width: 300px;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    /* ── Analyze All Button ── */
+    .btn-bulk {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12px;
+      padding: 8px 16px;
+      margin-bottom: 20px;
+      margin-right: 8px;
+      transition: border-color 0.2s;
+    }
+    .btn-bulk:hover { border-color: var(--gold); }
+    /* responsive */
+    @media (max-width: 640px) {
+      main { padding: 16px; }
+      .match-grid { grid-template-columns: 1fr; }
+      .settings-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">⚽ WC2026 <span>AI Predictor</span></div>
+    <div class="ollama-status">
+      <div class="status-dot" id="ollamaDot"></div>
+      <span id="ollamaLabel">Checking...</span>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="switchTab('dashboard', this)">Dashboard</button>
+    <button onclick="switchTab('groups', this)">Groups A–L</button>
+    <button onclick="switchTab('calendar', this)">Calendar</button>
+    <button onclick="switchTab('obsidian', this)">Obsidian</button>
+    <button onclick="switchTab('settings', this)">Settings</button>
+  </nav>
+
+  <main>
+    <div id="alert-banner" class="alert-banner">⚠️ Ollama is offline. Predictions unavailable until Ollama is running.</div>
+    <div id="toast"></div>
+
+    <!-- ── DASHBOARD TAB ── -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="stats-bar" id="statsBar">
+        <div class="stat-card"><div class="stat-number" id="statAnalyzed">0</div><div class="stat-label">Analyzed</div></div>
+        <div class="stat-card"><div class="stat-number" id="statTotal">72</div><div class="stat-label">Total Matches</div></div>
+        <div class="stat-card"><div class="stat-number" id="statTelegram">0</div><div class="stat-label">Telegram Posted</div></div>
+        <div class="stat-card"><div class="stat-number" id="statObsidian">—</div><div class="stat-label">Obsidian Notes</div></div>
+      </div>
+
+      <button class="quick-action" onclick="analyzeTodayMatches()">
+        ⚡ Analyze Today's Matches
+      </button>
+
+      <div class="section-heading">Today's Matches (SGT)</div>
+      <div id="todayMatches"></div>
+
+      <div class="section-heading" style="margin-top:28px">Recent Predictions</div>
+      <div class="recent-feed" id="recentFeed"></div>
+    </div>
+
+    <!-- ── GROUPS TAB ── -->
+    <div id="tab-groups" class="tab-content">
+      <div class="group-selector" id="groupSelector"></div>
+      <div id="groupBulkActions">
+        <button class="btn-bulk" id="btnAnalyzeGroup">⚡ Analyze All in Group</button>
+        <button class="btn-bulk" onclick="loadGroupMatches(currentGroup, true)">🔄 Refresh</button>
+      </div>
+      <div class="match-grid" id="groupMatchGrid"></div>
+    </div>
+
+    <!-- ── CALENDAR TAB ── -->
+    <div id="tab-calendar" class="tab-content">
+      <button class="btn-bulk" onclick="createAllCalendarEvents()">📅 Add ALL to Google Calendar</button>
+      <button class="btn-bulk" onclick="loadCalendar()">🔄 Refresh</button>
+      <div id="calendarContent"></div>
+    </div>
+
+    <!-- ── OBSIDIAN TAB ── -->
+    <div id="tab-obsidian" class="tab-content">
+      <button class="btn-bulk" onclick="loadObsidianNotes()">🔄 Refresh Notes</button>
+      <div id="obsidianContent"></div>
+    </div>
+
+    <!-- ── SETTINGS TAB ── -->
+    <div id="tab-settings" class="tab-content">
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>Server Config</h3>
+          <div id="settingsEnv"></div>
+        </div>
+        <div class="settings-card">
+          <h3>Connection Tests</h3>
+          <div>
+            <button class="btn-test" onclick="testOllama()">Test Ollama</button>
+            <button class="btn-test" onclick="testTelegram()">Test Telegram</button>
+            <button class="btn-test" onclick="testObsidian()">Test Obsidian</button>
+          </div>
+          <div id="testResult" class="test-result"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API = 'http://localhost:3001';
+    let currentGroup = 'A';
+    let allMatches = [];
+    let allPredictions = {};
+    let healthData = {};
+
+    // ── TAB SWITCHING ─────────────────────────────────────────────────────
+
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-content').forEach((el) => el.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach((el) => el.classList.remove('active'));
+      document.getElementById(`tab-${name}`).classList.add('active');
+      if (btn) btn.classList.add('active');
+
+      if (name === 'calendar') loadCalendar();
+      else if (name === 'obsidian') loadObsidianNotes();
+      else if (name === 'settings') loadSettings();
+      else if (name === 'groups') {
+        buildGroupSelector();
+        loadGroupMatches(currentGroup);
+      } else if (name === 'dashboard') {
+        loadDashboard();
+      }
+    }
+
+    // ── TOAST ─────────────────────────────────────────────────────────────
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ── HEALTH CHECK ──────────────────────────────────────────────────────
+
+    async function checkHealth() {
+      try {
+        const resp = await fetch(`${API}/api/health`);
+        healthData = await resp.json();
+        const dot = document.getElementById('ollamaDot');
+        const label = document.getElementById('ollamaLabel');
+        const banner = document.getElementById('alert-banner');
+        if (healthData.ollama?.ok) {
+          dot.className = 'status-dot online';
+          label.textContent = `${healthData.ollama.model} ✓`;
+          banner.classList.remove('visible');
+        } else {
+          dot.className = 'status-dot offline';
+          label.textContent = 'Ollama offline';
+          banner.classList.add('visible');
+        }
+        return healthData;
+      } catch {
+        document.getElementById('ollamaDot').className = 'status-dot offline';
+        document.getElementById('ollamaLabel').textContent = 'Server offline';
+      }
+    }
+
+    // ── DASHBOARD ─────────────────────────────────────────────────────────
+
+    async function loadDashboard() {
+      await checkHealth();
+      try {
+        const [matchesResp, predsResp] = await Promise.all([
+          fetch(`${API}/api/matches`),
+          fetch(`${API}/api/predictions`),
+        ]);
+        allMatches = await matchesResp.json();
+        allPredictions = await predsResp.json();
+        updateStats();
+        renderTodayMatches();
+        renderRecentFeed();
+      } catch (err) {
+        console.error('Dashboard load error:', err);
+      }
+    }
+
+    function updateStats() {
+      const analyzed = Object.keys(allPredictions).length;
+      const telegramPosted = Object.values(allPredictions).filter((p) => p.telegramPosted).length;
+      document.getElementById('statAnalyzed').textContent = `${analyzed}/72`;
+      document.getElementById('statTotal').textContent = '72';
+      document.getElementById('statTelegram').textContent = telegramPosted;
+      // Obsidian count via API
+      fetch(`${API}/api/obsidian/notes`)
+        .then((r) => r.json())
+        .then((d) => {
+          document.getElementById('statObsidian').textContent = (d.files || []).length;
+        })
+        .catch(() => {});
+    }
+
+    function todaySgt() {
+      return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+    }
+
+    function renderTodayMatches() {
+      const today = todaySgt();
+      const todayMatches = allMatches.filter((m) => {
+        const matchDate = new Date(m.dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+        return matchDate === today;
+      });
+      const container = document.getElementById('todayMatches');
+      if (todayMatches.length === 0) {
+        container.innerHTML = `<div class="today-empty">No matches scheduled today (${today} SGT)</div>`;
+        return;
+      }
+      container.innerHTML = `<div class="match-grid">${todayMatches.map((m) => renderMatchCard(m)).join('')}</div>`;
+    }
+
+    function renderRecentFeed() {
+      const recent = Object.values(allPredictions)
+        .sort((a, b) => new Date(b.analyzedAt) - new Date(a.analyzedAt))
+        .slice(0, 5);
+      const container = document.getElementById('recentFeed');
+      if (recent.length === 0) {
+        container.innerHTML = `<div class="today-empty">No predictions yet. Click Analyze on any match to start.</div>`;
+        return;
+      }
+      container.innerHTML = recent.map((p) => `
+        <div class="feed-item">
+          <div>
+            <div class="feed-match">${p.team1} vs ${p.team2}</div>
+            <div class="feed-meta">Group ${p.group} · ${p.dateSgt || ''}</div>
+          </div>
+          <div class="feed-result">
+            <div class="feed-score">${p.predicted_score || '?-?'}</div>
+            <div class="feed-conf">${p.winner || '?'} · ${p.confidence || 0}%</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function analyzeTodayMatches() {
+      const today = todaySgt();
+      const todayMatches = allMatches.filter((m) => {
+        const matchDate = new Date(m.dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+        return matchDate === today && !m.analyzed;
+      });
+      if (todayMatches.length === 0) {
+        showToast("All today's matches already analyzed (or no matches today)");
+        return;
+      }
+      showToast(`Analyzing ${todayMatches.length} match(es)...`);
+      for (const m of todayMatches) {
+        await analyzeMatch(m.matchId);
+      }
+      await loadDashboard();
+      showToast('Done!');
+    }
+
+    // ── MATCH CARD RENDERER ───────────────────────────────────────────────
+
+    function renderMatchCard(match) {
+      const p = allPredictions[match.matchId] || null;
+      const isAnalyzed = !!p;
+      return `
+        <div class="match-card${isAnalyzed ? ' analyzed' : ''}" id="card-${match.matchId}">
+          <div class="match-header">
+            <div class="match-teams">
+              ${flagEmoji(match.team1)} ${match.team1}
+              <span style="color:var(--muted)"> vs </span>
+              ${match.team2} ${flagEmoji(match.team2)}
+            </div>
+            <div class="match-meta">
+              <span class="group-badge">GRP ${match.group}</span>
+              <span>📅 ${match.timeSgt} SGT</span>
+              <span>🏟 ${match.venue?.split(',')[0] || ''}</span>
+            </div>
+          </div>
+          <div class="match-body">
+            ${isAnalyzed ? renderPrediction(match.matchId, p) : `
+              <button class="btn-analyze" id="btn-${match.matchId}" onclick="analyzeMatch('${match.matchId}')">
+                ⚡ Analyze Match
+              </button>
+            `}
+          </div>
+        </div>`;
+    }
+
+    function renderPrediction(matchId, p) {
+      const isWin1 = p.winner === p.team1;
+      const isWin2 = p.winner === p.team2;
+      const isDraw = p.winner === 'draw';
+      const [g1, g2] = (p.predicted_score || '0-0').split('-').map(Number);
+      return `
+        <div class="prediction-panel">
+          <div style="text-align:center; margin-bottom: 8px;">
+            <span class="winner-badge${isDraw ? ' draw' : ''}">${isDraw ? '🤝 DRAW' : `🏆 ${p.winner}`}</span>
+          </div>
+          <div class="pred-score-row">
+            <div class="pred-team" style="color:${isWin1 ? 'var(--green)' : 'var(--text)'}">${p.team1}</div>
+            <div class="pred-score">${p.predicted_score || '?-?'}</div>
+            <div class="pred-team" style="color:${isWin2 ? 'var(--green)' : 'var(--text)'}">${p.team2}</div>
+          </div>
+          <div class="confidence-bar">
+            <div class="confidence-label"><span>Confidence</span><span>${p.confidence}%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:${p.confidence}%"></div></div>
+          </div>
+          <div class="key-factors">
+            ${(p.key_factors || []).map((f) => `<span class="factor-pill">${f}</span>`).join('')}
+          </div>
+          <div class="analysis-text">${p.analysis_summary || ''}</div>
+          <div class="pred-indicators">
+            <span class="pred-indicator${p.telegramPosted ? ' active' : ''}">📨 ${p.telegramPosted ? 'Sent' : 'Not sent'}</span>
+            <span class="pred-indicator${p.suppress ? '' : ' active'}">📢 ${p.suppress ? 'Suppressed' : 'Broadcasting'}</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-sm" onclick="analyzeMatch('${matchId}')">🔄 Re-analyze</button>
+            <button class="btn-sm" onclick="publishMatch('${matchId}')">📢 Publish</button>
+            <button class="btn-sm" onclick="toggleSuppress('${matchId}')">🔇 ${p.suppress ? 'Unsuppress' : 'Suppress'}</button>
+          </div>
+        </div>`;
+    }
+
+    // ── ANALYZE ───────────────────────────────────────────────────────────
+
+    async function analyzeMatch(matchId) {
+      const btn = document.getElementById(`btn-${matchId}`);
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner">⚽</span> Analyzing...';
+      }
+      try {
+        const resp = await fetch(`${API}/api/analyze/${matchId}`, { method: 'POST' });
+        const prediction = await resp.json();
+        if (!resp.ok) throw new Error(prediction.error || 'Analysis failed');
+        allPredictions[matchId] = prediction;
+        updateStats();
+        // Update the card in place
+        const card = document.getElementById(`card-${matchId}`);
+        if (card) {
+          const match = allMatches.find((m) => m.matchId === matchId);
+          if (match) {
+            card.outerHTML = renderMatchCard({ ...match, analyzed: true });
+          }
+        }
+        showToast(`✓ ${prediction.team1} vs ${prediction.team2}: ${prediction.predicted_score}`);
+      } catch (err) {
+        showToast(`Error: ${err.message}`);
+        if (btn) { btn.disabled = false; btn.innerHTML = '⚡ Analyze Match'; }
+      }
+    }
+
+    async function publishMatch(matchId) {
+      try {
+        await fetch(`${API}/api/predictions/${matchId}/publish`, { method: 'POST' });
+        showToast('Published to Telegram channel');
+        allPredictions[matchId].telegramPosted = true;
+      } catch (err) {
+        showToast(`Publish error: ${err.message}`);
+      }
+    }
+
+    async function toggleSuppress(matchId) {
+      try {
+        const resp = await fetch(`${API}/api/predictions/${matchId}/suppress`, { method: 'PATCH' });
+        const data = await resp.json();
+        allPredictions[matchId].suppress = data.suppress;
+        showToast(data.suppress ? 'Suppressed' : 'Unsuppressed');
+      } catch (err) {
+        showToast(`Error: ${err.message}`);
+      }
+    }
+
+    // ── GROUPS ────────────────────────────────────────────────────────────
+
+    function buildGroupSelector() {
+      const groups = 'ABCDEFGHIJKL'.split('');
+      document.getElementById('groupSelector').innerHTML = groups.map((g) => `
+        <button class="group-btn${g === currentGroup ? ' active' : ''}" onclick="selectGroup('${g}', this)">
+          ${g}
+        </button>`).join('');
+    }
+
+    function selectGroup(letter, btn) {
+      currentGroup = letter;
+      document.querySelectorAll('.group-btn').forEach((b) => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      loadGroupMatches(letter);
+    }
+
+    async function loadGroupMatches(group, refresh = false) {
+      try {
+        if (refresh || allMatches.length === 0) {
+          const [matchesResp, predsResp] = await Promise.all([
+            fetch(`${API}/api/matches`),
+            fetch(`${API}/api/predictions`),
+          ]);
+          allMatches = await matchesResp.json();
+          allPredictions = await predsResp.json();
+        }
+        const groupMatches = allMatches.filter((m) => m.group === group);
+        document.getElementById('groupMatchGrid').innerHTML =
+          groupMatches.map((m) => renderMatchCard(m)).join('');
+      } catch (err) {
+        console.error('Group load error:', err);
+      }
+    }
+
+    document.getElementById('btnAnalyzeGroup').addEventListener('click', async () => {
+      const groupMatches = allMatches.filter((m) => m.group === currentGroup && !m.analyzed);
+      if (groupMatches.length === 0) { showToast('All matches in this group already analyzed'); return; }
+      showToast(`Analyzing ${groupMatches.length} matches in Group ${currentGroup}...`);
+      for (const m of groupMatches) {
+        await analyzeMatch(m.matchId);
+        await new Promise((r) => setTimeout(r, 500));
+      }
+      showToast(`Group ${currentGroup} complete!`);
+    });
+
+    // ── CALENDAR ──────────────────────────────────────────────────────────
+
+    async function loadCalendar() {
+      try {
+        const [matchesResp, predsResp, calResp] = await Promise.all([
+          fetch(`${API}/api/matches`),
+          fetch(`${API}/api/predictions`),
+          fetch(`${API}/data/calendar-events.json`).catch(() => ({ json: () => ({}) })),
+        ]);
+        const matches = await matchesResp.json();
+        allPredictions = await predsResp.json();
+        // Group by SGT date
+        const byDate = {};
+        for (const m of matches) {
+          const dateKey = new Date(m.dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
+          if (!byDate[dateKey]) byDate[dateKey] = [];
+          byDate[dateKey].push(m);
+        }
+        let html = '';
+        for (const [date, dayMatches] of Object.entries(byDate).sort()) {
+          const label = new Date(date + 'T12:00:00+08:00').toLocaleDateString('en-SG', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Singapore',
+          });
+          html += `<div class="calendar-day"><div class="calendar-day-header">${label}</div>`;
+          for (const m of dayMatches) {
+            html += `
+              <div class="calendar-match">
+                <div class="cal-info">
+                  <div class="cal-teams">${flagEmoji(m.team1)} ${m.team1} vs ${m.team2} ${flagEmoji(m.team2)}</div>
+                  <div class="cal-meta">Group ${m.group} · ${m.timeSgt} SGT · ${m.venue?.split(',')[0] || ''}</div>
+                  ${allPredictions[m.matchId] ? `<div class="cal-meta" style="color:var(--green)">🏆 ${allPredictions[m.matchId].predicted_score} — ${allPredictions[m.matchId].winner}</div>` : ''}
+                </div>
+                <button class="btn-cal" id="calbtn-${m.matchId}" onclick="createCalEvent('${m.matchId}', this)">
+                  + Google Calendar
+                </button>
+              </div>`;
+          }
+          html += '</div>';
+        }
+        document.getElementById('calendarContent').innerHTML = html;
+      } catch (err) {
+        document.getElementById('calendarContent').innerHTML = `<div class="today-empty">Error loading calendar: ${err.message}</div>`;
+      }
+    }
+
+    async function createCalEvent(matchId, btn) {
+      btn.disabled = true;
+      btn.textContent = '...';
+      try {
+        const resp = await fetch(`${API}/api/calendar/create/${matchId}`, { method: 'POST' });
+        const data = await resp.json();
+        if (data.success) {
+          btn.className = 'btn-cal done';
+          btn.textContent = '✅ Added';
+        } else {
+          btn.textContent = '+ Google Calendar';
+          btn.disabled = false;
+          showToast(`Calendar error: ${data.error}`);
+        }
+      } catch (err) {
+        btn.textContent = '+ Google Calendar';
+        btn.disabled = false;
+        showToast(`Error: ${err.message}`);
+      }
+    }
+
+    async function createAllCalendarEvents() {
+      showToast('Creating 72 calendar events...');
+      try {
+        const resp = await fetch(`${API}/api/calendar/create-all`, { method: 'POST' });
+        const data = await resp.json();
+        showToast(`Created ${data.created}, skipped ${data.skipped}`);
+        loadCalendar();
+      } catch (err) {
+        showToast(`Error: ${err.message}`);
+      }
+    }
+
+    // ── OBSIDIAN ──────────────────────────────────────────────────────────
+
+    async function loadObsidianNotes() {
+      const container = document.getElementById('obsidianContent');
+      container.innerHTML = '<div class="today-empty">Loading notes...</div>';
+      try {
+        const resp = await fetch(`${API}/api/obsidian/notes`);
+        const data = await resp.json();
+        const files = data.files || [];
+        if (files.length === 0) {
+          container.innerHTML = `<div class="today-empty">No notes found in Obsidian vault. Set OBSIDIAN_VAULT_PATH in .env</div>`;
+          return;
+        }
+        container.innerHTML = `
+          <div class="obsidian-list" id="obsidianList">
+            ${files.map((f) => `
+              <div class="obs-item" onclick="readObsidianNote('${escapeAttr(f.filename)}', this)">
+                <span class="obs-filename">${f.filename}</span>
+                <span class="obs-modified">${f.modified ? new Date(f.modified).toLocaleString('en-SG', { timeZone: 'Asia/Singapore', dateStyle: 'short', timeStyle: 'short' }) : ''}</span>
+              </div>`).join('')}
+          </div>
+          <div id="obsidianNoteContent"></div>`;
+      } catch (err) {
+        container.innerHTML = `<div class="today-empty">Obsidian MCP unavailable: ${err.message}</div>`;
+      }
+    }
+
+    async function readObsidianNote(filename, el) {
+      document.querySelectorAll('.obs-item').forEach((i) => i.style.borderColor = '');
+      el.style.borderColor = 'var(--gold)';
+      try {
+        const resp = await fetch(`${API}/api/obsidian/note/${encodeURIComponent(filename)}`);
+        const data = await resp.json();
+        const noteEl = document.getElementById('obsidianNoteContent');
+        if (noteEl) noteEl.innerHTML = `<div class="obs-content">${escapeHtml(data.content || '')}</div>`;
+      } catch (err) {
+        showToast(`Error reading note: ${err.message}`);
+      }
+    }
+
+    // ── SETTINGS ──────────────────────────────────────────────────────────
+
+    async function loadSettings() {
+      try {
+        const resp = await fetch(`${API}/api/health`);
+        const data = await resp.json();
+        const env = data.env || {};
+        document.getElementById('settingsEnv').innerHTML = `
+          ${row('Ollama Host', data.ollama?.host)}
+          ${row('Ollama Model', data.ollama?.model)}
+          ${row('Telegram Token', env.telegramToken ? '✓ Set' : '✗ Not set')}
+          ${row('Telegram Channel', env.telegramChannel ? '✓ Set' : '✗ Not set')}
+          ${row('Obsidian Vault', env.obsidianVaultPath || 'Not set')}
+          ${row('Matches Analyzed', `${data.predictions} / ${data.totalMatches}`)}`;
+      } catch (err) {
+        document.getElementById('settingsEnv').textContent = 'Server unavailable';
+      }
+    }
+
+    function row(key, val) {
+      return `<div class="setting-row"><span class="setting-key">${key}</span><span class="setting-val">${val || '—'}</span></div>`;
+    }
+
+    async function testOllama() {
+      const el = document.getElementById('testResult');
+      el.className = 'test-result';
+      el.textContent = 'Testing Ollama...';
+      el.style.display = 'block';
+      try {
+        const resp = await fetch(`${API}/api/health`);
+        const data = await resp.json();
+        if (data.ollama?.ok) {
+          el.className = 'test-result ok';
+          el.textContent = `✓ Ollama online — ${data.ollama.model}`;
+        } else {
+          el.className = 'test-result err';
+          el.textContent = `✗ Ollama offline at ${data.ollama?.host}`;
+        }
+      } catch {
+        el.className = 'test-result err';
+        el.textContent = '✗ Server unreachable';
+      }
+    }
+
+    async function testTelegram() {
+      const el = document.getElementById('testResult');
+      el.className = 'test-result';
+      el.textContent = 'Sending test message...';
+      el.style.display = 'block';
+      try {
+        const resp = await fetch('http://localhost:3003/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: '🧪 WC2026 Predictor — Telegram MCP online', parse_mode: 'HTML' }),
+        });
+        const data = await resp.json();
+        if (data.success) {
+          el.className = 'test-result ok';
+          el.textContent = '✓ Telegram message sent — check your chat/channel';
+        } else {
+          el.className = 'test-result err';
+          el.textContent = `✗ ${data.error}`;
+        }
+      } catch (err) {
+        el.className = 'test-result err';
+        el.textContent = `✗ Telegram MCP unreachable: ${err.message}`;
+      }
+    }
+
+    async function testObsidian() {
+      const el = document.getElementById('testResult');
+      el.className = 'test-result';
+      el.textContent = 'Testing Obsidian...';
+      el.style.display = 'block';
+      try {
+        const resp = await fetch('http://localhost:3002/health');
+        const data = await resp.json();
+        if (data.vaultExists) {
+          el.className = 'test-result ok';
+          el.textContent = `✓ Obsidian vault found at ${data.vault}`;
+        } else {
+          el.className = 'test-result err';
+          el.textContent = `✗ Vault not found: ${data.vault}`;
+        }
+      } catch (err) {
+        el.className = 'test-result err';
+        el.textContent = `✗ Obsidian MCP unreachable: ${err.message}`;
+      }
+    }
+
+    // ── UTILS ─────────────────────────────────────────────────────────────
+
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function escapeAttr(str) {
+      return String(str).replace(/'/g, "\\'");
+    }
+
+    const FLAG_MAP = {
+      'Argentina': '🇦🇷', 'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+      'Brazil': '🇧🇷', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱', 'Germany': '🇩🇪',
+      'Morocco': '🇲🇦', 'Japan': '🇯🇵', 'USA': '🇺🇸', 'Belgium': '🇧🇪',
+      'Croatia': '🇭🇷', 'Colombia': '🇨🇴', 'Uruguay': '🇺🇾', 'Mexico': '🇲🇽',
+      'Switzerland': '🇨🇭', 'Senegal': '🇸🇳', 'South Korea': '🇰🇷', 'Australia': '🇦🇺',
+      'Sweden': '🇸🇪', 'Norway': '🇳🇴', 'Austria': '🇦🇹', 'Turkiye': '🇹🇷',
+      'Iran': '🇮🇷', 'Ecuador': '🇪🇨', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Czechia': '🇨🇿',
+      'Tunisia': '🇹🇳', 'Egypt': '🇪🇬', 'Qatar': '🇶🇦', 'Ivory Coast': '🇨🇮',
+      'Algeria': '🇩🇿', 'Canada': '🇨🇦', 'DR Congo': '🇨🇩', 'Paraguay': '🇵🇾',
+      'Saudi Arabia': '🇸🇦', 'Ghana': '🇬🇭', 'Iraq': '🇮🇶', 'South Africa': '🇿🇦',
+      'Uzbekistan': '🇺🇿', 'Panama': '🇵🇦', 'Cape Verde': '🇨🇻', 'Curacao': '🇨🇼',
+      'Jordan': '🇯🇴', 'Haiti': '🇭🇹', 'New Zealand': '🇳🇿',
+      'Bosnia and Herzegovina': '🇧🇦',
+    };
+
+    function flagEmoji(team) { return FLAG_MAP[team] || '🏳'; }
+
+    // ── INIT ──────────────────────────────────────────────────────────────
+
+    (async () => {
+      buildGroupSelector();
+      await loadDashboard();
+    })();
+  </script>
+</body>
+</html>

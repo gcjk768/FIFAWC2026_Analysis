@@ -1,0 +1,23 @@
+{
+  "name": "wc2026-predictor",
+  "version": "4.0.0",
+  "description": "FIFA World Cup 2026 AI Match Predictor — qwen3.5:35b + Telegram + Obsidian",
+  "main": "server.js",
+  "scripts": {
+    "start": "concurrently \"node mcp-servers/obsidian-mcp/index.js\" \"node mcp-servers/telegram-mcp/index.js\" \"node server.js\" \"node scheduler.js\" \"node chatbot.js\"",
+    "dev": "concurrently \"node --watch mcp-servers/obsidian-mcp/index.js\" \"node --watch mcp-servers/telegram-mcp/index.js\" \"node --watch server.js\" \"node --watch scheduler.js\" \"node --watch chatbot.js\"",
+    "check": "node --check server.js && node --check scheduler.js && node --check chatbot.js && node --check services/chatService.js && node --check services/intentService.js",
+    "server-only": "node server.js",
+    "scheduler-only": "node scheduler.js",
+    "chatbot-only": "node chatbot.js",
+    "install-all": "npm install && cd mcp-servers/obsidian-mcp && npm install && cd ../telegram-mcp && npm install && cd ../.."
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^2.7.0"
+  }
+}
