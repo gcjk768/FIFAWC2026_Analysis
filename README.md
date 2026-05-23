@@ -1,6 +1,6 @@
 # FIFA World Cup 2026 — AI Match Predictor
 
-AI-powered WC2026 assistant running locally on **qwen3.5:35b** via Ollama, with Telegram integration for alerts, predictions, and live Q&A.
+AI-powered WC2026 assistant running locally on **qwen3.5:35b** via Ollama, with Telegram integration for alerts, predictions, live standings, and knockout bracket tracking.
 
 ---
 
@@ -9,7 +9,10 @@ AI-powered WC2026 assistant running locally on **qwen3.5:35b** via Ollama, with 
 - **Telegram Chatbot** — Ask anything about WC2026 in English or Chinese, get answers from a local AI
 - **Automated Alerts** — Daily digest, pre-match previews (3-day + 1-day), and result notifications
 - **Match Predictions** — Full AI analysis for all 72 group stage matches
-- **Obsidian Vault** — Stores team notes, predictions, injuries, and H2H records
+- **Live Results** — Polls football-data.org + ESPN for live scores, HT scores, stats, and substitutions
+- **Knockout Bracket** — Tracks Round of 32 through Final; auto-updates as results come in
+- **Standings** — Real-time group standings computed from stored results
+- **Obsidian Vault** — Stores team notes, predictions, injuries, H2H records, and live standings
 - **Midnight Countdown** — Daily 00:00 SGT message showing days to opening match + today's fixtures
 
 ---
@@ -23,6 +26,7 @@ AI-powered WC2026 assistant running locally on **qwen3.5:35b** via Ollama, with 
 | Messaging | Telegram Bot API (long polling) |
 | Knowledge Base | Obsidian vault (markdown files) |
 | Scheduler | node-cron (Asia/Singapore timezone) |
+| Results Source | football-data.org API + ESPN fallback |
 | Storage | JSON files with atomic writes |
 
 ---
@@ -30,36 +34,41 @@ AI-powered WC2026 assistant running locally on **qwen3.5:35b** via Ollama, with 
 ## Project Structure
 
 ```
-├── server.js              # Express API — matches, teams, predictions, analysis
-├── chatbot.js             # Telegram long-poll bot — receives & routes messages
-├── scheduler.js           # Cron jobs — digest, alerts, result polling
+├── server.js                      # Express API — matches, teams, predictions, analysis
+├── chatbot.js                     # Telegram long-poll bot — receives & routes messages
+├── scheduler.js                   # Cron jobs — digest, alerts, result polling
 ├── services/
-│   ├── chatService.js     # Ollama queue, cache, rate limiting, history
-│   ├── intentService.js   # Message routing — classifies intent, calls handlers
-│   ├── qwenPersonality.js # Master system prompt + bilingual templates
-│   ├── squadsData.js      # Squad data for 16 major teams (instant responses)
-│   ├── alertService.js    # Alert state tracking, Telegram send helpers
-│   ├── countdownService.js# Countdown logic, fixture helpers
-│   ├── newsService.js     # WC2026 news fetching
-│   ├── resultsService.js  # Match result fetching + Obsidian write
+│   ├── chatService.js             # Ollama queue, cache, rate limiting, history
+│   ├── intentService.js           # Message routing — classifies intent, calls handlers
+│   ├── qwenPersonality.js         # Master system prompt + bilingual templates
+│   ├── squadsData.js              # Squad data for 16 major teams (instant responses)
+│   ├── alertService.js            # Alert state tracking, Telegram send helpers
+│   ├── countdownService.js        # Countdown logic, fixture helpers
+│   ├── newsService.js             # WC2026 news fetching
+│   ├── resultsService.js          # Match result fetching (API + ESPN) + Obsidian write
+│   ├── knockoutService.js         # Knockout bracket state + football-data.org polling
+│   ├── liveDataService.js         # Live standings computation + Obsidian sync
 │   └── queryHandlers/
-│       ├── matchHandler.js      # /today, /tomorrow, match times, results
-│       ├── playerHandler.js     # /squad, /player, /injury, /lineup, /compare
-│       ├── predictionHandler.js # /predict, tournament winner, group predictions
-│       ├── standingsHandler.js  # /group, /standings, /topscorers, /stats
-│       ├── teamHandler.js       # Team info, team comparison
-│       └── generalHandler.js   # Qwen fallback for any question
+│       ├── matchHandler.js        # /today, /tomorrow, match times, results
+│       ├── playerHandler.js       # /squad, /player, /injury, /lineup, /compare
+│       ├── predictionHandler.js   # /predict, tournament winner, group predictions
+│       ├── standingsHandler.js    # /group, /standings, /topscorers, /stats
+│       ├── teamHandler.js         # Team info, team comparison
+│       ├── knockoutHandler.js     # /bracket, /round, knockout stage queries
+│       └── generalHandler.js      # Qwen fallback for any question
 ├── mcp-servers/
-│   ├── obsidian-mcp/      # Local HTTP server — read/write Obsidian vault (port 3002)
-│   └── telegram-mcp/      # Local HTTP sender — Telegram send helper (port 3003)
+│   ├── obsidian-mcp/              # Local HTTP server — read/write Obsidian vault (port 3002)
+│   └── telegram-mcp/             # Local HTTP sender — Telegram send helper (port 3003)
 ├── vault/
-│   └── WC2026/            # Obsidian notes — teams, injuries, H2H, predictions
+│   └── WC2026/                    # Obsidian notes — teams, injuries, H2H, predictions, standings
 ├── data/
-│   ├── predictions.json   # Saved AI predictions (atomic writes)
-│   ├── sent-alerts.json   # Tracks which alerts have been sent
-│   ├── match-results.json # Match results
-│   └── chat-history.json  # Per-chat conversation history (last 50 msgs)
-└── .env                   # Environment variables (never commit this)
+│   ├── predictions.json           # Saved AI predictions (atomic writes)
+│   ├── match-results.json         # Group stage match results
+│   ├── knockout.json              # Knockout bracket state (Round of 32 → Final)
+│   ├── sent-alerts.json           # Tracks which alerts have been sent
+│   ├── calendar-events.json       # Google Calendar event IDs
+│   └── chat-history.json          # Per-chat conversation history (last 50 msgs)
+└── .env                           # Environment variables (never commit this)
 ```
 
 ---
@@ -134,6 +143,8 @@ npm run dev      # same but with --watch (auto-restart on file changes)
 | `/compare Mbappe Vinicius` | Side-by-side player comparison |
 | `/group C` | Group C standings |
 | `/standings` | All group standings |
+| `/bracket` | Full knockout bracket |
+| `/round` | Current knockout round results |
 | `/topscorers` | Golden Boot leaderboard |
 | `/stats` | Tournament stats |
 | `/nextmatch` | Upcoming fixtures |
@@ -154,8 +165,40 @@ Messages sent automatically to your Telegram topic, no user input needed:
 | **00:00 SGT daily** | Countdown to opening match + today's fixtures |
 | **08:00 SGT daily** | Full daily digest — matches, news, injuries |
 | **3 days before each match** | Pre-match preview with AI prediction |
-| **1 day before each match** | Final preview with weather + team news |
+| **1 day before each match** | Final preview with team news |
 | **During matches (every 5 min)** | Result alert when final score is available |
+| **After knockout results** | Bracket update with next round fixtures |
+
+---
+
+## Match Results & Live Data
+
+Results are pulled from two sources in priority order:
+
+1. **football-data.org** — primary source; includes HT score, stats, substitutions
+2. **ESPN** — fallback; broader team name coverage
+
+The scheduler polls every 5 minutes during active match windows. Final scores are written to:
+- `data/match-results.json` (group stage)
+- `data/knockout.json` (knockout rounds)
+- `vault/WC2026/` (Obsidian notes for live standings and bracket)
+
+---
+
+## Knockout Bracket
+
+The bracket is stored in `data/knockout.json` and tracks all stages:
+
+| Round | Dates |
+|---|---|
+| Round of 32 | Jun 28 – Jul 1 |
+| Round of 16 | Jul 3–5 |
+| Quarter-Finals | Jul 8–9 |
+| Semi-Finals | Jul 13–14 |
+| 3rd Place Play-off | Jul 18 |
+| Final | Jul 19 |
+
+Use `/bracket` in Telegram to view the full bracket, or `/round` for the current active round.
 
 ---
 
@@ -169,6 +212,7 @@ The built-in vault lives at `vault/WC2026/`. You can add notes to improve AI res
 | `injuries.md` | Injury tracker — referenced in previews and /injury |
 | `head-to-head.md` | H2H records — used in pre-match analysis |
 | `predictions/{matchId}.md` | Auto-written after each AI analysis |
+| `live-standings.md` | Auto-updated after each group stage result |
 
 To use your own Obsidian vault instead of the built-in one, set `OBSIDIAN_VAULT_PATH` in `.env`.
 
@@ -180,11 +224,19 @@ To use your own Obsidian vault instead of the built-in one, set `OBSIDIAN_VAULT_
 |---|---|---|
 | GET | `/api/health` | Service health check |
 | GET | `/api/matches` | All 72 group stage fixtures (SGT) |
+| GET | `/api/matches/:group` | Fixtures for a single group (a–l) |
 | GET | `/api/teams` | All 48 team stats |
 | GET | `/api/predictions` | All saved predictions |
+| GET | `/api/predictions/:matchId` | Single prediction |
 | POST | `/api/analyze/:matchId` | Run AI analysis for a match |
+| GET | `/api/results` | All stored group stage results |
 | GET | `/api/countdown` | Time to opening match |
-| GET | `/api/results` | All stored match results |
+| GET | `/api/summary` | Group winners + total goals |
+| GET | `/api/export/csv` | Download predictions as CSV |
+| POST | `/api/calendar/create-all` | Create Google Calendar events for all 72 matches |
+| POST | `/api/calendar/create/:matchId` | Create calendar event for one match |
+| GET | `/api/obsidian/notes` | List all WC vault notes |
+| GET | `/api/obsidian/note/:filename` | Read a specific vault note |
 
 ---
 
@@ -207,3 +259,4 @@ To use your own Obsidian vault instead of the built-in one, set `OBSIDIAN_VAULT_
 - Rate limit: **3 Qwen questions per user per 5 minutes**
 - Responses are **bilingual** (English + Chinese) for all AI-generated answers
 - The model is kept **warm in memory** (`keep_alive: 10m`) between requests
+- Team name normalisation handles API variants (e.g. `Türkiye`, `Ivory Coast`, `USA`)
