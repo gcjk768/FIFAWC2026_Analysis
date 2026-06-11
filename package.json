@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "wc2026-predictor",
   "version": "4.0.0",
-  "description": "FIFA World Cup 2026 AI Match Predictor — qwen3.5:35b + Telegram + Obsidian",
+  "description": "FIFA World Cup 2026 AI Match Predictor — qwen3.6:35b + Telegram + Obsidian",
   "main": "server.js",
   "scripts": {
     "start": "concurrently \"node mcp-servers/obsidian-mcp/index.js\" \"node mcp-servers/telegram-mcp/index.js\" \"node server.js\" \"node scheduler.js\" \"node chatbot.js\"",

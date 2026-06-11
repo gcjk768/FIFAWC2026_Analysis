@@ -1,0 +1,771 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fissues%3Fq%3Dnvfp4
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fissues%2Findex&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e138]:
+      - heading "Issues" [level=1] [ref=e139]
+      - generic [ref=e140]:
+        - generic [ref=e142]:
+          - form "Search Issues" [ref=e144]:
+            - generic [ref=e145]: Search Issues
+            - generic [ref=e147]:
+              - generic [ref=e149]:
+                - generic [ref=e151]: nvfp4
+                - combobox "Search Issues" [ref=e153]: nvfp4
+              - button "Search" [ref=e154] [cursor=pointer]:
+                - img [ref=e155]
+          - generic [ref=e157]:
+            - link "Labels" [ref=e158] [cursor=pointer]:
+              - /url: /ollama/ollama/labels
+              - generic [ref=e159]:
+                - generic:
+                  - img
+                - generic [ref=e160]: Labels
+            - link "Milestones" [ref=e161] [cursor=pointer]:
+              - /url: /ollama/ollama/milestones
+              - generic [ref=e162]:
+                - generic:
+                  - img
+                - generic [ref=e163]: Milestones
+            - link "New issue" [ref=e164] [cursor=pointer]:
+              - /url: /login?return_to=https://github.com/ollama/ollama/issues?q=nvfp4
+              - generic [ref=e166]: New issue
+        - generic [ref=e170]:
+          - heading "Search results" [level=2] [ref=e171]
+          - generic [ref=e172]:
+            - generic [ref=e173]:
+              - link "Open" [ref=e174] [cursor=pointer]:
+                - /url: ""
+                - generic [ref=e175]: Open
+              - link "Closed" [ref=e177] [cursor=pointer]:
+                - /url: ""
+                - generic [ref=e178]: Closed
+            - toolbar "Actions" [ref=e180]:
+              - generic [ref=e181]:
+                - button "Filter by author" [ref=e183] [cursor=pointer]:
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: Author
+                    - generic:
+                      - img
+                - button "Filter by label" [ref=e187] [cursor=pointer]:
+                  - generic [ref=e188]:
+                    - generic [ref=e189]: Labels
+                    - generic:
+                      - img
+                - button "Filter by project" [ref=e191] [cursor=pointer]:
+                  - generic [ref=e192]:
+                    - generic [ref=e193]: Projects
+                    - generic:
+                      - img
+                - button "Filter by milestone" [ref=e195] [cursor=pointer]:
+                  - generic [ref=e196]:
+                    - generic [ref=e197]: Milestones
+                    - generic:
+                      - img
+                - button "Filter by assignees" [ref=e199] [cursor=pointer]:
+                  - generic [ref=e200]:
+                    - generic [ref=e201]: Assignees
+                    - generic:
+                      - img
+                - button "Filter by issue type" [ref=e203] [cursor=pointer]:
+                  - generic [ref=e204]:
+                    - generic [ref=e205]: Types
+                    - generic:
+                      - img
+                - button "Sort by Newest , descending" [ref=e207] [cursor=pointer]:
+                  - generic [ref=e208]:
+                    - generic:
+                      - img
+                    - generic [ref=e209]:
+                      - generic [ref=e210]: Sort by
+                      - text: Newest
+                      - generic [ref=e211]: ", descending"
+                  - generic:
+                    - img
+          - list "Search results" [ref=e212]:
+            - listitem "More information available below." [ref=e215]:
+              - heading "Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code" [level=3] [ref=e217]:
+                - link "Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code" [ref=e218] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues/16279
+                  - generic [ref=e219]: Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code
+              - generic [ref=e224]:
+                - img [ref=e226]
+                - generic [ref=e229]: "Status: Open."
+              - generic [ref=e233]:
+                - generic [ref=e234]:
+                  - generic [ref=e235]: "#16279"
+                  - generic [ref=e236]: In ollama/ollama;
+                - generic [ref=e237]:
+                  - text: ·
+                  - link "heykb" [ref=e238] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Aheykb
+                  - text: opened
+                  - generic "May 24, 2026, 10:23 AM GMT+8" [ref=e239]: on May 24, 20261 hour ago
+            - listitem "More information available below." [ref=e243]:
+              - generic [ref=e244]:
+                - heading "MLX/NVFP4 models ignore num_ctx and always load with 256K context" [level=3] [ref=e245]:
+                  - link "MLX/NVFP4 models ignore num_ctx and always load with 256K context" [ref=e246] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16219
+                    - generic [ref=e247]: MLX/NVFP4 models ignore num_ctx and always load with 256K context
+                - link "bug Something isn't working" [ref=e251] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e253]: bug
+                  - generic [ref=e254]: Something isn't working
+              - generic [ref=e258]:
+                - img [ref=e260]
+                - generic [ref=e263]: "Status: Closed (completed)."
+              - generic [ref=e267]:
+                - generic [ref=e268]:
+                  - generic [ref=e269]: "#16219"
+                  - generic [ref=e270]: In ollama/ollama;
+                - generic [ref=e271]:
+                  - text: · by
+                  - link "kuri54" [ref=e272] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Akuri54
+                  - text: was closed
+                  - generic "May 19, 2026, 10:41 PM GMT+8" [ref=e273]: on May 19, 20265 days ago
+            - listitem "More information available below." [ref=e277]:
+              - heading "MLX runner has no repetition loop detection or abort — streams repeated output indefinitely at large contexts" [level=3] [ref=e279]:
+                - link "MLX runner has no repetition loop detection or abort — streams repeated output indefinitely at large contexts" [ref=e280] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues/16179
+                  - generic [ref=e281]: MLX runner has no repetition loop detection or abort — streams repeated output indefinitely at large contexts
+              - generic [ref=e286]:
+                - img [ref=e288]
+                - generic [ref=e291]: "Status: Open."
+              - generic [ref=e295]:
+                - generic [ref=e296]:
+                  - generic [ref=e297]: "#16179"
+                  - generic [ref=e298]: In ollama/ollama;
+                - generic [ref=e299]:
+                  - text: ·
+                  - link "davidvv" [ref=e300] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Adavidvv
+                  - text: opened
+                  - generic "May 16, 2026, 6:23 AM GMT+8" [ref=e301]: on May 16, 2026last week
+            - listitem "More information available below." [ref=e305]:
+              - generic [ref=e306]:
+                - heading "Poor performance of the nvfp4 models on MacBook Pro M3" [level=3] [ref=e307]:
+                  - link "Poor performance of the nvfp4 models on MacBook Pro M3" [ref=e308] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16127
+                    - generic [ref=e309]: Poor performance of the nvfp4 models on MacBook Pro M3
+                - link "bug Something isn't working" [ref=e313] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e315]: bug
+                  - generic [ref=e316]: Something isn't working
+              - generic [ref=e320]:
+                - img [ref=e322]
+                - generic [ref=e324]: "Status: Duplicate of an existing item."
+              - generic [ref=e328]:
+                - generic [ref=e329]:
+                  - generic [ref=e330]: "#16127"
+                  - generic [ref=e331]: In ollama/ollama;
+                - generic [ref=e332]:
+                  - text: · by
+                  - link "johnkea" [ref=e333] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Ajohnkea
+                  - text: was closed
+                  - generic "May 13, 2026, 8:03 PM GMT+8" [ref=e334]: on May 13, 20262 weeks ago
+                - generic [ref=e335]: · Duplicate
+            - listitem "More information available below." [ref=e339]:
+              - generic [ref=e340]:
+                - 'heading "[Mac/MLX] Regression: MLX Runner killed by 10s watchdog timeout during large context prefill/generation" [level=3] [ref=e341]':
+                  - 'link "[Mac/MLX] Regression: MLX Runner killed by 10s watchdog timeout during large context prefill/generation" [ref=e342] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16081
+                    - generic [ref=e343]: "[Mac/MLX] Regression: MLX Runner killed by 10s watchdog timeout during large context prefill/generation"
+                - link "bug Something isn't working" [ref=e347] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e349]: bug
+                  - generic [ref=e350]: Something isn't working
+              - generic [ref=e354]:
+                - img [ref=e356]
+                - generic [ref=e359]: "Status: Closed (completed)."
+              - generic [ref=e363]:
+                - generic [ref=e364]:
+                  - generic [ref=e365]: "#16081"
+                  - generic [ref=e366]: In ollama/ollama;
+                - generic [ref=e367]:
+                  - text: · by
+                  - link "iggori" [ref=e368] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Aiggori
+                  - text: was closed
+                  - generic "May 12, 2026, 7:03 AM GMT+8" [ref=e369]: on May 12, 20262 weeks ago
+            - listitem "More information available below." [ref=e373]:
+              - heading "First-class embedding & reranker support for Qwen3-Embedding, nomic-embed-text-v2-moe & multimodal embedders (Safetensors → MLX path)" [level=3] [ref=e375]:
+                - link "First-class embedding & reranker support for Qwen3-Embedding, nomic-embed-text-v2-moe & multimodal embedders (Safetensors → MLX path)" [ref=e376] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues/16076
+                  - generic [ref=e377]: First-class embedding & reranker support for Qwen3-Embedding, nomic-embed-text-v2-moe & multimodal embedders (Safetensors → MLX path)
+              - generic [ref=e382]:
+                - img [ref=e384]
+                - generic [ref=e387]: "Status: Open."
+              - generic [ref=e391]:
+                - generic [ref=e392]:
+                  - generic [ref=e393]: "#16076"
+                  - generic [ref=e394]: In ollama/ollama;
+                - generic [ref=e395]:
+                  - text: ·
+                  - link "CharafChnioune" [ref=e396] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3ACharafChnioune
+                  - text: opened
+                  - generic "May 10, 2026, 5:19 PM GMT+8" [ref=e397]: on May 10, 20262 weeks ago
+            - listitem "More information available below." [ref=e401]:
+              - 'heading "create: MLX panic \"no Stream(gpu, 1)\" quantizing safetensors on Apple Silicon — regression in v0.23.1" [level=3] [ref=e403]':
+                - 'link "create: MLX panic \"no Stream(gpu, 1)\" quantizing safetensors on Apple Silicon — regression in v0.23.1" [ref=e404] [cursor=pointer]':
+                  - /url: /ollama/ollama/issues/16070
+                  - generic [ref=e405]: "create: MLX panic \"no Stream(gpu, 1)\" quantizing safetensors on Apple Silicon — regression in v0.23.1"
+              - generic [ref=e410]:
+                - img [ref=e412]
+                - generic [ref=e415]: "Status: Open."
+              - generic [ref=e419]:
+                - generic [ref=e420]:
+                  - generic [ref=e421]: "#16070"
+                  - generic [ref=e422]: In ollama/ollama;
+                - generic [ref=e423]:
+                  - text: ·
+                  - link "ooki1jp" [ref=e424] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Aooki1jp
+                  - text: opened
+                  - generic "May 10, 2026, 11:19 AM GMT+8" [ref=e425]: on May 10, 20262 weeks ago
+            - listitem "More information available below." [ref=e429]:
+              - generic [ref=e430]:
+                - heading "NVDIA nvfp4 support for ollama" [level=3] [ref=e431]:
+                  - link "NVDIA nvfp4 support for ollama" [ref=e432] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16056
+                    - generic [ref=e433]: NVDIA nvfp4 support for ollama
+                - link "feature request New feature or request" [ref=e437] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3A%22feature%20request%22
+                  - generic [ref=e439]: feature request
+                  - generic [ref=e440]: New feature or request
+              - generic [ref=e444]:
+                - img [ref=e446]
+                - generic [ref=e449]: "Status: Open."
+              - generic [ref=e453]:
+                - generic [ref=e454]:
+                  - generic [ref=e455]: "#16056"
+                  - generic [ref=e456]: In ollama/ollama;
+                - generic [ref=e457]:
+                  - text: ·
+                  - link "Huckies" [ref=e458] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3AHuckies
+                  - text: opened
+                  - generic "May 9, 2026, 2:56 PM GMT+8" [ref=e459]: on May 9, 20262 weeks ago
+            - listitem "More information available below." [ref=e463]:
+              - generic [ref=e464]:
+                - heading "nvfp4 models stopped working on Apple M3" [level=3] [ref=e465]:
+                  - link "nvfp4 models stopped working on Apple M3" [ref=e466] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16044
+                    - generic [ref=e467]: nvfp4 models stopped working on Apple M3
+                - generic [ref=e469]:
+                  - link "bug Something isn't working" [ref=e471] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                    - generic [ref=e473]: bug
+                    - generic [ref=e474]: Something isn't working
+                  - link "needs more info More information is needed to assist" [ref=e476] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20label%3A%22needs%20more%20info%22
+                    - generic [ref=e478]: needs more info
+                    - generic [ref=e479]: More information is needed to assist
+              - generic [ref=e483]:
+                - img [ref=e485]
+                - generic [ref=e488]: "Status: Closed (completed)."
+              - generic [ref=e492]:
+                - generic [ref=e493]:
+                  - generic [ref=e494]: "#16044"
+                  - generic [ref=e495]: In ollama/ollama;
+                - generic [ref=e496]:
+                  - text: · by
+                  - link "johnkea" [ref=e497] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Ajohnkea
+                  - text: was closed
+                  - generic "May 12, 2026, 7:37 AM GMT+8" [ref=e498]: on May 12, 20262 weeks ago
+            - listitem "More information available below." [ref=e502]:
+              - 'heading "runner: Remove CGO engines, use llama-server exclusively for GGML models" [level=3] [ref=e504]':
+                - 'link "runner: Remove CGO engines, use llama-server exclusively for GGML models" [ref=e505] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/16031
+                  - generic [ref=e506]: "runner: Remove CGO engines, use llama-server exclusively for GGML models"
+              - generic [ref=e511]:
+                - img [ref=e513]
+                - generic [ref=e515]: "Status: Open (in progress)."
+              - generic [ref=e519]:
+                - generic [ref=e520]:
+                  - text: ollama/ollama
+                  - generic [ref=e521]: number 16031
+                - generic [ref=e522]:
+                  - generic [ref=e523]: "#16031"
+                  - generic [ref=e524]: In ollama/ollama;
+                - generic [ref=e525]:
+                  - text: ·
+                  - link "dhiltgen" [ref=e526] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Adhiltgen
+                  - text: opened
+                  - generic "May 7, 2026, 8:08 AM GMT+8" [ref=e527]: on May 7, 20262 weeks ago
+            - listitem "More information available below." [ref=e535]:
+              - generic [ref=e536]:
+                - heading "MLX - nvfp4 models on MacOs extremely slow under memory pressure" [level=3] [ref=e537]:
+                  - link "MLX - nvfp4 models on MacOs extremely slow under memory pressure" [ref=e538] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16030
+                    - generic [ref=e539]: MLX - nvfp4 models on MacOs extremely slow under memory pressure
+                - generic [ref=e541]:
+                  - link "bug Something isn't working" [ref=e543] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                    - generic [ref=e545]: bug
+                    - generic [ref=e546]: Something isn't working
+                  - link "mlx" [ref=e548] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20label%3Amlx
+                    - generic [ref=e550]: mlx
+              - generic [ref=e555]:
+                - img [ref=e557]
+                - generic [ref=e560]: "Status: Open."
+              - generic [ref=e564]:
+                - generic [ref=e565]:
+                  - generic [ref=e566]: "#16030"
+                  - generic [ref=e567]: In ollama/ollama;
+                - generic [ref=e568]:
+                  - text: ·
+                  - link "alemata2006" [ref=e569] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Aalemata2006
+                  - text: opened
+                  - generic "May 7, 2026, 7:07 AM GMT+8" [ref=e570]: on May 7, 20262 weeks ago
+            - listitem "More information available below." [ref=e574]:
+              - generic [ref=e575]:
+                - 'heading "0.23.1 : mlx runner failed" [level=3] [ref=e576]':
+                  - 'link "0.23.1 : mlx runner failed" [ref=e577] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16007
+                    - generic [ref=e578]: "0.23.1 : mlx runner failed"
+                - link "bug Something isn't working" [ref=e582] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e584]: bug
+                  - generic [ref=e585]: Something isn't working
+              - generic [ref=e589]:
+                - img [ref=e591]
+                - generic [ref=e594]: "Status: Closed (completed)."
+              - generic [ref=e598]:
+                - generic [ref=e599]:
+                  - generic [ref=e600]: "#16007"
+                  - generic [ref=e601]: In ollama/ollama;
+                - generic [ref=e602]:
+                  - text: · by
+                  - link "Bigood" [ref=e603] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3ABigood
+                  - text: was closed
+                  - generic "May 12, 2026, 7:37 AM GMT+8" [ref=e604]: on May 12, 20262 weeks ago
+            - listitem "More information available below." [ref=e608]:
+              - 'heading "mlx: Gemma4 MTP speculative decoding" [level=3] [ref=e610]':
+                - 'link "mlx: Gemma4 MTP speculative decoding" [ref=e611] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/15980
+                  - generic [ref=e612]: "mlx: Gemma4 MTP speculative decoding"
+              - generic [ref=e617]:
+                - img [ref=e619]
+                - generic [ref=e621]: "Status: Merged (completed)."
+              - generic [ref=e625]:
+                - generic [ref=e626]:
+                  - text: ollama/ollama
+                  - generic [ref=e627]: number 15980
+                - generic [ref=e628]:
+                  - generic [ref=e629]: "#15980"
+                  - generic [ref=e630]: In ollama/ollama;
+                - generic [ref=e631]:
+                  - text: · by
+                  - link "pdevine" [ref=e632] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Apdevine
+                  - text: was closed
+                  - generic "May 5, 2026, 11:55 PM GMT+8" [ref=e633]: on May 5, 20263 weeks ago
+            - listitem "More information available below." [ref=e641]:
+              - generic [ref=e642]:
+                - heading "qwen3.6:35b-a3b-coding-nvfp4 and preserve_thinking" [level=3] [ref=e643]:
+                  - link "qwen3.6:35b-a3b-coding-nvfp4 and preserve_thinking" [ref=e644] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/15963
+                    - generic [ref=e645]: qwen3.6:35b-a3b-coding-nvfp4 and preserve_thinking
+                - link "bug Something isn't working" [ref=e649] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e651]: bug
+                  - generic [ref=e652]: Something isn't working
+              - generic [ref=e656]:
+                - img [ref=e658]
+                - generic [ref=e661]: "Status: Open."
+              - generic [ref=e665]:
+                - generic [ref=e666]:
+                  - generic [ref=e667]: "#15963"
+                  - generic [ref=e668]: In ollama/ollama;
+                - generic [ref=e669]:
+                  - text: ·
+                  - link "zaskara" [ref=e670] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Azaskara
+                  - text: opened
+                  - generic "May 4, 2026, 10:20 PM GMT+8" [ref=e671]: on May 4, 20263 weeks ago
+            - listitem "More information available below." [ref=e675]:
+              - 'heading "mlx: unify MoE expert grouping across MLX model imports" [level=3] [ref=e677]':
+                - 'link "mlx: unify MoE expert grouping across MLX model imports" [ref=e678] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/15951
+                  - generic [ref=e679]: "mlx: unify MoE expert grouping across MLX model imports"
+              - generic [ref=e684]:
+                - img [ref=e686]
+                - generic [ref=e688]: "Status: Open (in progress)."
+              - generic [ref=e692]:
+                - generic [ref=e693]:
+                  - text: ollama/ollama
+                  - generic [ref=e694]: number 15951
+                - generic [ref=e695]:
+                  - generic [ref=e696]: "#15951"
+                  - generic [ref=e697]: In ollama/ollama;
+                - generic [ref=e698]:
+                  - text: ·
+                  - link "dhiltgen" [ref=e699] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Adhiltgen
+                  - text: opened
+                  - generic "May 4, 2026, 6:23 AM GMT+8" [ref=e700]: on May 4, 20263 weeks ago
+            - listitem "More information available below." [ref=e708]:
+              - generic [ref=e709]:
+                - heading "Can't change context windows size of qwen3.6 (mlx runner)" [level=3] [ref=e710]:
+                  - link "Can't change context windows size of qwen3.6 (mlx runner)" [ref=e711] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/15944
+                    - generic [ref=e712]: Can't change context windows size of qwen3.6 (mlx runner)
+                - link "bug Something isn't working" [ref=e716] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e718]: bug
+                  - generic [ref=e719]: Something isn't working
+              - generic [ref=e723]:
+                - img [ref=e725]
+                - generic [ref=e728]: "Status: Closed (completed)."
+              - generic [ref=e732]:
+                - generic [ref=e733]:
+                  - generic [ref=e734]: "#15944"
+                  - generic [ref=e735]: In ollama/ollama;
+                - generic [ref=e736]:
+                  - text: · by
+                  - link "gradha" [ref=e737] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Agradha
+                  - text: was closed
+                  - generic "May 8, 2026, 7:26 PM GMT+8" [ref=e738]: on May 8, 20262 weeks ago
+            - listitem "More information available below." [ref=e742]:
+              - 'heading "mlxrunner: add decode checkpoints for exact-restore caches" [level=3] [ref=e744]':
+                - 'link "mlxrunner: add decode checkpoints for exact-restore caches" [ref=e745] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/15914
+                  - generic [ref=e746]: "mlxrunner: add decode checkpoints for exact-restore caches"
+              - generic [ref=e751]:
+                - img [ref=e753]
+                - generic [ref=e755]: "Status: Draft (not ready)."
+              - generic [ref=e759]:
+                - generic [ref=e760]:
+                  - text: ollama/ollama
+                  - generic [ref=e761]: number 15914
+                - generic [ref=e762]:
+                  - generic [ref=e763]: "#15914"
+                  - generic [ref=e764]: In ollama/ollama;
+                - generic [ref=e765]:
+                  - text: ·
+                  - link "ParthSareen" [ref=e766] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3AParthSareen
+                  - text: opened
+                  - generic "May 1, 2026, 5:05 PM GMT+8" [ref=e767]: on May 1, 20263 weeks ago
+            - listitem "More information available below." [ref=e775]:
+              - 'heading "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8" [level=3] [ref=e777]':
+                - 'link "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8" [ref=e778] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/15902
+                  - generic [ref=e779]: "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8"
+              - generic [ref=e784]:
+                - img [ref=e786]
+                - generic [ref=e788]: "Status: Open (in progress)."
+              - generic [ref=e792]:
+                - generic [ref=e793]:
+                  - text: ollama/ollama
+                  - generic [ref=e794]: number 15902
+                - generic [ref=e795]:
+                  - generic [ref=e796]: "#15902"
+                  - generic [ref=e797]: In ollama/ollama;
+                - generic [ref=e798]:
+                  - text: ·
+                  - link "ArkaD171717" [ref=e799] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3AArkaD171717
+                  - text: opened
+                  - generic "May 1, 2026, 12:32 AM GMT+8" [ref=e800]: on May 1, 20263 weeks ago
+            - listitem "More information available below." [ref=e808]:
+              - generic [ref=e809]:
+                - heading "qwen3.6:35b-a3b-nvfp4 1b50c6fdc2d4 gets stuck in thinking loop" [level=3] [ref=e810]:
+                  - link "qwen3.6:35b-a3b-nvfp4 1b50c6fdc2d4 gets stuck in thinking loop" [ref=e811] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/15880
+                    - generic [ref=e812]: qwen3.6:35b-a3b-nvfp4 1b50c6fdc2d4 gets stuck in thinking loop
+                - link "bug Something isn't working" [ref=e816] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e818]: bug
+                  - generic [ref=e819]: Something isn't working
+              - generic [ref=e823]:
+                - img [ref=e825]
+                - generic [ref=e828]: "Status: Open."
+              - generic [ref=e832]:
+                - generic [ref=e833]:
+                  - generic [ref=e834]: "#15880"
+                  - generic [ref=e835]: In ollama/ollama;
+                - generic [ref=e836]:
+                  - text: ·
+                  - link "xmddmx" [ref=e837] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Axmddmx
+                  - text: opened
+                  - generic "Apr 29, 2026, 10:40 PM GMT+8" [ref=e838]: on Apr 29, 2026last month
+            - listitem "More information available below." [ref=e842]:
+              - heading "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero" [level=3] [ref=e844]:
+                - link "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero" [ref=e845] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues/15866
+                  - generic [ref=e846]: qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero
+              - generic [ref=e851]:
+                - img [ref=e853]
+                - generic [ref=e856]: "Status: Open."
+              - generic [ref=e860]:
+                - generic [ref=e861]:
+                  - generic [ref=e862]: "#15866"
+                  - generic [ref=e863]: In ollama/ollama;
+                - generic [ref=e864]:
+                  - text: ·
+                  - link "andreinknv" [ref=e865] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Aandreinknv
+                  - text: opened
+                  - generic "Apr 29, 2026, 6:42 AM GMT+8" [ref=e866]: on Apr 29, 2026last month
+            - listitem "More information available below." [ref=e870]:
+              - 'heading "mlxrunner: gated_delta_step kernel writes recurrent state in InT (bf16) instead of StT (fp32), corrupting Qwen3.5/3.6 GatedDeltaNet output" [level=3] [ref=e872]':
+                - 'link "mlxrunner: gated_delta_step kernel writes recurrent state in InT (bf16) instead of StT (fp32), corrupting Qwen3.5/3.6 GatedDeltaNet output" [ref=e873] [cursor=pointer]':
+                  - /url: /ollama/ollama/issues/15865
+                  - generic [ref=e874]: "mlxrunner: gated_delta_step kernel writes recurrent state in InT (bf16) instead of StT (fp32), corrupting Qwen3.5/3.6 GatedDeltaNet output"
+              - generic [ref=e879]:
+                - img [ref=e881]
+                - generic [ref=e884]: "Status: Closed (completed)."
+              - generic [ref=e888]:
+                - generic [ref=e889]:
+                  - generic [ref=e890]: "#15865"
+                  - generic [ref=e891]: In ollama/ollama;
+                - generic [ref=e892]:
+                  - text: · by
+                  - link "andreinknv" [ref=e893] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Aandreinknv
+                  - text: was closed
+                  - generic "May 20, 2026, 8:39 AM GMT+8" [ref=e894]: on May 20, 20264 days ago
+            - listitem "More information available below." [ref=e898]:
+              - generic [ref=e899]:
+                - 'heading "Error: [ollama run qwen3.6:27b-coding-nvfp4] pull model manifest: 412: this model requires macOS" [level=3] [ref=e900]':
+                  - 'link "Error: [ollama run qwen3.6:27b-coding-nvfp4] pull model manifest: 412: this model requires macOS" [ref=e901] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/15854
+                    - generic [ref=e902]: "Error: [ollama run qwen3.6:27b-coding-nvfp4] pull model manifest: 412: this model requires macOS"
+                - link "bug Something isn't working" [ref=e906] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e908]: bug
+                  - generic [ref=e909]: Something isn't working
+              - generic [ref=e913]:
+                - img [ref=e915]
+                - generic [ref=e918]: "Status: Closed (completed)."
+              - generic [ref=e922]:
+                - generic [ref=e923]:
+                  - generic [ref=e924]: "#15854"
+                  - generic [ref=e925]: In ollama/ollama;
+                - generic [ref=e926]:
+                  - text: · by
+                  - link "master-genius" [ref=e927] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Amaster-genius
+                  - text: was closed
+                  - generic "May 15, 2026, 6:29 PM GMT+8" [ref=e928]: on May 15, 2026last week
+            - listitem "More information available below." [ref=e932]:
+              - generic [ref=e933]:
+                - 'heading "macOS App: web process using over 100% CPU during thinking" [level=3] [ref=e934]':
+                  - 'link "macOS App: web process using over 100% CPU during thinking" [ref=e935] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/15797
+                    - generic [ref=e936]: "macOS App: web process using over 100% CPU during thinking"
+                - link "bug Something isn't working" [ref=e940] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e942]: bug
+                  - generic [ref=e943]: Something isn't working
+              - generic [ref=e947]:
+                - img [ref=e949]
+                - generic [ref=e952]: "Status: Open."
+              - generic [ref=e956]:
+                - generic [ref=e957]:
+                  - generic [ref=e958]: "#15797"
+                  - generic [ref=e959]: In ollama/ollama;
+                - generic [ref=e960]:
+                  - text: ·
+                  - link "xmddmx" [ref=e961] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Axmddmx
+                  - text: opened
+                  - generic "Apr 24, 2026, 10:21 PM GMT+8" [ref=e962]: on Apr 24, 2026last month
+            - listitem "More information available below." [ref=e966]:
+              - 'heading "mlx: update to 0.31.2" [level=3] [ref=e968]':
+                - 'link "mlx: update to 0.31.2" [ref=e969] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/15793
+                  - generic [ref=e970]: "mlx: update to 0.31.2"
+              - generic [ref=e975]:
+                - img [ref=e977]
+                - generic [ref=e979]: "Status: Closed (abandoned)."
+              - generic [ref=e983]:
+                - generic [ref=e984]:
+                  - text: ollama/ollama
+                  - generic [ref=e985]: number 15793
+                - generic [ref=e986]:
+                  - generic [ref=e987]: "#15793"
+                  - generic [ref=e988]: In ollama/ollama;
+                - generic [ref=e989]:
+                  - text: · by
+                  - link "pd95" [ref=e990] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3Apd95
+                  - text: was closed
+                  - generic "May 4, 2026, 1:04 AM GMT+8" [ref=e991]: on May 4, 20263 weeks ago
+            - listitem "More information available below." [ref=e999]:
+              - generic [ref=e1000]:
+                - heading "ollama crashes when running with qwen3.6:35b-a3b-coding-nvfp4 or qwen3.6:27b-coding-mxfp8" [level=3] [ref=e1001]:
+                  - link "ollama crashes when running with qwen3.6:35b-a3b-coding-nvfp4 or qwen3.6:27b-coding-mxfp8" [ref=e1002] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/15775
+                    - generic [ref=e1003]: ollama crashes when running with qwen3.6:35b-a3b-coding-nvfp4 or qwen3.6:27b-coding-mxfp8
+                - link "bug Something isn't working" [ref=e1007] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=nvfp4%20label%3Abug
+                  - generic [ref=e1009]: bug
+                  - generic [ref=e1010]: Something isn't working
+              - generic [ref=e1014]:
+                - img [ref=e1016]
+                - generic [ref=e1019]: "Status: Closed (completed)."
+              - generic [ref=e1023]:
+                - generic [ref=e1024]:
+                  - generic [ref=e1025]: "#15775"
+                  - generic [ref=e1026]: In ollama/ollama;
+                - generic [ref=e1027]:
+                  - text: · by
+                  - link "PaoloSupino" [ref=e1028] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=nvfp4%20author%3APaoloSupino
+                  - text: was closed
+                  - generic "Apr 25, 2026, 3:15 PM GMT+8" [ref=e1029]: on Apr 25, 2026last month
+  - contentinfo [ref=e1031]:
+    - heading "Footer" [level=2] [ref=e1032]
+    - generic [ref=e1033]:
+      - generic [ref=e1034]:
+        - link "GitHub Homepage" [ref=e1035] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e1036]
+        - generic [ref=e1038]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e1039]:
+        - heading "Footer navigation" [level=3] [ref=e1040]
+        - list "Footer navigation" [ref=e1041]:
+          - listitem [ref=e1042]:
+            - link "Terms" [ref=e1043] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e1044]:
+            - link "Privacy" [ref=e1045] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e1046]:
+            - link "Security" [ref=e1047] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e1048]:
+            - link "Status" [ref=e1049] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e1050]:
+            - link "Community" [ref=e1051] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e1052]:
+            - link "Docs" [ref=e1053] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e1054]:
+            - link "Contact" [ref=e1055] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e1056]:
+            - button "Manage cookies" [ref=e1058] [cursor=pointer]
+          - listitem [ref=e1059]:
+            - button "Do not share my personal information" [ref=e1061] [cursor=pointer]

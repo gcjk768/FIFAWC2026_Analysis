@@ -184,7 +184,7 @@ async function handleResult(text) {
   return [
     `🏁 *RESULT*`,
     ``,
-    `⚽ *${escapeMd(found.team1)} ${r.score1} — ${r.score2} ${escapeMd(found.team2)}*`,
+    `⚽ *${escapeMd(found.team1)} ${r.score1}:${r.score2} ${escapeMd(found.team2)}*`,
     `📅 ${escapeMd(found.dateSgt)} SGT \\| Group ${found.group}`,
   ].join('\n');
 }

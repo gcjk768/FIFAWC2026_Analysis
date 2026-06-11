@@ -1,0 +1,589 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fpull%2F15902
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fvoltron%2Fpull_requests_fragments%2Fpull_request_layout&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e132]:
+      - generic [ref=e135]:
+        - 'heading "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8 #15902" [level=1] [ref=e137]':
+          - text: "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8"
+          - generic [ref=e139]: "#15902"
+        - generic [ref=e141]:
+          - generic [ref=e143]:
+            - img "Pull request" [ref=e144]
+            - text: Open
+          - generic [ref=e147]:
+            - link "ArkaD171717" [ref=e148] [cursor=pointer]:
+              - /url: /ArkaD171717
+            - text: wants to merge 1 commit into
+            - generic [ref=e149]:
+              - link "ollama:main" [ref=e150] [cursor=pointer]:
+                - /url: /ollama/ollama/tree/main
+              - generic [ref=e151]: from
+              - generic [ref=e152]:
+                - link "ArkaD171717:fix/qwen35-nvfp4-qkv-bf16" [ref=e153] [cursor=pointer]:
+                  - /url: /ArkaD171717/ollama/tree/fix/qwen35-nvfp4-qkv-bf16
+                - button "Copy head branch name to clipboard" [ref=e154] [cursor=pointer]:
+                  - img [ref=e155]
+        - navigation "Pull request navigation tabs" [ref=e161]:
+          - tablist [ref=e162]:
+            - tab "Conversation" [selected] [ref=e163] [cursor=pointer]:
+              - img [ref=e164]
+              - text: Conversation
+            - tab "Commits (1)" [ref=e166] [cursor=pointer]:
+              - img [ref=e167]
+              - text: Commits
+              - generic [ref=e169]: "1"
+              - generic [ref=e170]: (1)
+            - tab "Checks" [ref=e171] [cursor=pointer]:
+              - img [ref=e172]
+              - text: Checks
+            - tab "Files changed" [ref=e174] [cursor=pointer]:
+              - img [ref=e175]
+              - text: Files changed
+      - generic [ref=e181]:
+        - generic [ref=e183]:
+          - heading "Conversation" [level=2] [ref=e184]
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - generic [ref=e188]:
+                - link "@ArkaD171717" [ref=e189] [cursor=pointer]:
+                  - /url: /ArkaD171717
+                  - img "@ArkaD171717" [ref=e190]
+                - generic [ref=e192]:
+                  - generic [ref=e193]:
+                    - group [ref=e196]:
+                      - button "Show options" [ref=e197] [cursor=pointer]:
+                        - img "Show options" [ref=e200]
+                    - heading "ArkaD171717 commented Apr 30, 20263 weeks ago •" [level=3] [ref=e202]:
+                      - generic [ref=e203]:
+                        - strong [ref=e204]:
+                          - link "ArkaD171717" [ref=e205] [cursor=pointer]:
+                            - /url: /ArkaD171717
+                        - text: commented
+                        - link "Apr 30, 20263 weeks ago" [ref=e206] [cursor=pointer]:
+                          - /url: "#issue-4359711509"
+                        - generic [ref=e207]:
+                          - generic [ref=e208]: •
+                          - group [ref=e209]:
+                            - button "edited" [ref=e210] [cursor=pointer]:
+                              - generic [ref=e211]:
+                                - text: edited
+                                - img [ref=e212]
+                  - generic [ref=e217]:
+                    - heading "Summary" [level=2] [ref=e218]
+                    - paragraph [ref=e219]:
+                      - text: Adds
+                      - code [ref=e220]: in_proj_qkv.weight
+                      - text: and
+                      - code [ref=e221]: in_proj_z.weight
+                      - text: to the BF16 exemption
+                      - text: list in
+                      - code [ref=e222]: qwen35ShouldKeepBF16ForDirectNonAffine
+                      - text: . The upstream source
+                      - text: (RedHatAI/Qwen3.6-35B-A3B-NVFP4) keeps all
+                      - code [ref=e223]: linear_attn
+                      - text: projections in
+                      - text: BF16 --
+                      - code [ref=e224]: in_proj_a
+                      - text: and
+                      - code [ref=e225]: in_proj_b
+                      - text: were already exempted but
+                      - code [ref=e226]: in_proj_qkv
+                      - text: and
+                      - code [ref=e227]: in_proj_z
+                      - text: were missing, so they got NVFP4-quantized.
+                    - paragraph [ref=e228]:
+                      - text: The K-projection rows in
+                      - code [ref=e229]: in_proj_qkv
+                      - text: have small magnitudes (0.01-0.04)
+                      - text: in early layers that fall below the smallest FP4 codepoint at group_size=16,
+                      - text: zeroing out layers 0-1 entirely.
+                    - heading "Weight magnitude analysis (source BF16, Qwen/Qwen3.6-35B-A3B)" [level=3] [ref=e230]
+                    - table [ref=e232]:
+                      - rowgroup [ref=e233]:
+                        - row "Tensor Layer Median abs % < 0.01 % < 0.05" [ref=e234]:
+                          - columnheader "Tensor" [ref=e235]
+                          - columnheader "Layer" [ref=e236]
+                          - columnheader "Median abs" [ref=e237]
+                          - columnheader "% < 0.01" [ref=e238]
+                          - columnheader "% < 0.05" [ref=e239]
+                      - rowgroup [ref=e240]:
+                        - row "in_proj_qkv 0 0.0093 52.7% 99.5%" [ref=e241]:
+                          - cell "in_proj_qkv" [ref=e242]
+                          - cell "0" [ref=e243]
+                          - cell "0.0093" [ref=e244]
+                          - cell "52.7%" [ref=e245]
+                          - cell "99.5%" [ref=e246]
+                        - row "in_proj_z 0 0.0109 46.3% 99.4%" [ref=e247]:
+                          - cell "in_proj_z" [ref=e248]
+                          - cell "0" [ref=e249]
+                          - cell "0.0109" [ref=e250]
+                          - cell "46.3%" [ref=e251]
+                          - cell "99.4%" [ref=e252]
+                        - row "in_proj_qkv 1 0.0100 49.8% 99.4%" [ref=e253]:
+                          - cell "in_proj_qkv" [ref=e254]
+                          - cell "1" [ref=e255]
+                          - cell "0.0100" [ref=e256]
+                          - cell "49.8%" [ref=e257]
+                          - cell "99.4%" [ref=e258]
+                        - row "in_proj_z 1 0.0101 49.4% 99.5%" [ref=e259]:
+                          - cell "in_proj_z" [ref=e260]
+                          - cell "1" [ref=e261]
+                          - cell "0.0101" [ref=e262]
+                          - cell "49.4%" [ref=e263]
+                          - cell "99.5%" [ref=e264]
+                    - paragraph [ref=e265]: Both tensors have ~50% of weights below the smallest FP4 codepoint at group_size=16. in_proj_z has the same zero-collapse risk as in_proj_qkv.
+                    - paragraph [ref=e266]: Test updated, passes locally for nvfp4/mxfp8/mxfp4.
+                    - paragraph [ref=e267]:
+                      - text: Fixes
+                      - link "#15866" [ref=e268] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/issues/15866
+                  - 'button "heart (2): ArkaD171717, 04:32PM on April 30" [disabled] [ref=e273]':
+                    - generic [ref=e274]: ❤️
+                    - generic [ref=e275]: "2"
+              - generic [ref=e276]:
+                - generic [ref=e280]:
+                  - img [ref=e282]
+                  - generic [ref=e287]:
+                    - link "@ArkaD171717" [ref=e290] [cursor=pointer]:
+                      - /url: /ArkaD171717
+                      - img "@ArkaD171717" [ref=e291]
+                    - generic [ref=e292]:
+                      - code [ref=e293]:
+                        - 'link "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/…" [ref=e294] [cursor=pointer]':
+                          - /url: /ollama/ollama/pull/15902/commits/0e1a7b47007c68f493ee4f170015fe27d8f20b6a
+                      - button "Commit message body" [ref=e296] [cursor=pointer]: …
+                    - code [ref=e304]:
+                      - link "0e1a7b4" [ref=e305] [cursor=pointer]:
+                        - /url: /ollama/ollama/pull/15902/commits/0e1a7b47007c68f493ee4f170015fe27d8f20b6a
+                - generic [ref=e307]:
+                  - img [ref=e309]
+                  - generic [ref=e311]:
+                    - generic [ref=e312]: This was referenced Apr 30, 20263 weeks ago
+                    - generic [ref=e313]:
+                      - 'link "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero #15866" [ref=e315] [cursor=pointer]':
+                        - /url: /ollama/ollama/issues/15866
+                      - 'generic "Status: Open" [ref=e317]':
+                        - img [ref=e318]
+                        - text: Open
+                    - generic [ref=e321]:
+                      - 'link "qwen3.6:35b-a3b-nvfp4 1b50c6fdc2d4 gets stuck in thinking loop #15880" [ref=e323] [cursor=pointer]':
+                        - /url: /ollama/ollama/issues/15880
+                      - 'generic "Status: Open" [ref=e325]':
+                        - img [ref=e326]
+                        - text: Open
+                - generic [ref=e330]:
+                  - link "@BruceMacD" [ref=e332] [cursor=pointer]:
+                    - /url: /BruceMacD
+                    - img "@BruceMacD" [ref=e333]
+                  - generic [ref=e335]:
+                    - generic [ref=e336]:
+                      - generic [ref=e337]:
+                        - group [ref=e339]:
+                          - button "Show options" [ref=e340] [cursor=pointer]:
+                            - img "Show options" [ref=e343]
+                        - generic "This user is a member of the ollama organization." [ref=e346]:
+                          - generic [ref=e347]: Member
+                      - heading "BruceMacD commented May 1, 20263 weeks ago" [level=3] [ref=e348]:
+                        - generic [ref=e349]:
+                          - strong [ref=e350]:
+                            - link "BruceMacD" [ref=e351] [cursor=pointer]:
+                              - /url: /BruceMacD
+                          - text: commented
+                          - link "May 1, 20263 weeks ago" [ref=e352] [cursor=pointer]:
+                            - /url: "#issuecomment-4360442923"
+                    - generic [ref=e353]:
+                      - table [ref=e355]:
+                        - rowgroup [ref=e356]:
+                          - 'row "Issue #15866 only documents corruption on in_proj_qkv. Did you actually observe zero-collapse on in_proj_z, or is this added purely for parity with upstream RedHatAI keeping all linear_attn projections in BF16? Worth stating in the description either way." [ref=e357]':
+                            - 'cell "Issue #15866 only documents corruption on in_proj_qkv. Did you actually observe zero-collapse on in_proj_z, or is this added purely for parity with upstream RedHatAI keeping all linear_attn projections in BF16? Worth stating in the description either way." [ref=e358]':
+                              - paragraph [ref=e359]:
+                                - text: Issue
+                                - link "#15866" [ref=e360] [cursor=pointer]:
+                                  - /url: https://github.com/ollama/ollama/issues/15866
+                                - text: only documents corruption on
+                                - code [ref=e361]: in_proj_qkv
+                                - text: . Did you actually observe zero-collapse on
+                                - code [ref=e362]: in_proj_z
+                                - text: ", or is this added purely for parity with upstream RedHatAI keeping all"
+                                - code [ref=e363]: linear_attn
+                                - text: projections in BF16? Worth stating in the description either way.
+                      - generic [ref=e368]:
+                        - button "react with thumbs up" [disabled] [ref=e369]:
+                          - generic [ref=e370]: 👍
+                          - generic [ref=e371]: "1"
+                        - button "react with eyes" [disabled] [ref=e372]:
+                          - generic [ref=e373]: 👀
+                          - generic [ref=e374]: "2"
+                - generic [ref=e376]:
+                  - link "@ArkaD171717" [ref=e378] [cursor=pointer]:
+                    - /url: /ArkaD171717
+                    - img "@ArkaD171717" [ref=e379]
+                  - generic [ref=e381]:
+                    - generic [ref=e382]:
+                      - generic [ref=e383]:
+                        - group [ref=e385]:
+                          - button "Show options" [ref=e386] [cursor=pointer]:
+                            - img "Show options" [ref=e389]
+                        - generic "This user is the author of this pull request." [ref=e392]:
+                          - generic [ref=e393]: Author
+                      - heading "ArkaD171717 commented May 1, 20263 weeks ago" [level=3] [ref=e394]:
+                        - generic [ref=e395]:
+                          - strong [ref=e396]:
+                            - link "ArkaD171717" [ref=e397] [cursor=pointer]:
+                              - /url: /ArkaD171717
+                          - text: commented
+                          - link "May 1, 20263 weeks ago" [ref=e398] [cursor=pointer]:
+                            - /url: "#issuecomment-4360553803"
+                    - generic [ref=e399]:
+                      - table [ref=e401]:
+                        - rowgroup [ref=e402]:
+                          - 'row "Hello, thank you for the reply! I actually looked into this earlier and checked the source BF16 weights via range requests on the safetensors file in_proj_z has the same small-magnitude profile as in_proj_qkv in early layers: for layer 0 in_proj_qkv: median abs 0.0093, 52.7% of weights < 0.01 layer 0 in_proj_z: median abs 0.0109, 46.3% of weights < 0.01 layer 1 in_proj_qkv: median abs 0.0100, 49.8% of weights < 0.01 layer 1 in_proj_z: median abs 0.0101, 49.4% of weights < 0.01 Both have ~99.5% of values below 0.05 w/ ~50% of weights below the smallest FP4 codepoint at group_size=16 which is same zero-collapse risk as in_proj_qkv Just forgot to update the PR description. It''ll be done soon to include this data" [ref=e403]':
+                            - 'cell "Hello, thank you for the reply! I actually looked into this earlier and checked the source BF16 weights via range requests on the safetensors file in_proj_z has the same small-magnitude profile as in_proj_qkv in early layers: for layer 0 in_proj_qkv: median abs 0.0093, 52.7% of weights < 0.01 layer 0 in_proj_z: median abs 0.0109, 46.3% of weights < 0.01 layer 1 in_proj_qkv: median abs 0.0100, 49.8% of weights < 0.01 layer 1 in_proj_z: median abs 0.0101, 49.4% of weights < 0.01 Both have ~99.5% of values below 0.05 w/ ~50% of weights below the smallest FP4 codepoint at group_size=16 which is same zero-collapse risk as in_proj_qkv Just forgot to update the PR description. It''ll be done soon to include this data" [ref=e404]':
+                              - paragraph [ref=e405]:
+                                - text: Hello, thank you for the reply!
+                                - text: I actually looked into this earlier and checked the source BF16 weights via range requests on the safetensors file
+                                - text: "in_proj_z has the same small-magnitude profile as in_proj_qkv in early layers:"
+                              - list [ref=e406]:
+                                - listitem [ref=e407]: "for layer 0 in_proj_qkv: median abs 0.0093, 52.7% of weights < 0.01"
+                                - listitem [ref=e408]: "layer 0 in_proj_z: median abs 0.0109, 46.3% of weights < 0.01"
+                                - listitem [ref=e409]: "layer 1 in_proj_qkv: median abs 0.0100, 49.8% of weights < 0.01"
+                                - listitem [ref=e410]: "layer 1 in_proj_z: median abs 0.0101, 49.4% of weights < 0.01"
+                              - paragraph [ref=e411]: Both have ~99.5% of values below 0.05 w/ ~50% of weights below the smallest FP4 codepoint at group_size=16 which is same zero-collapse risk as in_proj_qkv
+                              - paragraph [ref=e412]: Just forgot to update the PR description. It'll be done soon to include this data
+                      - button "react with heart" [disabled] [ref=e418]:
+                        - generic [ref=e419]: ❤️
+                        - generic [ref=e420]: "2"
+                - generic [ref=e421]:
+                  - generic [ref=e422]:
+                    - img [ref=e424]
+                    - generic [ref=e426]:
+                      - link "@BruceMacD" [ref=e427] [cursor=pointer]:
+                        - /url: /BruceMacD
+                        - img "@BruceMacD" [ref=e428]
+                      - link "BruceMacD" [ref=e429] [cursor=pointer]:
+                        - /url: /BruceMacD
+                      - text: requested a review from
+                      - link "pdevine" [ref=e430] [cursor=pointer]:
+                        - /url: /pdevine
+                      - link "May 1, 2026 23:193 weeks ago" [ref=e431] [cursor=pointer]:
+                        - /url: "#event-25085254107"
+                  - generic [ref=e432]:
+                    - img [ref=e434]
+                    - generic [ref=e436]:
+                      - link "@pdevine" [ref=e437] [cursor=pointer]:
+                        - /url: /pdevine
+                        - img "@pdevine" [ref=e438]
+                      - link "pdevine" [ref=e439] [cursor=pointer]:
+                        - /url: /pdevine
+                      - text: self-assigned this
+                      - link "May 2, 20263 weeks ago" [ref=e440] [cursor=pointer]:
+                        - /url: "#event-25087434861"
+                - generic [ref=e442]:
+                  - link "@ArkaD171717" [ref=e444] [cursor=pointer]:
+                    - /url: /ArkaD171717
+                    - img "@ArkaD171717" [ref=e445]
+                  - generic [ref=e447]:
+                    - generic [ref=e448]:
+                      - generic [ref=e449]:
+                        - group [ref=e451]:
+                          - button "Show options" [ref=e452] [cursor=pointer]:
+                            - img "Show options" [ref=e455]
+                        - generic "This user is the author of this pull request." [ref=e458]:
+                          - generic [ref=e459]: Author
+                      - heading "ArkaD171717 commented May 13, 2026last week" [level=3] [ref=e460]:
+                        - generic [ref=e461]:
+                          - strong [ref=e462]:
+                            - link "ArkaD171717" [ref=e463] [cursor=pointer]:
+                              - /url: /ArkaD171717
+                          - text: commented
+                          - link "May 13, 2026last week" [ref=e464] [cursor=pointer]:
+                            - /url: "#issuecomment-4443001645"
+                    - generic [ref=e465]:
+                      - table [ref=e467]:
+                        - rowgroup [ref=e468]:
+                          - row "Hey @pdevine, any chance you could take a quick look at this? Been open for 2 weeks. Thanks" [ref=e469]:
+                            - cell "Hey @pdevine, any chance you could take a quick look at this? Been open for 2 weeks. Thanks" [ref=e470]:
+                              - paragraph [ref=e471]:
+                                - text: Hey
+                                - link "@pdevine" [ref=e472] [cursor=pointer]:
+                                  - /url: https://github.com/pdevine
+                                - text: ", any chance you could take a quick look at this? Been open for 2 weeks. Thanks"
+                      - button "react with heart" [disabled] [ref=e478]:
+                        - generic [ref=e479]: ❤️
+                        - generic [ref=e480]: "2"
+                - generic [ref=e482]:
+                  - link "@ArkaD171717" [ref=e484] [cursor=pointer]:
+                    - /url: /ArkaD171717
+                    - img "@ArkaD171717" [ref=e485]
+                  - generic [ref=e487]:
+                    - generic [ref=e488]:
+                      - generic [ref=e489]:
+                        - group [ref=e491]:
+                          - button "Show options" [ref=e492] [cursor=pointer]:
+                            - img "Show options" [ref=e495]
+                        - generic "This user is the author of this pull request." [ref=e498]:
+                          - generic [ref=e499]: Author
+                      - heading "ArkaD171717 commented May 17, 2026last week" [level=3] [ref=e500]:
+                        - generic [ref=e501]:
+                          - strong [ref=e502]:
+                            - link "ArkaD171717" [ref=e503] [cursor=pointer]:
+                              - /url: /ArkaD171717
+                          - text: commented
+                          - link "May 17, 2026last week" [ref=e504] [cursor=pointer]:
+                            - /url: "#issuecomment-4468697388"
+                    - generic [ref=e505]:
+                      - table [ref=e507]:
+                        - rowgroup [ref=e508]:
+                          - 'row "@xmddmx confirmed in #15880 that q4_K_M completes fine on 0.30.0-rc17 but nvfp4 still hangs indefinitely" [ref=e509]':
+                            - 'cell "@xmddmx confirmed in #15880 that q4_K_M completes fine on 0.30.0-rc17 but nvfp4 still hangs indefinitely" [ref=e510]':
+                              - paragraph [ref=e511]:
+                                - link "@xmddmx" [ref=e512] [cursor=pointer]:
+                                  - /url: https://github.com/xmddmx
+                                - text: confirmed in
+                                - link "#15880" [ref=e513] [cursor=pointer]:
+                                  - /url: https://github.com/ollama/ollama/issues/15880
+                                - text: that q4_K_M completes fine on 0.30.0-rc17 but nvfp4 still hangs indefinitely
+                      - button "react with thumbs up" [disabled] [ref=e519]:
+                        - generic [ref=e520]: 👍
+                        - generic [ref=e521]: "2"
+                - generic [ref=e523]:
+                  - link "@pdevine" [ref=e525] [cursor=pointer]:
+                    - /url: /pdevine
+                    - img "@pdevine" [ref=e526]
+                  - generic [ref=e528]:
+                    - generic [ref=e529]:
+                      - generic [ref=e530]:
+                        - group [ref=e532]:
+                          - button "Show options" [ref=e533] [cursor=pointer]:
+                            - img "Show options" [ref=e536]
+                        - generic "This user has previously committed to the ollama repository." [ref=e539]:
+                          - generic [ref=e540]: Contributor
+                      - heading "pdevine commented May 20, 20263 days ago" [level=3] [ref=e541]:
+                        - generic [ref=e542]:
+                          - strong [ref=e543]:
+                            - link "pdevine" [ref=e544] [cursor=pointer]:
+                              - /url: /pdevine
+                          - text: commented
+                          - link "May 20, 20263 days ago" [ref=e545] [cursor=pointer]:
+                            - /url: "#issuecomment-4501377150"
+                    - generic [ref=e546]:
+                      - table [ref=e548]:
+                        - rowgroup [ref=e549]:
+                          - 'row "if you look at the q4_K_M model, it converts both the in_proj_qkv and in_proj_z into 4 bit integer format: blk.0.attn_gate.weight Q4_K [2048 4096] blk.0.attn_qkv.weight Q4_K [2048 8192] Copy code to clipboard Converting these to BF16 would cause the model to be more bloated and slow down, so I don''t believe this change is the answer. I''m going to keep looking though; I''m not convinced MLX is correctly setting the global scale for the nvfp4 tensors which could result in lower precision." [ref=e550]':
+                            - 'cell "if you look at the q4_K_M model, it converts both the in_proj_qkv and in_proj_z into 4 bit integer format: blk.0.attn_gate.weight Q4_K [2048 4096] blk.0.attn_qkv.weight Q4_K [2048 8192] Copy code to clipboard Converting these to BF16 would cause the model to be more bloated and slow down, so I don''t believe this change is the answer. I''m going to keep looking though; I''m not convinced MLX is correctly setting the global scale for the nvfp4 tensors which could result in lower precision." [ref=e551]':
+                              - paragraph [ref=e552]:
+                                - text: if you look at the
+                                - code [ref=e553]: q4_K_M
+                                - text: model, it converts both the
+                                - code [ref=e554]: in_proj_qkv
+                                - text: and
+                                - code [ref=e555]: in_proj_z
+                                - text: "into 4 bit integer format:"
+                              - generic [ref=e556]:
+                                - code [ref=e558]: blk.0.attn_gate.weight Q4_K [2048 4096] blk.0.attn_qkv.weight Q4_K [2048 8192]
+                                - button "Copy code to clipboard" [ref=e560] [cursor=pointer]:
+                                  - img [ref=e561]
+                              - paragraph [ref=e564]: Converting these to BF16 would cause the model to be more bloated and slow down, so I don't believe this change is the answer. I'm going to keep looking though; I'm not convinced MLX is correctly setting the global scale for the nvfp4 tensors which could result in lower precision.
+                      - button "react with thumbs up" [disabled] [ref=e570]:
+                        - generic [ref=e571]: 👍
+                        - generic [ref=e572]: "3"
+            - generic [ref=e576]:
+              - link "Sign up for free" [ref=e577] [cursor=pointer]:
+                - /url: /join?source=comment-repo
+              - strong [ref=e578]: to join this conversation on GitHub
+              - text: . Already have an account?
+              - link "Sign in to comment" [ref=e579] [cursor=pointer]:
+                - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fpull%2F15902
+        - generic [ref=e583]:
+          - form "Select reviewers" [ref=e585]:
+            - heading "Reviewers" [level=3] [ref=e586]
+            - paragraph [ref=e588]:
+              - generic [ref=e589]:
+                - link "@pdevine" [ref=e590] [cursor=pointer]:
+                  - /url: /pdevine
+                  - img "@pdevine" [ref=e591]
+                - link "pdevine" [ref=e592] [cursor=pointer]:
+                  - /url: /pdevine
+              - button "Awaiting requested review from pdevine" [ref=e593] [cursor=pointer]:
+                - img [ref=e595]
+          - form "Select assignees" [ref=e598]:
+            - heading "Assignees" [level=3] [ref=e599]
+            - paragraph [ref=e601]:
+              - generic [ref=e602]:
+                - link "@pdevine" [ref=e603] [cursor=pointer]:
+                  - /url: /pdevine
+                  - img "@pdevine" [ref=e604]
+                - link "pdevine" [ref=e605] [cursor=pointer]:
+                  - /url: /pdevine
+          - generic [ref=e606]:
+            - heading "Labels" [level=3] [ref=e607]
+            - generic [ref=e608]: None yet
+          - form "Select projects" [ref=e610]:
+            - heading "Projects" [level=3] [ref=e611]
+            - text: None yet
+          - form "Select milestones" [ref=e613]:
+            - heading "Milestone" [level=3] [ref=e614]
+            - text: No milestone
+          - form "Link issues" [ref=e620]:
+            - heading "Development" [level=3] [ref=e621]
+            - paragraph [ref=e622]: Successfully merging this pull request may close these issues.
+            - link "Open issue qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero" [ref=e624] [cursor=pointer]:
+              - /url: https://github.com/ollama/ollama/issues/15866
+              - img "Open issue" [ref=e625]
+              - text: qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero
+          - generic [ref=e629]:
+            - heading "3 participants" [level=3] [ref=e630]
+            - generic [ref=e631]:
+              - link "@ArkaD171717" [ref=e632] [cursor=pointer]:
+                - /url: /ArkaD171717
+                - img "@ArkaD171717" [ref=e633]
+              - link "@BruceMacD" [ref=e634] [cursor=pointer]:
+                - /url: /BruceMacD
+                - img "@BruceMacD" [ref=e635]
+              - link "@pdevine" [ref=e636] [cursor=pointer]:
+                - /url: /pdevine
+                - img "@pdevine" [ref=e637]
+  - contentinfo [ref=e638]:
+    - heading "Footer" [level=2] [ref=e639]
+    - generic [ref=e640]:
+      - generic [ref=e641]:
+        - link "GitHub Homepage" [ref=e642] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e643]
+        - generic [ref=e645]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e646]:
+        - heading "Footer navigation" [level=3] [ref=e647]
+        - list "Footer navigation" [ref=e648]:
+          - listitem [ref=e649]:
+            - link "Terms" [ref=e650] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e651]:
+            - link "Privacy" [ref=e652] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e653]:
+            - link "Security" [ref=e654] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e655]:
+            - link "Status" [ref=e656] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e657]:
+            - link "Community" [ref=e658] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e659]:
+            - link "Docs" [ref=e660] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e661]:
+            - link "Contact" [ref=e662] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e663]:
+            - button "Manage cookies" [ref=e665] [cursor=pointer]
+          - listitem [ref=e666]:
+            - button "Do not share my personal information" [ref=e668] [cursor=pointer]

@@ -1,0 +1,1232 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Freleases
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Freleases%2Findex&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e127]:
+      - 'heading "Releases: ollama/ollama" [level=1] [ref=e128]'
+      - generic [ref=e129]:
+        - generic [ref=e131]:
+          - navigation "Releases and Tags" [ref=e132]:
+            - link "Releases" [ref=e133] [cursor=pointer]:
+              - /url: /ollama/ollama/releases
+            - link "Tags" [ref=e134] [cursor=pointer]:
+              - /url: /ollama/ollama/tags
+          - generic [ref=e137]:
+            - searchbox "Find a release" [ref=e138]
+            - img
+        - generic [ref=e139]:
+          - region "v0.30.0" [ref=e140]:
+            - heading "v0.30.0" [level=2] [ref=e141]
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - generic [ref=e144]: 13 May 14:32 2 weeks ago
+                - generic [ref=e145]:
+                  - img "@github-actions" [ref=e146]
+                  - link "github-actions" [ref=e147] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.30.0-rc23" [ref=e149] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.30.0-rc23
+                  - generic [ref=e150]:
+                    - img "Tag" [ref=e151]
+                    - text: v0.30.0-rc23
+                - link "Commit 94afd57" [ref=e154] [cursor=pointer]:
+                  - /url: /ollama/ollama/commit/94afd578eac66584c4b179313b6df59f67579bd5
+                  - img "Commit" [ref=e155]
+                  - code [ref=e157]: 94afd57
+                - button "Compare" [ref=e161] [cursor=pointer]:
+                  - generic [ref=e162]:
+                    - generic [ref=e163]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e165]:
+                - generic [ref=e166]:
+                  - generic [ref=e169]:
+                    - link "v0.30.0" [ref=e171] [cursor=pointer]:
+                      - /url: /ollama/ollama/releases/tag/v0.30.0-rc23
+                    - generic [ref=e173]: Pre-release
+                  - generic [ref=e174]:
+                    - paragraph [ref=e175]: This version of Ollama will change the architecture to directly support llama.cpp instead of building on top of GGML, and allows for compatibility with GGUF file format. MLX is used to accelerate model inference on Apple Silicon.
+                    - paragraph [ref=e176]:
+                      - text: While in pre-release we'd love
+                      - link "feedback" [ref=e177] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/pull/16031
+                      - text: "on:"
+                    - list [ref=e178]:
+                      - listitem [ref=e179]: Performance improvements or degradation
+                      - listitem [ref=e180]: Errors or crashes that did not previously occur
+                      - listitem [ref=e181]: Memory utilization improvements or degradation
+                    - heading "Known issues:" [level=2] [ref=e182]
+                    - list [ref=e183]:
+                      - listitem [ref=e184]:
+                        - code [ref=e185]: laguna-xs.2
+                        - text: is not supported yet on this pre-release
+                      - listitem [ref=e186]:
+                        - code [ref=e187]: llama3.2-vision
+                        - text: is not supported yet on this pre-release
+                    - heading "Installing:" [level=2] [ref=e188]
+                    - paragraph [ref=e189]:
+                      - strong [ref=e190]: Mac/Linux
+                    - generic [ref=e191]:
+                      - code [ref=e193]: curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=0.30.0-rc23 sh
+                      - button "Copy code to clipboard" [ref=e195] [cursor=pointer]:
+                        - img [ref=e196]
+                    - paragraph [ref=e199]:
+                      - strong [ref=e200]: Windows
+                    - generic [ref=e201]:
+                      - code [ref=e203]: $env:OLLAMA_VERSION="0.30.0-rc23"; irm https://ollama.com/install.ps1 | iex
+                      - button "Copy code to clipboard" [ref=e205] [cursor=pointer]:
+                        - img [ref=e206]
+                - generic [ref=e209]:
+                  - group [ref=e212]:
+                    - button "Assets 19" [ref=e213] [cursor=pointer]:
+                      - generic [ref=e214]:
+                        - generic [ref=e215]: Assets
+                        - generic "19" [ref=e216]
+                  - generic [ref=e218]:
+                    - generic [ref=e220]:
+                      - 'button "thumbs up (80): github-actions[bot], 04:39PM on May 22" [disabled] [ref=e221]':
+                        - generic [ref=e222]: 👍
+                        - generic [ref=e223]: "80"
+                      - 'button "laugh (14): github-actions[bot], 04:39PM on May 22" [disabled] [ref=e224]':
+                        - generic [ref=e225]: 😄
+                        - generic [ref=e226]: "14"
+                      - 'button "hooray (28): github-actions[bot], 04:39PM on May 22" [disabled] [ref=e227]':
+                        - generic [ref=e228]: 🎉
+                        - generic [ref=e229]: "28"
+                      - 'button "heart (22): github-actions[bot], 04:39PM on May 22" [disabled] [ref=e230]':
+                        - generic [ref=e231]: ❤️
+                        - generic [ref=e232]: "22"
+                      - 'button "rocket (26): github-actions[bot], 04:39PM on May 22" [disabled] [ref=e233]':
+                        - generic [ref=e234]: 🚀
+                        - generic [ref=e235]: "26"
+                      - 'button "eyes (29): github-actions[bot], 04:39PM on May 22" [disabled] [ref=e236]':
+                        - generic [ref=e237]: 👀
+                        - generic [ref=e238]: "29"
+                    - generic [ref=e239]: 133 people reacted
+          - region "v0.24.0" [ref=e240]:
+            - heading "v0.24.0" [level=2] [ref=e241]
+            - generic [ref=e242]:
+              - generic [ref=e243]:
+                - generic [ref=e244]: 14 May 02:24 last week
+                - generic [ref=e245]:
+                  - img "@github-actions" [ref=e246]
+                  - link "github-actions" [ref=e247] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.24.0" [ref=e249] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.24.0
+                  - generic [ref=e250]:
+                    - img "Tag" [ref=e251]
+                    - text: v0.24.0
+                - generic [ref=e253]:
+                  - link "Commit c28ddc0" [ref=e254] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/c28ddc0a7b273cd286b680a6db0bef0c17bc0ec0
+                    - img "Commit" [ref=e255]
+                    - code [ref=e257]: c28ddc0
+                  - group [ref=e258]:
+                    - generic "Verified commit signature" [ref=e259] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e260]
+                - button "Compare" [ref=e265] [cursor=pointer]:
+                  - generic [ref=e266]:
+                    - generic [ref=e267]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e269]:
+                - generic [ref=e270]:
+                  - generic [ref=e273]:
+                    - link "v0.24.0" [ref=e275] [cursor=pointer]:
+                      - /url: /ollama/ollama/releases/tag/v0.24.0
+                    - link "Latest" [ref=e277] [cursor=pointer]:
+                      - /url: /ollama/ollama/releases/latest
+                      - generic [ref=e278]: Latest
+                  - generic [ref=e279]:
+                    - heading "Codex App" [level=2] [ref=e280]
+                    - paragraph [ref=e281]: Ollama 0.24 includes support for the Codex App, OpenAI's desktop experience for working on Codex threads in parallel with built-in worktree support and git functionality.
+                    - generic [ref=e282]:
+                      - generic [ref=e283]: ollama launch codex-app
+                      - button "Copy code to clipboard" [ref=e285] [cursor=pointer]:
+                        - img [ref=e286]
+                    - link "CleanShot 2026-05-14 at 15 04 18@2x" [ref=e289] [cursor=pointer]:
+                      - /url: https://private-user-images.githubusercontent.com/29360864/592815405-53bd7997-19fd-4809-b8f2-b6ed284369c9.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzk1OTMzODYsIm5iZiI6MTc3OTU5MzA4NiwicGF0aCI6Ii8yOTM2MDg2NC81OTI4MTU0MDUtNTNiZDc5OTctMTlmZC00ODA5LWI4ZjItYjZlZDI4NDM2OWM5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTI0VDAzMjQ0NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTFhZjBjZmQzZGNhNDc0YmEyZTdkNzJiYTgwZmJkMzFmM2Q4N2EyYTFkNzkxYjZjYmJlY2ViYmZhZTQ5MjFkZjgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.81RKfe-UQ66hdFrft-IocaKsRwUIt-SRfgWZk8WscgE
+                      - img "CleanShot 2026-05-14 at 15 04 18@2x" [ref=e290]
+                    - heading "Built-in browser" [level=3] [ref=e291]
+                    - paragraph [ref=e292]: Codex can load local servers and sites in its built-in browser, enabling you to directly annotate on the page to request changes.
+                    - link "codex-annotate copy" [ref=e293] [cursor=pointer]:
+                      - /url: https://private-user-images.githubusercontent.com/29360864/592815655-c9b762b3-83f2-47f1-8f28-d9eebc1bf5e0.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzk1OTMzODYsIm5iZiI6MTc3OTU5MzA4NiwicGF0aCI6Ii8yOTM2MDg2NC81OTI4MTU2NTUtYzliNzYyYjMtODNmMi00N2YxLThmMjgtZDllZWJjMWJmNWUwLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTI0VDAzMjQ0NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTI5NjhhZWIzODQxZGRlYjcyMDg5MTQ0MGZlMjA4YzMxNDEyM2Q4OWIxODFlMDA0Y2NlZTJjMDhiNjc5YzkwODEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.0sppOTn4huFSHZhDPP50L_JHhyPltCv8e9tqJxdRHRI
+                      - img "codex-annotate copy" [ref=e294]
+                    - heading "Review mode" [level=3] [ref=e295]
+                    - paragraph [ref=e296]: Review code inside the app, leave comments, and iterate without leaving your workspace.
+                    - link "codex-comments copy 2" [ref=e297] [cursor=pointer]:
+                      - /url: https://private-user-images.githubusercontent.com/29360864/592815506-56316d33-59ed-4f24-aaa7-a7c0310014c4.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzk1OTMzODYsIm5iZiI6MTc3OTU5MzA4NiwicGF0aCI6Ii8yOTM2MDg2NC81OTI4MTU1MDYtNTYzMTZkMzMtNTllZC00ZjI0LWFhYTctYTdjMDMxMDAxNGM0LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTI0VDAzMjQ0NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWE2NDJkMDIwNTc0YzNhMWM4MzBmZjBlZTliYmJmMTE0MTYwZTdlYTcxNzcyYzBlODA5NGEwNTQxYWFkYjc5MjgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.tceYuZ6jJ1RCq4o8AV33Plyki2itX76RF904htp30JI
+                      - img "codex-comments copy 2" [ref=e298]
+                    - heading "Choosing a model" [level=3] [ref=e299]
+                    - paragraph [ref=e300]: "For difficult coding and agentic tasks:"
+                    - list [ref=e301]:
+                      - listitem [ref=e302]:
+                        - strong [ref=e303]: kimi-k2.6
+                        - text: (with vision support)
+                      - listitem [ref=e304]:
+                        - strong [ref=e305]: glm-5.1
+                    - paragraph [ref=e306]: "For local use without an Ollama Cloud subscription:"
+                    - list [ref=e307]:
+                      - listitem [ref=e308]:
+                        - strong [ref=e309]: nemotron-3-super
+                      - listitem [ref=e310]:
+                        - strong [ref=e311]: gemma4:31b
+                      - listitem [ref=e312]:
+                        - strong [ref=e313]: qwen3.6
+                    - heading "Restore anytime" [level=3] [ref=e314]
+                    - paragraph [ref=e315]: "To restore the previous configuration of Codex App, run:"
+                    - generic [ref=e316]:
+                      - generic [ref=e317]: ollama launch codex-app --restore
+                      - button "Copy code to clipboard" [ref=e319] [cursor=pointer]:
+                        - img [ref=e320]
+                    - heading "What's Changed" [level=2] [ref=e323]
+                    - list [ref=e324]:
+                      - listitem [ref=e325]: Reworked the MLX sampler for improved generation quality on Apple Silicon
+                    - paragraph [ref=e326]:
+                      - strong [ref=e327]: Full Changelog
+                      - text: ":"
+                      - link "v0.23.0...v0.24.0" [ref=e328] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.23.0...v0.24.0
+                - generic [ref=e329]:
+                  - group [ref=e332]:
+                    - button "Assets 19" [expanded] [ref=e333] [cursor=pointer]:
+                      - generic [ref=e334]:
+                        - generic [ref=e335]: Assets
+                        - generic "19" [ref=e336]
+                    - list [ref=e340]:
+                      - listitem [ref=e341]:
+                        - generic [ref=e342]:
+                          - img [ref=e343]
+                          - link "install.ps1" [ref=e345] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/install.ps1
+                            - generic [ref=e346]: install.ps1
+                        - generic [ref=e348]:
+                          - generic [ref=e349]:
+                            - generic [ref=e351]: sha256:93415fe7f55565990d93d490b0b8751fb7ad8cf5ad073006b7de58c4ec7519b4
+                            - button "Copy to clipboard digest for install.ps1" [ref=e353] [cursor=pointer]:
+                              - img [ref=e354]
+                          - generic [ref=e358]: 22.1 KB
+                          - generic [ref=e359]: 2026-05-14T23:29:47Zlast week
+                      - listitem [ref=e360]:
+                        - generic [ref=e361]:
+                          - img [ref=e362]
+                          - link "install.sh" [ref=e364] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/install.sh
+                            - generic [ref=e365]: install.sh
+                        - generic [ref=e367]:
+                          - generic [ref=e368]:
+                            - generic [ref=e370]: sha256:25f64b810b947145095956533e1bdf56eacea2673c55a7e586be4515fc882c9f
+                            - button "Copy to clipboard digest for install.sh" [ref=e372] [cursor=pointer]:
+                              - img [ref=e373]
+                          - generic [ref=e377]: 15.5 KB
+                          - generic [ref=e378]: 2026-05-14T23:29:48Zlast week
+                      - listitem [ref=e379]:
+                        - generic [ref=e380]:
+                          - img [ref=e381]
+                          - link "ollama-darwin.tgz" [ref=e383] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-darwin.tgz
+                            - generic [ref=e384]: ollama-darwin.tgz
+                        - generic [ref=e386]:
+                          - generic [ref=e387]:
+                            - generic [ref=e389]: sha256:e6d5e8b4bc0cb2a35ff7901c58d81ca2170403a819c4726f58798155fa682e38
+                            - button "Copy to clipboard digest for ollama-darwin.tgz" [ref=e391] [cursor=pointer]:
+                              - img [ref=e392]
+                          - generic [ref=e396]: 127 MB
+                          - generic [ref=e397]: 2026-05-14T23:29:38Zlast week
+                      - listitem [ref=e398]:
+                        - generic [ref=e399]:
+                          - img [ref=e400]
+                          - link "Ollama-darwin.zip" [ref=e402] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/Ollama-darwin.zip
+                            - generic [ref=e403]: Ollama-darwin.zip
+                        - generic [ref=e405]:
+                          - generic [ref=e406]:
+                            - generic [ref=e408]: sha256:8073624ec7986f9259f14a1234f5a5818f6285767f08b18cd0fbb4d1136599b1
+                            - button "Copy to clipboard digest for Ollama-darwin.zip" [ref=e410] [cursor=pointer]:
+                              - img [ref=e411]
+                          - generic [ref=e415]: 160 MB
+                          - generic [ref=e416]: 2026-05-14T23:29:33Zlast week
+                      - listitem [ref=e417]:
+                        - generic [ref=e418]:
+                          - img [ref=e419]
+                          - link "ollama-linux-amd64-mlx.tar.zst" [ref=e421] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-linux-amd64-mlx.tar.zst
+                            - generic [ref=e422]: ollama-linux-amd64-mlx.tar.zst
+                        - generic [ref=e424]:
+                          - generic [ref=e425]:
+                            - generic [ref=e427]: sha256:f9106e97ae1f81b12ed340760246442344c313e910fef0be9d4c280c3a11c78d
+                            - button "Copy to clipboard digest for ollama-linux-amd64-mlx.tar.zst" [ref=e429] [cursor=pointer]:
+                              - img [ref=e430]
+                          - generic [ref=e434]: 1020 MB
+                          - generic [ref=e435]: 2026-05-14T23:29:39Zlast week
+                      - listitem [ref=e436]:
+                        - generic [ref=e437]:
+                          - img [ref=e438]
+                          - link "ollama-linux-amd64-rocm.tar.zst" [ref=e440] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-linux-amd64-rocm.tar.zst
+                            - generic [ref=e441]: ollama-linux-amd64-rocm.tar.zst
+                        - generic [ref=e443]:
+                          - generic [ref=e444]:
+                            - generic [ref=e446]: sha256:11523a7c74e6a632baa96ab53253123d2a1ad6964a48b35c23513a49a18d229a
+                            - button "Copy to clipboard digest for ollama-linux-amd64-rocm.tar.zst" [ref=e448] [cursor=pointer]:
+                              - img [ref=e449]
+                          - generic [ref=e453]: 944 MB
+                          - generic [ref=e454]: 2026-05-14T23:29:40Zlast week
+                      - listitem [ref=e455]:
+                        - generic [ref=e456]:
+                          - img [ref=e457]
+                          - link "ollama-linux-amd64.tar.zst" [ref=e459] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-linux-amd64.tar.zst
+                            - generic [ref=e460]: ollama-linux-amd64.tar.zst
+                        - generic [ref=e462]:
+                          - generic [ref=e463]:
+                            - generic [ref=e465]: sha256:15c5f8d66ba06e0d3b4719df8868612dbd66e14e82760929bb3552e1657cdcdb
+                            - button "Copy to clipboard digest for ollama-linux-amd64.tar.zst" [ref=e467] [cursor=pointer]:
+                              - img [ref=e468]
+                          - generic [ref=e472]: 1.12 GB
+                          - generic [ref=e473]: 2026-05-14T23:29:41Zlast week
+                      - listitem [ref=e474]:
+                        - generic [ref=e475]:
+                          - img [ref=e476]
+                          - link "ollama-linux-arm64-jetpack5.tar.zst" [ref=e478] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-linux-arm64-jetpack5.tar.zst
+                            - generic [ref=e479]: ollama-linux-arm64-jetpack5.tar.zst
+                        - generic [ref=e481]:
+                          - generic [ref=e482]:
+                            - generic [ref=e484]: sha256:fcaf7931d4109e510c80a2a1670efbf8bf465553c9c403ae6499089d1822acbc
+                            - button "Copy to clipboard digest for ollama-linux-arm64-jetpack5.tar.zst" [ref=e486] [cursor=pointer]:
+                              - img [ref=e487]
+                          - generic [ref=e491]: 251 MB
+                          - generic [ref=e492]: 2026-05-14T23:29:42Zlast week
+                      - listitem [ref=e493]:
+                        - generic [ref=e494]:
+                          - img [ref=e495]
+                          - link "ollama-linux-arm64-jetpack6.tar.zst" [ref=e497] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-linux-arm64-jetpack6.tar.zst
+                            - generic [ref=e498]: ollama-linux-arm64-jetpack6.tar.zst
+                        - generic [ref=e500]:
+                          - generic [ref=e501]:
+                            - generic [ref=e503]: sha256:6cff442e23c217d04806cd660ca2c9581baa9fb49ce834f39c4752593f101338
+                            - button "Copy to clipboard digest for ollama-linux-arm64-jetpack6.tar.zst" [ref=e505] [cursor=pointer]:
+                              - img [ref=e506]
+                          - generic [ref=e510]: 247 MB
+                          - generic [ref=e511]: 2026-05-14T23:29:43Zlast week
+                      - listitem [ref=e512]:
+                        - generic [ref=e513]:
+                          - img [ref=e514]
+                          - link "ollama-linux-arm64.tar.zst" [ref=e516] [cursor=pointer]:
+                            - /url: /ollama/ollama/releases/download/v0.24.0/ollama-linux-arm64.tar.zst
+                            - generic [ref=e517]: ollama-linux-arm64.tar.zst
+                        - generic [ref=e519]:
+                          - generic [ref=e520]:
+                            - generic [ref=e522]: sha256:6e9a3ce5f64e93312902e39c420ec336255f078a368ca25e99b339d08a6dfa4b
+                            - button "Copy to clipboard digest for ollama-linux-arm64.tar.zst" [ref=e524] [cursor=pointer]:
+                              - img [ref=e525]
+                          - generic [ref=e529]: 1.23 GB
+                          - generic [ref=e530]: 2026-05-14T23:29:44Zlast week
+                      - listitem [ref=e531]:
+                        - generic [ref=e532]:
+                          - img [ref=e533]
+                          - link "Source code (zip)" [ref=e535] [cursor=pointer]:
+                            - /url: /ollama/ollama/archive/refs/tags/v0.24.0.zip
+                            - generic [ref=e536]: Source code
+                            - generic [ref=e537]: (zip)
+                        - generic [ref=e539]: 2026-05-14T19:08:13Zlast week
+                      - listitem [ref=e540]:
+                        - generic [ref=e541]:
+                          - img [ref=e542]
+                          - link "Source code (tar.gz)" [ref=e544] [cursor=pointer]:
+                            - /url: /ollama/ollama/archive/refs/tags/v0.24.0.tar.gz
+                            - generic [ref=e545]: Source code
+                            - generic [ref=e546]: (tar.gz)
+                        - generic [ref=e548]: 2026-05-14T19:08:13Zlast week
+                      - listitem [ref=e549]:
+                        - button "Show all 19 assets" [ref=e551] [cursor=pointer]
+                  - generic [ref=e553]:
+                    - generic [ref=e555]:
+                      - 'button "thumbs up (36): github-actions[bot], 07:08PM on May 14" [disabled] [ref=e556]':
+                        - generic [ref=e557]: 👍
+                        - generic [ref=e558]: "36"
+                      - 'button "hooray (4): github-actions[bot], 07:08PM on May 14" [disabled] [ref=e559]':
+                        - generic [ref=e560]: 🎉
+                        - generic [ref=e561]: "4"
+                      - 'button "heart (7): github-actions[bot], 07:08PM on May 14" [disabled] [ref=e562]':
+                        - generic [ref=e563]: ❤️
+                        - generic [ref=e564]: "7"
+                      - 'button "rocket (6): github-actions[bot], 07:08PM on May 14" [disabled] [ref=e565]':
+                        - generic [ref=e566]: 🚀
+                        - generic [ref=e567]: "6"
+                      - 'button "eyes (5): github-actions[bot], 07:08PM on May 14" [disabled] [ref=e568]':
+                        - generic [ref=e569]: 👀
+                        - generic [ref=e570]: "5"
+                    - generic [ref=e571]: 45 people reacted
+          - region "v0.23.4" [ref=e572]:
+            - heading "v0.23.4" [level=2] [ref=e573]
+            - generic [ref=e574]:
+              - generic [ref=e575]:
+                - generic [ref=e576]: 13 May 20:40 last week
+                - generic [ref=e577]:
+                  - img "@github-actions" [ref=e578]
+                  - link "github-actions" [ref=e579] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.23.4" [ref=e581] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.23.4
+                  - generic [ref=e582]:
+                    - img "Tag" [ref=e583]
+                    - text: v0.23.4
+                - generic [ref=e585]:
+                  - link "Commit 3af1a00" [ref=e586] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/3af1a008e2dd4740874f07968b373db3bc723344
+                    - img "Commit" [ref=e587]
+                    - code [ref=e589]: 3af1a00
+                  - group [ref=e590]:
+                    - generic "Verified commit signature" [ref=e591] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e592]
+                - button "Compare" [ref=e597] [cursor=pointer]:
+                  - generic [ref=e598]:
+                    - generic [ref=e599]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e601]:
+                - generic [ref=e602]:
+                  - link "v0.23.4" [ref=e607] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.23.4
+                  - generic [ref=e609]:
+                    - heading "What's Changed" [level=2] [ref=e610]
+                    - list [ref=e611]:
+                      - listitem [ref=e612]:
+                        - code [ref=e613]: ollama launch opencode
+                        - text: now supports vision models with image inputs
+                      - listitem [ref=e614]: Fixed formatting of Claude tool results when using local image paths
+                    - paragraph [ref=e615]:
+                      - strong [ref=e616]: Full Changelog
+                      - text: ":"
+                      - link "v0.23.3...v0.23.4" [ref=e617] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.23.3...v0.23.4
+                - generic [ref=e618]:
+                  - group [ref=e621]:
+                    - button "Assets 19" [ref=e622] [cursor=pointer]:
+                      - generic [ref=e623]:
+                        - generic [ref=e624]: Assets
+                        - generic "19" [ref=e625]
+                  - generic [ref=e627]:
+                    - generic [ref=e629]:
+                      - 'button "thumbs up (13): github-actions[bot], 07:51PM on May 12" [disabled] [ref=e630]':
+                        - generic [ref=e631]: 👍
+                        - generic [ref=e632]: "13"
+                      - 'button "hooray (3): github-actions[bot], 07:51PM on May 12" [disabled] [ref=e633]':
+                        - generic [ref=e634]: 🎉
+                        - generic [ref=e635]: "3"
+                      - 'button "heart (5): github-actions[bot], 07:51PM on May 12" [disabled] [ref=e636]':
+                        - generic [ref=e637]: ❤️
+                        - generic [ref=e638]: "5"
+                      - 'button "rocket (7): github-actions[bot], 07:51PM on May 12" [disabled] [ref=e639]':
+                        - generic [ref=e640]: 🚀
+                        - generic [ref=e641]: "7"
+                    - generic [ref=e642]: 19 people reacted
+          - region "v0.23.3" [ref=e643]:
+            - heading "v0.23.3" [level=2] [ref=e644]
+            - generic [ref=e645]:
+              - generic [ref=e646]:
+                - generic [ref=e647]: 12 May 03:48 2 weeks ago
+                - generic [ref=e648]:
+                  - img "@github-actions" [ref=e649]
+                  - link "github-actions" [ref=e650] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.23.3" [ref=e652] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.23.3
+                  - generic [ref=e653]:
+                    - img "Tag" [ref=e654]
+                    - text: v0.23.3
+                - generic [ref=e656]:
+                  - link "Commit 421faa0" [ref=e657] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/421faa0263f28499e2ff9076ffca240a8fc262ca
+                    - img "Commit" [ref=e658]
+                    - code [ref=e660]: 421faa0
+                  - group [ref=e661]:
+                    - generic "Verified commit signature" [ref=e662] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e663]
+                - button "Compare" [ref=e668] [cursor=pointer]:
+                  - generic [ref=e669]:
+                    - generic [ref=e670]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e672]:
+                - generic [ref=e673]:
+                  - link "v0.23.3" [ref=e678] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.23.3
+                  - generic [ref=e680]:
+                    - heading "What's Changed" [level=2] [ref=e681]
+                    - list [ref=e682]:
+                      - listitem [ref=e683]:
+                        - text: "mlx: refined model push behavior by"
+                        - link "@dhiltgen" [ref=e684] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                        - text: in
+                        - link "#15431" [ref=e685] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15431
+                      - listitem [ref=e686]:
+                        - text: "test: integration test hardening by"
+                        - link "@dhiltgen" [ref=e687] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                        - text: in
+                        - link "#13532" [ref=e688] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/13532
+                      - listitem [ref=e689]:
+                        - text: "app: harden update flows by"
+                        - link "@dhiltgen" [ref=e690] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                        - text: in
+                        - link "#16100" [ref=e691] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/16100
+                      - listitem [ref=e692]:
+                        - text: "mlx: update the imagegen runner for mlx thread affinity by"
+                        - link "@pdevine" [ref=e693] [cursor=pointer]:
+                          - /url: https://github.com/pdevine
+                        - text: in
+                        - link "#16096" [ref=e694] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/16096
+                      - listitem [ref=e695]:
+                        - text: "mlx: avoid status timeout during inference by"
+                        - link "@dhiltgen" [ref=e696] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                        - text: in
+                        - link "#16086" [ref=e697] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/16086
+                      - listitem [ref=e698]:
+                        - text: "mlx: fix macOS 26 target leakage in v3 metallib by"
+                        - link "@dhiltgen" [ref=e699] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                        - text: in
+                        - link "#16053" [ref=e700] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/16053
+                    - paragraph [ref=e701]:
+                      - strong [ref=e702]: Full Changelog
+                      - text: ":"
+                      - link "v0.23.2...v0.23.3" [ref=e703] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.23.2...v0.23.3
+                - generic [ref=e704]:
+                  - generic [ref=e705]:
+                    - heading "Contributors" [level=3] [ref=e706]
+                    - list [ref=e707]:
+                      - listitem [ref=e708]:
+                        - link "@pdevine" [ref=e709] [cursor=pointer]:
+                          - /url: https://github.com/pdevine
+                          - img "@pdevine" [ref=e710]
+                      - listitem [ref=e711]:
+                        - link "@dhiltgen" [ref=e712] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                          - img "@dhiltgen" [ref=e713]
+                    - generic [ref=e714]: pdevine and dhiltgen
+                  - group [ref=e717]:
+                    - button "Assets 19" [ref=e718] [cursor=pointer]:
+                      - generic [ref=e719]:
+                        - generic [ref=e720]: Assets
+                        - generic "19" [ref=e721]
+                  - generic [ref=e723]:
+                    - generic [ref=e725]:
+                      - 'button "thumbs up (25): github-actions[bot], 11:37PM on May 11" [disabled] [ref=e726]':
+                        - generic [ref=e727]: 👍
+                        - generic [ref=e728]: "25"
+                      - 'button "hooray (4): github-actions[bot], 11:37PM on May 11" [disabled] [ref=e729]':
+                        - generic [ref=e730]: 🎉
+                        - generic [ref=e731]: "4"
+                      - 'button "heart (8): github-actions[bot], 11:37PM on May 11" [disabled] [ref=e732]':
+                        - generic [ref=e733]: ❤️
+                        - generic [ref=e734]: "8"
+                      - 'button "rocket (9): github-actions[bot], 11:37PM on May 11" [disabled] [ref=e735]':
+                        - generic [ref=e736]: 🚀
+                        - generic [ref=e737]: "9"
+                    - generic [ref=e738]: 34 people reacted
+          - region "v0.23.2" [ref=e739]:
+            - heading "v0.23.2" [level=2] [ref=e740]
+            - generic [ref=e741]:
+              - generic [ref=e742]:
+                - generic [ref=e743]: 07 May 20:23 2 weeks ago
+                - generic [ref=e744]:
+                  - img "@github-actions" [ref=e745]
+                  - link "github-actions" [ref=e746] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.23.2" [ref=e748] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.23.2
+                  - generic [ref=e749]:
+                    - img "Tag" [ref=e750]
+                    - text: v0.23.2
+                - generic [ref=e752]:
+                  - link "Commit f866e76" [ref=e753] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/f866e7608f378dcfca6f8c717101df1945db3b97
+                    - img "Commit" [ref=e754]
+                    - code [ref=e756]: f866e76
+                  - group [ref=e757]:
+                    - generic "Verified commit signature" [ref=e758] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e759]
+                - button "Compare" [ref=e764] [cursor=pointer]:
+                  - generic [ref=e765]:
+                    - generic [ref=e766]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e768]:
+                - generic [ref=e769]:
+                  - link "v0.23.2" [ref=e774] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.23.2
+                  - generic [ref=e776]:
+                    - heading "What's Changed" [level=2] [ref=e777]
+                    - list [ref=e778]:
+                      - listitem [ref=e779]:
+                        - code [ref=e780]: ollama launch
+                        - text: no longer includes Claude Desktop due to the third-party integration being limited to Anthropic models.
+                      - listitem [ref=e781]:
+                        - text: Use
+                        - code [ref=e782]: ollama launch claude-desktop --restore
+                        - text: to restore Claude Desktop to its normal state.
+                      - listitem [ref=e783]:
+                        - code [ref=e784]: /api/show
+                        - text: responses are now cached, improving median latency by
+                        - strong [ref=e785]: ~6.7x
+                        - text: which will increase load speed for integrations like VS Code.
+                      - listitem [ref=e786]: Improved backup workflow when managing launch integrations
+                      - listitem [ref=e787]: Cleaner image generation layout in the MLX runner
+                    - paragraph [ref=e788]:
+                      - strong [ref=e789]: Full Changelog
+                      - text: ":"
+                      - link "v0.23.1...v0.23.2" [ref=e790] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.23.1...v0.23.2
+                - generic [ref=e791]:
+                  - group [ref=e794]:
+                    - button "Assets 19" [ref=e795] [cursor=pointer]:
+                      - generic [ref=e796]:
+                        - generic [ref=e797]: Assets
+                        - generic "19" [ref=e798]
+                  - generic [ref=e800]:
+                    - generic [ref=e802]:
+                      - 'button "thumbs up (35): github-actions[bot], 05:46PM on May 07" [disabled] [ref=e803]':
+                        - generic [ref=e804]: 👍
+                        - generic [ref=e805]: "35"
+                      - 'button "hooray (2): github-actions[bot], 05:46PM on May 07" [disabled] [ref=e806]':
+                        - generic [ref=e807]: 🎉
+                        - generic [ref=e808]: "2"
+                      - 'button "heart (14): github-actions[bot], 05:46PM on May 07" [disabled] [ref=e809]':
+                        - generic [ref=e810]: ❤️
+                        - generic [ref=e811]: "14"
+                      - 'button "rocket (12): github-actions[bot], 05:46PM on May 07" [disabled] [ref=e812]':
+                        - generic [ref=e813]: 🚀
+                        - generic [ref=e814]: "12"
+                      - 'button "eyes (4): github-actions[bot], 05:46PM on May 07" [disabled] [ref=e815]':
+                        - generic [ref=e816]: 👀
+                        - generic [ref=e817]: "4"
+                    - generic [ref=e818]: 48 people reacted
+          - region "v0.23.1" [ref=e819]:
+            - heading "v0.23.1" [level=2] [ref=e820]
+            - generic [ref=e821]:
+              - generic [ref=e822]:
+                - generic [ref=e823]: 05 May 17:13 3 weeks ago
+                - generic [ref=e824]:
+                  - img "@github-actions" [ref=e825]
+                  - link "github-actions" [ref=e826] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.23.1" [ref=e828] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.23.1
+                  - generic [ref=e829]:
+                    - img "Tag" [ref=e830]
+                    - text: v0.23.1
+                - generic [ref=e832]:
+                  - link "Commit 15e6076" [ref=e833] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/15e6076d7928f7e13e56cbf59a150e0f9f222da9
+                    - img "Commit" [ref=e834]
+                    - code [ref=e836]: "15e6076"
+                  - group [ref=e837]:
+                    - generic "Verified commit signature" [ref=e838] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e839]
+                - button "Compare" [ref=e844] [cursor=pointer]:
+                  - generic [ref=e845]:
+                    - generic [ref=e846]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e848]:
+                - generic [ref=e849]:
+                  - link "v0.23.1" [ref=e854] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.23.1
+                  - generic [ref=e856]:
+                    - heading "Gemma 4 MTP (Multi-token Processing) for the MLX runner" [level=2] [ref=e857]
+                    - paragraph [ref=e858]: Gemma 4 MTP speculative decoding is now supported on Macs. This can give over a 2x speed increase for the Gemma 4 31B model on coding tasks.
+                    - generic [ref=e859]:
+                      - code [ref=e861]: ollama run gemma4:31b-coding-mtp-bf16
+                      - button "Copy code to clipboard" [ref=e863] [cursor=pointer]:
+                        - img [ref=e864]
+                    - heading "What's Changed" [level=2] [ref=e867]
+                    - list [ref=e868]:
+                      - listitem [ref=e869]:
+                        - text: Update MLX and MLX-C with threading fixes by
+                        - link "@dhiltgen" [ref=e870] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                        - text: in
+                        - link "#15845" [ref=e871] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15845
+                      - listitem [ref=e872]:
+                        - text: "go: bump to 1.26 by"
+                        - link "@ParthSareen" [ref=e873] [cursor=pointer]:
+                          - /url: https://github.com/ParthSareen
+                        - text: in
+                        - link "#15904" [ref=e874] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15904
+                      - listitem [ref=e875]:
+                        - text: Add Gemma 4 MTP speculative decoding by
+                        - link "@pdevine" [ref=e876] [cursor=pointer]:
+                          - /url: https://github.com/pdevine
+                        - text: in
+                        - link "#15980" [ref=e877] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15980
+                    - paragraph [ref=e878]:
+                      - strong [ref=e879]: Full Changelog
+                      - text: ":"
+                      - link "v0.23.0...v0.23.1" [ref=e880] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.23.0...v0.23.1
+                - generic [ref=e881]:
+                  - generic [ref=e882]:
+                    - heading "Contributors" [level=3] [ref=e883]
+                    - list [ref=e884]:
+                      - listitem [ref=e885]:
+                        - link "@pdevine" [ref=e886] [cursor=pointer]:
+                          - /url: https://github.com/pdevine
+                          - img "@pdevine" [ref=e887]
+                      - listitem [ref=e888]:
+                        - link "@dhiltgen" [ref=e889] [cursor=pointer]:
+                          - /url: https://github.com/dhiltgen
+                          - img "@dhiltgen" [ref=e890]
+                      - listitem [ref=e891]:
+                        - link "@ParthSareen" [ref=e892] [cursor=pointer]:
+                          - /url: https://github.com/ParthSareen
+                          - img "@ParthSareen" [ref=e893]
+                    - generic [ref=e894]: pdevine, dhiltgen, and ParthSareen
+                  - group [ref=e897]:
+                    - button "Assets 19" [ref=e898] [cursor=pointer]:
+                      - generic [ref=e899]:
+                        - generic [ref=e900]: Assets
+                        - generic "19" [ref=e901]
+                  - generic [ref=e903]:
+                    - generic [ref=e905]:
+                      - 'button "thumbs up (35): github-actions[bot], 03:55PM on May 05" [disabled] [ref=e906]':
+                        - generic [ref=e907]: 👍
+                        - generic [ref=e908]: "35"
+                      - 'button "laugh (8): github-actions[bot], 03:55PM on May 05" [disabled] [ref=e909]':
+                        - generic [ref=e910]: 😄
+                        - generic [ref=e911]: "8"
+                      - 'button "hooray (19): github-actions[bot], 03:55PM on May 05" [disabled] [ref=e912]':
+                        - generic [ref=e913]: 🎉
+                        - generic [ref=e914]: "19"
+                      - 'button "heart (16): github-actions[bot], 03:55PM on May 05" [disabled] [ref=e915]':
+                        - generic [ref=e916]: ❤️
+                        - generic [ref=e917]: "16"
+                      - 'button "rocket (13): github-actions[bot], 03:55PM on May 05" [disabled] [ref=e918]':
+                        - generic [ref=e919]: 🚀
+                        - generic [ref=e920]: "13"
+                      - 'button "eyes (8): github-actions[bot], 03:55PM on May 05" [disabled] [ref=e921]':
+                        - generic [ref=e922]: 👀
+                        - generic [ref=e923]: "8"
+                    - generic [ref=e924]: 49 people reacted
+          - region "v0.23.0" [ref=e925]:
+            - heading "v0.23.0" [level=2] [ref=e926]
+            - generic [ref=e927]:
+              - generic [ref=e928]:
+                - generic [ref=e929]: 03 May 03:34 3 weeks ago
+                - generic [ref=e930]:
+                  - img "@github-actions" [ref=e931]
+                  - link "github-actions" [ref=e932] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.23.0" [ref=e934] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.23.0
+                  - generic [ref=e935]:
+                    - img "Tag" [ref=e936]
+                    - text: v0.23.0
+                - generic [ref=e938]:
+                  - link "Commit 9ba5a04" [ref=e939] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/9ba5a04914f83da5e8efa25c6676c6dd32bc25ac
+                    - img "Commit" [ref=e940]
+                    - code [ref=e942]: 9ba5a04
+                  - group [ref=e943]:
+                    - generic "Verified commit signature" [ref=e944] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e945]
+                - button "Compare" [ref=e950] [cursor=pointer]:
+                  - generic [ref=e951]:
+                    - generic [ref=e952]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e954]:
+                - generic [ref=e955]:
+                  - link "v0.23.0" [ref=e960] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.23.0
+                  - generic [ref=e962]:
+                    - heading "Claude Desktop" [level=2] [ref=e963]
+                    - paragraph [ref=e964]: Claude Desktop is now supported with Ollama Launch.
+                    - paragraph [ref=e965]: Claude Cowork and Claude Code are supported within the Claude Desktop App.
+                    - generic [ref=e966]:
+                      - code [ref=e968]: ollama launch claude-desktop
+                      - button "Copy code to clipboard" [ref=e970] [cursor=pointer]:
+                        - img [ref=e971]
+                    - heading "Claude Cowork" [level=3] [ref=e974]
+                    - link "ca1" [ref=e975] [cursor=pointer]:
+                      - /url: https://private-user-images.githubusercontent.com/29360864/586805956-1d550e3f-0272-4429-8cb2-06d32344cb77.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzk1OTMzODYsIm5iZiI6MTc3OTU5MzA4NiwicGF0aCI6Ii8yOTM2MDg2NC81ODY4MDU5NTYtMWQ1NTBlM2YtMDI3Mi00NDI5LThjYjItMDZkMzIzNDRjYjc3LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTI0VDAzMjQ0NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM1MzI5MjBiYjJmMWI0Y2FkYTMzMWQ5OTZhNzkwMzY3ZTczYWY3YjUzYTYyNmRkYTgzNTY3NjdmZTJhOTY2OTEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.QPIGTTO02yEL79STRajKcaSsKGcpy05j_plLQsptEfw
+                      - img "ca1" [ref=e976]
+                    - heading "Claude Code" [level=3] [ref=e977]
+                    - link "ca2" [ref=e978] [cursor=pointer]:
+                      - /url: https://private-user-images.githubusercontent.com/29360864/586806035-f2a5ed5f-3069-4975-bb22-ada82914a01c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzk1OTMzODYsIm5iZiI6MTc3OTU5MzA4NiwicGF0aCI6Ii8yOTM2MDg2NC81ODY4MDYwMzUtZjJhNWVkNWYtMzA2OS00OTc1LWJiMjItYWRhODI5MTRhMDFjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTI0VDAzMjQ0NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTEwN2YwM2Q1NjFkYzJmYmYxN2MxM2QzODVkYjUwOTdiNjk1MjExZDRiNzM2ODI1MzI1ZjE3NWY4OTE3ZmI2NDgmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.vIo5U1eYbqILovM0axpFoEEFyl5OrUyu7a-cbVKcDlg
+                      - img "ca2" [ref=e979]
+                    - paragraph [ref=e980]: "Claude Code on the terminal can still be accessed through the CLI with:"
+                    - generic [ref=e981]:
+                      - code [ref=e983]: ollama launch claude
+                      - button "Copy code to clipboard" [ref=e985] [cursor=pointer]:
+                        - img [ref=e986]
+                    - heading "Not supported yet" [level=3] [ref=e989]
+                    - list [ref=e990]:
+                      - listitem [ref=e991]: Web Search (coming soon)
+                      - listitem [ref=e992]: Extensions
+                    - heading "What's Changed" [level=2] [ref=e993]
+                    - list [ref=e994]:
+                      - listitem [ref=e995]:
+                        - text: Launch Claude Desktop with
+                        - code [ref=e996]: ollama launch claude-desktop
+                      - listitem [ref=e997]: The Ollama app now surfaces featured models from server-driven recommendations
+                      - listitem [ref=e998]:
+                        - text: Fixed OpenClaw gateway timeout on Windows by enforcing IPv4 loopback (thanks
+                        - link "@UniquePratham" [ref=e999] [cursor=pointer]:
+                          - /url: https://github.com/UniquePratham
+                        - text: )
+                      - listitem [ref=e1000]: Hardened Metal initialization to gracefully handle ggml kernel compilation failures
+                    - heading "New Contributors" [level=2] [ref=e1001]
+                    - list [ref=e1002]:
+                      - listitem [ref=e1003]:
+                        - link "@UniquePratham" [ref=e1004] [cursor=pointer]:
+                          - /url: https://github.com/UniquePratham
+                        - text: made their first contribution in
+                        - link "#15726" [ref=e1005] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15726
+                    - paragraph [ref=e1006]:
+                      - strong [ref=e1007]: Full Changelog
+                      - text: ":"
+                      - link "v0.22.1...v0.23.0" [ref=e1008] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.22.1...v0.23.0
+                - generic [ref=e1009]:
+                  - generic [ref=e1010]:
+                    - heading "Contributors" [level=3] [ref=e1011]
+                    - list [ref=e1012]:
+                      - listitem [ref=e1013]:
+                        - link "@UniquePratham" [ref=e1014] [cursor=pointer]:
+                          - /url: https://github.com/UniquePratham
+                          - img "@UniquePratham" [ref=e1015]
+                    - generic [ref=e1016]: UniquePratham
+                  - group [ref=e1019]:
+                    - button "Assets 18" [ref=e1020] [cursor=pointer]:
+                      - generic [ref=e1021]:
+                        - generic [ref=e1022]: Assets
+                        - generic "18" [ref=e1023]
+                  - generic [ref=e1025]:
+                    - generic [ref=e1027]:
+                      - 'button "thumbs up (37): github-actions[bot], 02:19AM on May 03" [disabled] [ref=e1028]':
+                        - generic [ref=e1029]: 👍
+                        - generic [ref=e1030]: "37"
+                      - 'button "hooray (12): github-actions[bot], 02:19AM on May 03" [disabled] [ref=e1031]':
+                        - generic [ref=e1032]: 🎉
+                        - generic [ref=e1033]: "12"
+                      - 'button "heart (10): github-actions[bot], 02:19AM on May 03" [disabled] [ref=e1034]':
+                        - generic [ref=e1035]: ❤️
+                        - generic [ref=e1036]: "10"
+                    - generic [ref=e1037]: 50 people reacted
+          - region "v0.22.1" [ref=e1038]:
+            - heading "v0.22.1" [level=2] [ref=e1039]
+            - generic [ref=e1040]:
+              - generic [ref=e1041]:
+                - generic [ref=e1042]: 28 Apr 20:30 last month
+                - generic [ref=e1043]:
+                  - img "@github-actions" [ref=e1044]
+                  - link "github-actions" [ref=e1045] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.22.1" [ref=e1047] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.22.1
+                  - generic [ref=e1048]:
+                    - img "Tag" [ref=e1049]
+                    - text: v0.22.1
+                - generic [ref=e1051]:
+                  - link "Commit c7c2837" [ref=e1052] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/c7c2837c96cd6fcc0d0424e0a096ed24516d3d59
+                    - img "Commit" [ref=e1053]
+                    - code [ref=e1055]: c7c2837
+                  - group [ref=e1056]:
+                    - generic "Verified commit signature" [ref=e1057] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e1058]
+                - button "Compare" [ref=e1063] [cursor=pointer]:
+                  - generic [ref=e1064]:
+                    - generic [ref=e1065]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e1067]:
+                - generic [ref=e1068]:
+                  - link "v0.22.1" [ref=e1073] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.22.1
+                  - generic [ref=e1075]:
+                    - heading "What's Changed" [level=2] [ref=e1076]
+                    - list [ref=e1077]:
+                      - listitem [ref=e1078]:
+                        - text: Updated the
+                        - strong [ref=e1079]: Gemma 4
+                        - text: renderer for thinking and tool calling improvements
+                      - listitem [ref=e1080]: Model recommendations are now updated without updating Ollama
+                      - listitem [ref=e1081]:
+                        - text: Aligned the desktop app's launch page with
+                        - code [ref=e1082]: ollama launch
+                        - text: integrations
+                      - listitem [ref=e1083]:
+                        - text: Fixed the Poolside integration title in
+                        - code [ref=e1084]: ollama launch
+                    - paragraph [ref=e1085]:
+                      - strong [ref=e1086]: Full Changelog
+                      - text: ":"
+                      - link "v0.22.0...v0.22.1" [ref=e1087] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.22.0...v0.22.1
+                - generic [ref=e1088]:
+                  - group [ref=e1091]:
+                    - button "Assets 18" [ref=e1092] [cursor=pointer]:
+                      - generic [ref=e1093]:
+                        - generic [ref=e1094]: Assets
+                        - generic "18" [ref=e1095]
+                  - generic [ref=e1097]:
+                    - generic [ref=e1099]:
+                      - 'button "thumbs up (45): github-actions[bot], 01:40AM on April 30" [disabled] [ref=e1100]':
+                        - generic [ref=e1101]: 👍
+                        - generic [ref=e1102]: "45"
+                      - 'button "laugh (4): github-actions[bot], 01:40AM on April 30" [disabled] [ref=e1103]':
+                        - generic [ref=e1104]: 😄
+                        - generic [ref=e1105]: "4"
+                      - 'button "hooray (5): github-actions[bot], 01:40AM on April 30" [disabled] [ref=e1106]':
+                        - generic [ref=e1107]: 🎉
+                        - generic [ref=e1108]: "5"
+                      - 'button "heart (6): github-actions[bot], 01:40AM on April 30" [disabled] [ref=e1109]':
+                        - generic [ref=e1110]: ❤️
+                        - generic [ref=e1111]: "6"
+                      - 'button "rocket (6): github-actions[bot], 01:40AM on April 30" [disabled] [ref=e1112]':
+                        - generic [ref=e1113]: 🚀
+                        - generic [ref=e1114]: "6"
+                      - 'button "eyes (4): github-actions[bot], 01:40AM on April 30" [disabled] [ref=e1115]':
+                        - generic [ref=e1116]: 👀
+                        - generic [ref=e1117]: "4"
+                    - generic [ref=e1118]: 53 people reacted
+          - region "v0.22.0" [ref=e1119]:
+            - heading "v0.22.0" [level=2] [ref=e1120]
+            - generic [ref=e1121]:
+              - generic [ref=e1122]:
+                - generic [ref=e1123]: 28 Apr 15:00 last month
+                - generic [ref=e1124]:
+                  - img "@dhiltgen" [ref=e1125]
+                  - link "dhiltgen" [ref=e1126] [cursor=pointer]:
+                    - /url: /dhiltgen
+                - link "Tag v0.22.0" [ref=e1128] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.22.0
+                  - generic [ref=e1129]:
+                    - img "Tag" [ref=e1130]
+                    - text: v0.22.0
+                - link "Commit 955112e" [ref=e1133] [cursor=pointer]:
+                  - /url: /ollama/ollama/commit/955112e502e34812a904e6392736d8cc40bbb9d9
+                  - img "Commit" [ref=e1134]
+                  - code [ref=e1136]: 955112e
+                - button "Compare" [ref=e1140] [cursor=pointer]:
+                  - generic [ref=e1141]:
+                    - generic [ref=e1142]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e1144]:
+                - generic [ref=e1145]:
+                  - link "v0.22.0" [ref=e1150] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.22.0
+                  - generic [ref=e1152]:
+                    - heading "New models" [level=2] [ref=e1153]
+                    - list [ref=e1154]:
+                      - listitem [ref=e1155]:
+                        - text: NVIDIA's
+                        - link "Nemotron 3 Omni" [ref=e1156] [cursor=pointer]:
+                          - /url: https://ollama.com/library/nemotron3
+                      - listitem [ref=e1157]:
+                        - text: Poolside's first open-weight coding model -
+                        - link "Laguna XS.2" [ref=e1158] [cursor=pointer]:
+                          - /url: https://ollama.com/library/laguna-xs.2
+                    - paragraph [ref=e1159]:
+                      - strong [ref=e1160]: Full Changelog
+                      - text: ":"
+                      - link "v0.21.2...v0.22.0" [ref=e1161] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.21.2...v0.22.0
+                - generic [ref=e1162]:
+                  - group [ref=e1165]:
+                    - button "Assets 18" [ref=e1166] [cursor=pointer]:
+                      - generic [ref=e1167]:
+                        - generic [ref=e1168]: Assets
+                        - generic "18" [ref=e1169]
+                  - generic [ref=e1171]:
+                    - generic [ref=e1173]:
+                      - 'button "thumbs up (17): dhiltgen, 02:26AM on April 28" [disabled] [ref=e1174]':
+                        - generic [ref=e1175]: 👍
+                        - generic [ref=e1176]: "17"
+                      - 'button "heart (19): dhiltgen, 02:26AM on April 28" [disabled] [ref=e1177]':
+                        - generic [ref=e1178]: ❤️
+                        - generic [ref=e1179]: "19"
+                      - 'button "rocket (16): dhiltgen, 02:26AM on April 28" [disabled] [ref=e1180]':
+                        - generic [ref=e1181]: 🚀
+                        - generic [ref=e1182]: "16"
+                      - 'button "eyes (7): dhiltgen, 02:26AM on April 28" [disabled] [ref=e1183]':
+                        - generic [ref=e1184]: 👀
+                        - generic [ref=e1185]: "7"
+                    - generic [ref=e1186]: 42 people reacted
+          - region "v0.21.3" [ref=e1187]:
+            - heading "v0.21.3" [level=2] [ref=e1188]
+            - generic [ref=e1189]:
+              - generic [ref=e1190]:
+                - generic [ref=e1191]: 24 Apr 12:15 last month
+                - generic [ref=e1192]:
+                  - img "@github-actions" [ref=e1193]
+                  - link "github-actions" [ref=e1194] [cursor=pointer]:
+                    - /url: /apps/github-actions
+                - link "Tag v0.21.3-rc0" [ref=e1196] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/v0.21.3-rc0
+                  - generic [ref=e1197]:
+                    - img "Tag" [ref=e1198]
+                    - text: v0.21.3-rc0
+                - generic [ref=e1200]:
+                  - link "Commit ea01af6" [ref=e1201] [cursor=pointer]:
+                    - /url: /ollama/ollama/commit/ea01af6f76fc03ba737aec1f9a49e82f6063bab1
+                    - img "Commit" [ref=e1202]
+                    - code [ref=e1204]: ea01af6
+                  - group [ref=e1205]:
+                    - generic "Verified commit signature" [ref=e1206] [cursor=pointer]:
+                      - img "Verified commit signature" [ref=e1207]
+                - button "Compare" [ref=e1212] [cursor=pointer]:
+                  - generic [ref=e1213]:
+                    - generic [ref=e1214]: Compare
+                    - generic:
+                      - img
+              - generic [ref=e1216]:
+                - generic [ref=e1217]:
+                  - link "v0.21.3" [ref=e1222] [cursor=pointer]:
+                    - /url: /ollama/ollama/releases/tag/v0.21.3-rc0
+                  - generic [ref=e1224]:
+                    - heading "What's Changed" [level=2] [ref=e1225]
+                    - list [ref=e1226]:
+                      - listitem [ref=e1227]:
+                        - text: "api: accept \"max\" as a think value by"
+                        - link "@ParthSareen" [ref=e1228] [cursor=pointer]:
+                          - /url: https://github.com/ParthSareen
+                        - text: in
+                        - link "#15787" [ref=e1229] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15787
+                      - listitem [ref=e1230]:
+                        - text: "openai: map responses reasoning effort to think by"
+                        - link "@ParthSareen" [ref=e1231] [cursor=pointer]:
+                          - /url: https://github.com/ParthSareen
+                        - text: in
+                        - link "#15789" [ref=e1232] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15789
+                    - paragraph [ref=e1233]:
+                      - strong [ref=e1234]: Full Changelog
+                      - text: ":"
+                      - link "v0.21.2...v0.21.3-rc0" [ref=e1235] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/compare/v0.21.2...v0.21.3-rc0
+                - generic [ref=e1236]:
+                  - generic [ref=e1237]:
+                    - heading "Contributors" [level=3] [ref=e1238]
+                    - list [ref=e1239]:
+                      - listitem [ref=e1240]:
+                        - link "@ParthSareen" [ref=e1241] [cursor=pointer]:
+                          - /url: https://github.com/ParthSareen
+                          - img "@ParthSareen" [ref=e1242]
+                    - generic [ref=e1243]: ParthSareen
+                  - group [ref=e1246]:
+                    - button "Assets 18" [ref=e1247] [cursor=pointer]:
+                      - generic [ref=e1248]:
+                        - generic [ref=e1249]: Assets
+                        - generic "18" [ref=e1250]
+                  - generic [ref=e1252]:
+                    - generic [ref=e1254]:
+                      - 'button "thumbs up (26): github-actions[bot], 09:49AM on April 24" [disabled] [ref=e1255]':
+                        - generic [ref=e1256]: 👍
+                        - generic [ref=e1257]: "26"
+                      - 'button "laugh (4): github-actions[bot], 09:49AM on April 24" [disabled] [ref=e1258]':
+                        - generic [ref=e1259]: 😄
+                        - generic [ref=e1260]: "4"
+                      - 'button "hooray (8): github-actions[bot], 09:49AM on April 24" [disabled] [ref=e1261]':
+                        - generic [ref=e1262]: 🎉
+                        - generic [ref=e1263]: "8"
+                      - 'button "heart (10): github-actions[bot], 09:49AM on April 24" [disabled] [ref=e1264]':
+                        - generic [ref=e1265]: ❤️
+                        - generic [ref=e1266]: "10"
+                      - 'button "rocket (10): github-actions[bot], 09:49AM on April 24" [disabled] [ref=e1267]':
+                        - generic [ref=e1268]: 🚀
+                        - generic [ref=e1269]: "10"
+                      - 'button "eyes (9): github-actions[bot], 09:49AM on April 24" [disabled] [ref=e1270]':
+                        - generic [ref=e1271]: 👀
+                        - generic [ref=e1272]: "9"
+                    - generic [ref=e1273]: 39 people reacted
+          - navigation "Pagination" [ref=e1275]:
+            - link "Previous page" [disabled] [ref=e1276]: Previous
+            - emphasis [ref=e1277] [cursor=pointer]: "1"
+            - link "Page 2" [ref=e1278] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=2
+              - text: "2"
+            - link "Page 3" [ref=e1279] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=3
+              - text: "3"
+            - link "Page 4" [ref=e1280] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=4
+              - text: "4"
+            - link "Page 5" [ref=e1281] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=5
+              - text: "5"
+            - generic [ref=e1282]: …
+            - link "Page 21" [ref=e1283] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=21
+              - text: "21"
+            - link "Page 22" [ref=e1284] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=22
+              - text: "22"
+            - link "Next page" [ref=e1285] [cursor=pointer]:
+              - /url: /ollama/ollama/releases?page=2
+              - text: Next
+  - contentinfo [ref=e1286]:
+    - heading "Footer" [level=2] [ref=e1287]
+    - generic [ref=e1288]:
+      - generic [ref=e1289]:
+        - link "GitHub Homepage" [ref=e1290] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e1291]
+        - generic [ref=e1293]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e1294]:
+        - heading "Footer navigation" [level=3] [ref=e1295]
+        - list "Footer navigation" [ref=e1296]:
+          - listitem [ref=e1297]:
+            - link "Terms" [ref=e1298] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e1299]:
+            - link "Privacy" [ref=e1300] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e1301]:
+            - link "Security" [ref=e1302] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e1303]:
+            - link "Status" [ref=e1304] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e1305]:
+            - link "Community" [ref=e1306] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e1307]:
+            - link "Docs" [ref=e1308] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e1309]:
+            - link "Contact" [ref=e1310] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e1311]:
+            - button "Manage cookies" [ref=e1313] [cursor=pointer]
+          - listitem [ref=e1314]:
+            - button "Do not share my personal information" [ref=e1316] [cursor=pointer]

@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 require('dotenv').config({ override: true });
 
@@ -43,7 +43,11 @@ async function sendMessage(chatId, text, replyToMsgId, threadId) {
 }
 
 /**
- * Send MarkdownV2 message.
+ * Send MarkdownV2 message — falls back to plain text on parse errors.
+ * @param {string|number} chatId
+ * @param {string} text
+ * @param {number} [replyToMsgId]
+ * @param {number} [threadId]
  */
 async function sendMd(chatId, text, replyToMsgId, threadId) {
   const payload = {
@@ -60,10 +64,75 @@ async function sendMd(chatId, text, replyToMsgId, threadId) {
     body: JSON.stringify(payload),
   });
   const data = await resp.json();
-  // Fallback to plain text if MarkdownV2 parsing fails
   if (!data.ok && data.description?.includes('parse')) {
-    return sendMessage(chatId, text.replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, ''), replyToMsgId, threadId);
+    // Strip only the MarkdownV2 control chars — keep emojis, hyphens, and content readable
+    const plain = text.replace(/[*_[\]()~`>#+|{}.!\\]/g, '').replace(/\\-/g, '-');
+    return sendMessage(chatId, plain.slice(0, 4096), replyToMsgId, threadId);
   }
+  return data;
+}
+
+/**
+ * Split a long text at paragraph boundaries and send each part.
+ * Handles Telegram's 4096-char message limit for large Qwen responses.
+ * @param {string|number} chatId
+ * @param {string} text
+ * @param {number} [replyToMsgId]
+ * @param {number} [threadId]
+ */
+async function splitAndSend(chatId, text, replyToMsgId, threadId) {
+  const MAX = 4086;
+  if (text.length <= MAX) return sendMd(chatId, text, replyToMsgId, threadId);
+
+  const SEAMS = ['─────────────────────────', '\n\n', '\n'];
+  const parts = [];
+  let remaining = text;
+
+  while (remaining.length > MAX) {
+    let cut = -1;
+    for (const seam of SEAMS) {
+      const idx = remaining.lastIndexOf(seam, MAX);
+      if (idx > MAX * 0.35) { cut = idx + seam.length; break; }
+    }
+    if (cut === -1) cut = MAX;
+    parts.push(remaining.slice(0, cut).trimEnd());
+    remaining = remaining.slice(cut).trimStart();
+  }
+  if (remaining.trim()) parts.push(remaining.trim());
+
+  for (const part of parts) {
+    await sendMd(chatId, part, replyToMsgId, threadId);
+    replyToMsgId = undefined; // only quote the first part
+  }
+}
+
+/**
+ * Send a Telegram poll.
+ * @param {string|number} chatId
+ * @param {string} question
+ * @param {string[]} options
+ * @param {number} [replyToMsgId]
+ * @param {number} [threadId]
+ */
+async function sendPoll(chatId, question, options, replyToMsgId, threadId) {
+  const payload = {
+    chat_id: chatId,
+    question: question.slice(0, 300),
+    options: options.map((o) => o.slice(0, 100)),
+    is_anonymous: true,
+    type: 'regular',
+    allows_multiple_answers: false,
+  };
+  if (replyToMsgId) payload.reply_to_message_id = replyToMsgId;
+  if (threadId) payload.message_thread_id = threadId;
+
+  const resp = await fetch(`${TG_API}/sendPoll`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const data = await resp.json();
+  if (!data.ok) console.error('[CHATBOT] sendPoll error:', data.description);
   return data;
 }
 
@@ -104,14 +173,19 @@ function shouldRespond(msg, botUsername) {
   // Ignore messages older than 5 minutes (stale on restart)
   if (Date.now() / 1000 - msg.date > 300) return false;
 
-  // Always respond to private chats
+  // Always respond to everything in private chats
   if (msg.chat.type === 'private') return true;
+
+  // In groups/topics — only respond to slash commands or @mentions
+  const isCommand = msg.text.startsWith('/');
+  const isMention = botUsername && msg.text.includes(`@${botUsername}`);
+  if (!isCommand && !isMention) return false;
 
   // Respond in the configured topic
   if (TOPIC_ID && msg.message_thread_id === TOPIC_ID) return true;
 
-  // Respond to @mentions
-  if (botUsername && msg.text.includes(`@${botUsername}`)) return true;
+  // Respond in any group if it's a command or mention
+  if (msg.chat.type === 'group' || msg.chat.type === 'supergroup') return true;
 
   return false;
 }
@@ -140,7 +214,7 @@ async function handleMessage(msg, botUsername) {
   const needsQwen = !isQuickCommand;
 
   if (needsQwen && !checkRateLimit(userId)) {
-    await sendMessage(chatId, '🤖 Qwen is busy — you\'ve hit the limit of 10 AI questions per 5 minutes. Take a breather and try again shortly! ⚽\n🤖 Qwen 太忙了，你已达到每5分钟10个AI问题的上限，稍等片刻再试试吧！\n\nTip: /today /help for instant info without AI.', msgId, threadId);
+    await sendMessage(chatId, '🤖 Qwen is busy — you\'ve hit the limit of 10 AI questions per 5 minutes. Take a breather and try again shortly! ⚽\nTip: /today /help for instant info without AI.\n─────────────────────────\n🤖 Qwen 太忙了，你已达到每5分钟10个AI问题的上限，稍等片刻再试试吧！\n提示：/today /help 可立即获取信息，无需AI。', msgId, threadId);
     return;
   }
 
@@ -149,7 +223,7 @@ async function handleMessage(msg, botUsername) {
     const depth = getQueueDepth();
     if (depth > 0) {
       await sendMessage(chatId,
-        `🕐 ${depth} question${depth > 1 ? 's' : ''} ahead of you — your question is queued.\n🕐 前面有 ${depth} 个问题，你的问题已排队，请稍候。`,
+        `🕐 ${depth} question${depth > 1 ? 's' : ''} ahead of you — your question is queued.\n─────────────────────────\n🕐 前面有 ${depth} 个问题，你的问题已排队，请稍候。`,
         msgId, threadId);
     }
   }
@@ -157,12 +231,12 @@ async function handleMessage(msg, botUsername) {
   const typing = startTyping(chatId, threadId);
 
   try {
-    // Warn after 20s, then again at 75s — qwen3.5:35b can take up to 3min
+    // Warn after 20s, then again at 75s — qwen3.6:35b can take up to 3min
     let warnSent = false;
     const warnTimer = setTimeout(async () => {
       if (needsQwen) {
         warnSent = true;
-        await sendMessage(chatId, '⏳ qwen is thinking... / qwen正在思考中...', msgId, threadId);
+        await sendMessage(chatId, '⏳ Qwen is thinking...\n─────────────────────────\nQwen 正在思考中...', msgId, threadId);
       }
     }, 20000);
     const warnTimer2 = setTimeout(async () => {
@@ -181,8 +255,28 @@ async function handleMessage(msg, botUsername) {
       return;
     }
 
-    // Try MarkdownV2 first (for formatted responses), fall back to plain
-    await sendMd(chatId, response, msgId, threadId);
+    // Handle poll response object
+    if (typeof response === 'object' && response.type === 'poll') {
+      await sendPoll(chatId, response.question, response.options, msgId, threadId);
+      if (response.context) {
+        await sendMd(chatId, response.context, null, threadId);
+      }
+      saveToHistory(chatId, 'bot', `[Poll] ${response.question}`);
+      console.log(`[CHATBOT] Poll sent to ${chatId}`);
+      return;
+    }
+
+    // Handle Qwen analysis + auto-attached community poll
+    if (typeof response === 'object' && response.type === 'poll_with_text') {
+      await sendMd(chatId, response.text, msgId, threadId);
+      await sendPoll(chatId, response.question, response.options, null, threadId);
+      saveToHistory(chatId, 'bot', response.text.slice(0, 300));
+      console.log(`[CHATBOT] Analysis + community poll sent to ${chatId}`);
+      return;
+    }
+
+    // Send response — auto-splits if > 4086 chars (bilingual Qwen responses can be long)
+    await splitAndSend(chatId, response, msgId, threadId);
     saveToHistory(chatId, 'bot', response.slice(0, 300));
     console.log(`[CHATBOT] Replied to @${username} (${response.length} chars)`);
   } catch (err) {
@@ -208,6 +302,7 @@ async function registerCommands() {
     { command: 'today', description: "Today's matches in SGT" },
     { command: 'tomorrow', description: "Tomorrow's matches in SGT" },
     { command: 'predict', description: 'Get prediction: /predict Brazil Morocco' },
+    { command: 'poll', description: 'Community poll + AI hint: /poll Brazil Morocco' },
     { command: 'lineup', description: 'Expected lineup: /lineup France' },
     { command: 'injury', description: 'Injury news: /injury Germany' },
     { command: 'group', description: 'Group standings: /group C' },
@@ -304,7 +399,7 @@ async function startPolling() {
 async function sendStartupMessage() {
   if (!CHANNEL_ID) return;
   const now = new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' });
-  const text = `🟢 WC2026 Bot online | 机器人已上线 — ${now} SGT\nqwen3.5:35b ready. Type /help for commands.\nqwen3.5:35b 已就绪。输入 /help 查看指令。`;
+  const text = `🟢 WC2026 Bot online — ${now} SGT\nqwen3.6:35b ready. Type /help for commands.\n─────────────────────────\n🟢 机器人已上线 — ${now} SGT\nqwen3.6:35b 已就绪。输入 /help 查看指令。`;
   try {
     await sendMessage(CHANNEL_ID, text, null, TOPIC_ID);
     console.log('[CHATBOT] Startup message sent');
@@ -314,7 +409,7 @@ async function sendStartupMessage() {
 }
 
 async function start() {
-  console.log('[CHATBOT] WC2026 qwen3.5:35b Chatbot starting...');
+  console.log('[CHATBOT] WC2026 qwen3.6:35b Chatbot starting...');
 
   // Pre-warm data cache (server might not be ready yet — retry)
   for (let i = 0; i < 5; i++) {

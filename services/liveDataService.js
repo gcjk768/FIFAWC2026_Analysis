@@ -99,7 +99,7 @@ function computeTournamentForm(fixtures, results) {
     const result2 = score1 < score2 ? 'W' : score1 > score2 ? 'L' : 'D';
 
     const pairs = [
-      { team: f.team1, score, conceded: score2, res: result1, isHome: true },
+      { team: f.team1, score: score1, conceded: score2, res: result1, isHome: true },
       { team: f.team2, score: score2, conceded: score1, res: result2, isHome: false },
     ];
 
@@ -301,8 +301,8 @@ async function writeKnockoutToObsidian(knockoutData) {
       const list = Array.isArray(matches) ? matches : [matches];
       for (const m of list) {
         if (m.status === 'FINISHED') {
-          const pen = m.penalties ? ` (pens ${m.penalties.home}–${m.penalties.away})` : '';
-          lines.push(`- ✅ **${m.team1} ${m.score1}–${m.score2} ${m.team2}**${pen} | Winner: ${m.winner}`);
+          const pen = m.penalties ? ` (pens ${m.penalties.home}:${m.penalties.away})` : '';
+          lines.push(`- ✅ **${m.team1} ${m.score1}:${m.score2} ${m.team2}**${pen} | Winner: ${m.winner}`);
         } else if (m.team1 !== 'TBD') {
           lines.push(`- 🔜 ${m.team1} vs ${m.team2} — ${m.dateSgt} ${m.timeSgt} SGT`);
         } else {

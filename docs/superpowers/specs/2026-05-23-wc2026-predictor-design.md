@@ -1,4 +1,4 @@
-# WC2026 AI Match Predictor — Design Spec
+﻿# WC2026 AI Match Predictor — Design Spec
 <!-- last-updated: 2026-05-23 -->
 
 ## Status
@@ -8,7 +8,7 @@ Approved — ready for implementation
 
 ## Overview
 
-A FIFA World Cup 2026 match analysis dashboard powered by local AI (Ollama `qwen3.5:35b`),
+A FIFA World Cup 2026 match analysis dashboard powered by local AI (Ollama `qwen3.6:35b`),
 with Telegram as the primary broadcast channel and a web dashboard as the control panel.
 
 **Core loop:** User triggers analysis → Ollama generates prediction → auto-posts to Telegram
@@ -34,7 +34,7 @@ All three start via `npm start`. If an MCP server fails to start, log a warning 
 
 - **Runtime:** Node.js (CommonJS, no TypeScript)
 - **Framework:** Express
-- **AI:** Ollama `qwen3.5:35b` via `POST /api/generate` (stream: false)
+- **AI:** Ollama `qwen3.6:35b` via `POST /api/generate` (stream: false)
 - **Frontend:** Single `public/index.html` — vanilla JS, no framework, no build step
 - **Scheduler:** `node-cron` for daily Telegram digest
 - **Storage:** `data/predictions.json`, `data/calendar-events.json` — atomic writes only
@@ -47,7 +47,7 @@ All three start via `npm start`. If an MCP server fails to start, log a warning 
 ```
 PORT=3001
 OLLAMA_HOST=http://localhost:11434
-OLLAMA_MODEL=qwen3.5:35b
+OLLAMA_MODEL=qwen3.6:35b
 
 TELEGRAM_BOT_TOKEN=        # from @BotFather — ACTIVE
 TELEGRAM_CHAT_ID=          # personal chat ID (optional, for DMs)
@@ -110,7 +110,7 @@ Never write directly to a `.json` file.
 
 ## Ollama Integration
 
-- Model: `qwen3.5:35b` (hardcoded — do not auto-detect)
+- Model: `qwen3.6:35b` (hardcoded — do not auto-detect)
 - Host: `process.env.OLLAMA_HOST` (default: `http://localhost:11434`)
 - All calls: `POST /api/generate` with `stream: false`
 - Prepend `/no_think` to every prompt (disables CoT, returns faster JSON)

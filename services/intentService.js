@@ -2,10 +2,11 @@
 
 const matchHandler = require('./queryHandlers/matchHandler');
 const playerHandler = require('./queryHandlers/playerHandler');
-const predictionHandler = require('./queryHandlers/predictionHandler');
+const { handlePrediction, handleTournamentWinner, handleGroupPredictions, handleKnockoutRoundPrediction } = require('./queryHandlers/predictionHandler');
 const standingsHandler = require('./queryHandlers/standingsHandler');
 const teamHandler = require('./queryHandlers/teamHandler');
 const knockoutHandler = require('./queryHandlers/knockoutHandler');
+const { handlePoll } = require('./queryHandlers/pollHandler');
 const generalHandler = require('./queryHandlers/generalHandler');
 
 // ─── INTENT PATTERNS ─────────────────────────────────────────────────────────
@@ -16,6 +17,8 @@ const INTENTS = {
   CMD_TODAY:       /^\/today\b/i,
   CMD_TOMORROW:    /^\/tomorrow\b/i,
   CMD_PREDICT:     /^\/predict\b/i,
+  CMD_POLL:        /^\/poll\b/i,
+  NL_POLL:         /\b(create|make|start|open|launch|run|do)\s+a?\s*(community\s*)?poll\b|\blet'?s\s*vote\b|\bvote\s+(on|for)\b|\bcommunity\s*(poll|vote)\b/i,
   CMD_LINEUP:      /^\/lineup\b/i,
   CMD_INJURY:      /^\/injur/i,
   CMD_BRACKET:     /^\/bracket\b/i,
@@ -46,6 +49,7 @@ const INTENTS = {
   PLAYER_STATS:    /\b(stats|goals|assists|how many.{0,20}(goal|score)|rating)\b/i,
 
   // Natural language — prediction
+  PRED_KNOCKOUT_ROUND: /\b(predict.{0,30}(round of (32|16)|r32|r16|quarter.?final|semi.?final)|(round of (32|16)|r32|r16|quarter.?final|semi.?final).{0,30}predict)\b/i,
   PRED_WINMATCH:   /\b(who.{0,20}win|predict|going to win|will.{0,20}beat)\b/i,
   PRED_SCORE:      /\b(score.{0,20}predict|predict.{0,20}score|final score)\b/i,
   PRED_WINTOURNEY: /\b(who.{0,20}win.{0,20}(world cup|wc|tournament)|champion|lift.{0,10}trophy)\b/i,
@@ -69,14 +73,13 @@ const INTENTS = {
 
 // ─── HELP MESSAGE ─────────────────────────────────────────────────────────────
 
-const HELP_TEXT = `🤖 *FIFAWC26 — qwen3\\.5:35b Football Bot*
+const HELP_TEXT = `🤖 *FIFAWC26 — qwen3\\.6:35b Football Bot*
 
-Ask me anything about WC2026\\!
+Use slash commands to interact with me\\!
 
 📅 *Matches*
-• "today's matches"
-• "what time is Brazil vs Morocco?"
-• /tomorrow
+• /today — today's matches
+• /tomorrow — tomorrow's matches
 
 ⚽ *Players \\& Squads*
 • /squad Argentina
@@ -87,8 +90,9 @@ Ask me anything about WC2026\\!
 
 🔮 *Predictions*
 • /predict Brazil Morocco
-• "who will win Group C?"
-• "who wins the World Cup?"
+• /poll Brazil Morocco \\— community poll \\+ AI hint
+• /ask who will win Group C?
+• /ask who wins the World Cup?
 
 📊 *Standings \\& Stats*
 • /groups — all 12 groups
@@ -99,14 +103,49 @@ Ask me anything about WC2026\\!
 
 🏆 *Knockout Bracket*
 • /bracket — full bracket \\(updates after Jun 28\\)
-• "quarter finals", "semi finals", "final"
 
 🧠 *Ask Anything*
 • /ask Will Argentina retain the title?
 • /ask How does Japan beat big teams?
-• "who are the upset risks this week?"
 
-_Powered by qwen3\\.5:35b running locally_ 🧠`;
+_Powered by qwen3\\.6:35b running locally_ 🧠
+─────────────────────────
+🤖 *世界杯2026 — qwen3\\.6:35b 足球机器人*
+
+使用斜杠命令与我互动\\！
+
+📅 *赛程*
+• /today — 今日赛程
+• /tomorrow — 明日赛程
+
+⚽ *球员与阵容*
+• /squad 阿根廷
+• /player 姆巴佩
+• /injury 德国
+• /lineup 法国
+• /compare 姆巴佩 维尼修斯
+
+🔮 *预测*
+• /predict 巴西 摩洛哥
+• /poll 巴西 摩洛哥 \\— 社区投票 \\+ AI预测
+• /ask 哪队能赢得C组？
+• /ask 谁会赢得世界杯？
+
+📊 *积分榜与数据*
+• /groups — 全部12个小组
+• /group C — C组积分榜
+• /topscorers — 最佳射手
+• /standings — 积分排名
+• /stats — 赛事数据
+
+🏆 *淘汰赛*
+• /bracket — 淘汰赛对阵图 \\(6月28日后更新\\)
+
+🧠 *随便问*
+• /ask 阿根廷能卫冕吗？
+• /ask 日本如何击败强队？
+
+_qwen3\\.6:35b 本地运行提供支持_ 🧠`;
 
 // ─── ROUTER ───────────────────────────────────────────────────────────────────
 
@@ -126,7 +165,17 @@ async function classifyAndHandle(msg, chatId) {
   if (INTENTS.CMD_TODAY.test(text)) return matchHandler.handleToday();
   if (INTENTS.CMD_TOMORROW.test(text)) return matchHandler.handleTomorrow();
 
-  if (INTENTS.CMD_PREDICT.test(text)) return predictionHandler.handlePrediction(text.replace(/^\/predict\s*/i, ''));
+  if (INTENTS.CMD_PREDICT.test(text)) return handlePrediction(text.replace(/^\/predict\s*/i, ''));
+  if (INTENTS.CMD_POLL.test(text)) return handlePoll(text);
+  if (INTENTS.NL_POLL.test(t)) {
+    const cleaned = text
+      .replace(/\b(create|make|start|open|launch|run|do)\s+a?\s*(community\s*)?poll\s*(for|on|about)?\s*/i, '')
+      .replace(/\blet'?s\s*vote\s*(on|for)?\s*/i, '')
+      .replace(/\bvote\s+(on|for)\s*/i, '')
+      .replace(/\bcommunity\s*(poll|vote)\s*(on|for)?\s*/i, '')
+      .trim();
+    return handlePoll(`/poll ${cleaned}`);
+  }
   if (INTENTS.CMD_LINEUP.test(text)) return playerHandler.handleLineup(text);
   if (INTENTS.CMD_INJURY.test(text)) return playerHandler.handleInjuries(text);
   if (INTENTS.CMD_PLAYER.test(text)) return playerHandler.handlePlayerInfo(text);
@@ -157,8 +206,9 @@ async function classifyAndHandle(msg, chatId) {
   if (INTENTS.PLAYER_COMPARE.test(t)) return playerHandler.handleCompare(text);
 
   // ── Natural language — prediction ──
-  if (INTENTS.PRED_WINTOURNEY.test(t)) return predictionHandler.handleTournamentWinner();
-  if (INTENTS.PRED_WINMATCH.test(t) || INTENTS.PRED_SCORE.test(t)) return predictionHandler.handlePrediction(text);
+  if (INTENTS.PRED_KNOCKOUT_ROUND.test(t)) return handleKnockoutRoundPrediction(text);
+  if (INTENTS.PRED_WINTOURNEY.test(t)) return handleTournamentWinner();
+  if (INTENTS.PRED_WINMATCH.test(t) || INTENTS.PRED_SCORE.test(t)) return handlePrediction(text);
 
   // ── Natural language — knockout bracket ──
   if (INTENTS.ROUND_QUERY.test(t)) return knockoutHandler.handleRound(t);

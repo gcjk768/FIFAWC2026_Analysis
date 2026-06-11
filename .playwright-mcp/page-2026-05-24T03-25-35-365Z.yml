@@ -1,0 +1,453 @@
+- generic [ref=e2]:
+  - generic:
+    - generic:
+      - tooltip "This user is the author of this issue"
+    - generic:
+      - tooltip "This user has been invited to collaborate on the ollama repository."
+    - generic:
+      - tooltip "This user is the author of this issue"
+    - generic:
+      - tooltip "This user has been invited to collaborate on the ollama repository."
+    - generic:
+      - tooltip "This user is the author of this issue"
+    - generic:
+      - tooltip "This user has been invited to collaborate on the ollama repository."
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fissues%2F16056
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fvoltron%2Fissues_fragments%2Fissue_layout&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e133]:
+      - region "Header" [ref=e135]:
+        - generic [ref=e136]:
+          - 'heading "NVDIA nvfp4 support for ollama #16056" [level=1] [ref=e138]'
+          - generic [ref=e140]:
+            - button "New issue" [ref=e142] [cursor=pointer]:
+              - generic [ref=e144]: New issue
+            - button "Copy link" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+      - generic [ref=e154]:
+        - img "Issue" [ref=e155]
+        - text: Open
+      - generic [ref=e159]:
+        - generic [ref=e160]:
+          - generic [ref=e162]:
+            - link "@Huckies's profile" [ref=e163] [cursor=pointer]:
+              - /url: https://github.com/Huckies
+              - img "@Huckies" [ref=e164]
+            - generic [ref=e165]:
+              - heading "Description" [level=2] [ref=e166]
+              - generic [ref=e168]:
+                - generic [ref=e170]:
+                  - generic [ref=e171]:
+                    - link "Huckies" [ref=e173] [cursor=pointer]:
+                      - /url: https://github.com/Huckies
+                    - generic [ref=e174]:
+                      - text: opened
+                      - link "on May 9, 20262 weeks ago" [ref=e175] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/issues/16056#issue-4411566960
+                        - generic "May 9, 2026, 2:56 PM GMT+8" [ref=e176]: on May 9, 20262 weeks ago
+                  - button "Issue body actions" [ref=e180] [cursor=pointer]:
+                    - img [ref=e181]
+                - generic [ref=e183]:
+                  - generic [ref=e185]:
+                    - paragraph [ref=e186]: Hi,
+                    - paragraph [ref=e187]:
+                      - text: I'm having a error
+                      - code [ref=e188]: "Error: 500 Internal Server Error: model failed to load, this may be due to resource limitations or an internal error, check ollama server logs for details"
+                      - text: while running
+                      - link "this" [ref=e189] [cursor=pointer]:
+                        - /url: https://huggingface.co/ggufbench/gemma-4-26B-A4B-it-NVFP4-GGUF
+                      - text: and
+                      - link "this" [ref=e190] [cursor=pointer]:
+                        - /url: https://huggingface.co/ggufbench/gemma-4-26B-A4B-it-NVFP4-GGUF
+                      - text: model from huggingface, the server.log shows
+                      - code [ref=e191]: "ggml.c:1676: GGML_ASSERT(type >= 0 && type < GGML_TYPE_COUNT) failed"
+                    - paragraph [ref=e192]:
+                      - text: I also noticed the same quantization type support has been added to llama.cpp
+                      - link "ggml-org/llama.cpp#19769" [ref=e193] [cursor=pointer]:
+                        - /url: https://github.com/ggml-org/llama.cpp/pull/19769
+                      - text: would please add support for this project too?
+                  - generic:
+                    - toolbar "Reactions"
+          - generic [ref=e195]:
+            - generic [ref=e196]:
+              - heading "Activity" [level=2] [ref=e197]
+              - generic [ref=e198]:
+                - region "Events" [ref=e199]:
+                  - generic [ref=e206]:
+                    - img [ref=e210]
+                    - generic [ref=e214]:
+                      - link "Huckies" [ref=e216] [cursor=pointer]:
+                        - /url: /Huckies
+                        - generic [ref=e217]: Huckies
+                      - text: added
+                      - link "feature request New feature or request" [ref=e219] [cursor=pointer]:
+                        - /url: /ollama/ollama/issues?q=state%3Aopen%20label%3A%22feature%20request%22
+                        - generic [ref=e221]: feature request
+                        - generic [ref=e222]: New feature or request
+                      - link "on May 9, 20262 weeks ago" [ref=e223] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/issues/16056#event-25334078026
+                        - generic "May 9, 2026, 2:56 PM GMT+8" [ref=e224]: on May 9, 20262 weeks ago
+                - generic [ref=e225]:
+                  - link "@Huckies's profile" [ref=e226] [cursor=pointer]:
+                    - /url: https://github.com/Huckies
+                    - img "Huckies" [ref=e227]
+                  - generic [ref=e234]:
+                    - generic [ref=e236]:
+                      - heading "Huckies commented on May 9, 2026 2 weeks ago" [level=3] [ref=e237]:
+                        - text: Huckies commented
+                        - generic "May 9, 2026, 3:37 PM GMT+8" [ref=e238]: on May 9, 2026 2 weeks ago
+                      - generic [ref=e239]:
+                        - link "Huckies" [ref=e241] [cursor=pointer]:
+                          - /url: /Huckies
+                        - link "on May 9, 20262 weeks ago" [ref=e244] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#issuecomment-4411911431
+                          - generic "May 9, 2026, 3:37 PM GMT+8" [ref=e245]: on May 9, 20262 weeks ago
+                      - generic [ref=e247]:
+                        - generic "This user is the author of this issue" [ref=e249]: Author
+                        - button "Actions for Huckies's comment, 3:37 PM on May 9" [ref=e251] [cursor=pointer]:
+                          - img [ref=e252]
+                    - generic [ref=e254]:
+                      - paragraph [ref=e257]:
+                        - text: Also please check
+                        - link "this commit" [ref=e258] [cursor=pointer]:
+                          - /url: https://github.com/ggml-org/llama.cpp/pull/22804
+                        - text: .
+                      - toolbar "Reactions"
+                - generic [ref=e259]:
+                  - link "@rick-github's profile" [ref=e260] [cursor=pointer]:
+                    - /url: https://github.com/rick-github
+                    - img "rick-github" [ref=e261]
+                  - generic [ref=e268]:
+                    - generic [ref=e270]:
+                      - heading "rick-github commented on May 9, 2026 2 weeks ago" [level=3] [ref=e271]:
+                        - text: rick-github commented
+                        - generic "May 9, 2026, 4:37 PM GMT+8" [ref=e272]: on May 9, 2026 2 weeks ago
+                      - generic [ref=e273]:
+                        - link "rick-github" [ref=e275] [cursor=pointer]:
+                          - /url: /rick-github
+                        - link "on May 9, 20262 weeks ago" [ref=e278] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#issuecomment-4412057703
+                          - generic "May 9, 2026, 4:37 PM GMT+8" [ref=e279]: on May 9, 20262 weeks ago
+                      - generic [ref=e281]:
+                        - generic "This user has been invited to collaborate on the ollama repository." [ref=e283]: Collaborator
+                        - button "Actions for rick-github's comment, 4:37 PM on May 9" [ref=e285] [cursor=pointer]:
+                          - img [ref=e286]
+                    - generic [ref=e288]:
+                      - paragraph [ref=e291]:
+                        - link "https://ollama.com/library/gemma4:26b-nvfp4" [ref=e292] [cursor=pointer]:
+                          - /url: https://ollama.com/library/gemma4:26b-nvfp4
+                      - toolbar "Reactions"
+                - generic [ref=e293]:
+                  - link "@Huckies's profile" [ref=e294] [cursor=pointer]:
+                    - /url: https://github.com/Huckies
+                    - img "Huckies" [ref=e295]
+                  - generic [ref=e302]:
+                    - generic [ref=e304]:
+                      - heading "Huckies commented on May 9, 2026 2 weeks ago" [level=3] [ref=e305]:
+                        - text: Huckies commented
+                        - generic "May 9, 2026, 5:04 PM GMT+8" [ref=e306]: on May 9, 2026 2 weeks ago
+                      - generic [ref=e307]:
+                        - link "Huckies" [ref=e309] [cursor=pointer]:
+                          - /url: /Huckies
+                        - link "on May 9, 20262 weeks ago" [ref=e312] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#issuecomment-4412111324
+                          - generic "May 9, 2026, 5:04 PM GMT+8" [ref=e313]: on May 9, 20262 weeks ago
+                      - generic [ref=e315]:
+                        - generic "This user is the author of this issue" [ref=e317]: Author
+                        - button "Actions for Huckies's comment, 5:04 PM on May 9" [ref=e319] [cursor=pointer]:
+                          - img [ref=e320]
+                    - generic [ref=e322]:
+                      - generic [ref=e324]:
+                        - paragraph [ref=e325]:
+                          - link "@rick-github" [ref=e326] [cursor=pointer]:
+                            - /url: https://github.com/rick-github
+                          - text: Thank you for the rapid response.
+                        - paragraph [ref=e327]:
+                          - text: I'm running it on Windows, and I got another error
+                          - code [ref=e328]: "Error: pull model manifest: 412: this model requires macOS"
+                          - text: .
+                        - paragraph [ref=e329]:
+                          - code [ref=e330]: nvfp4
+                          - text: is designed for BlackWell GPUs, it should work on both Windows and Linux with CUDA support, and seems NVIDIA employee have done adaption to llama.cpp specially for Gemma4.
+                      - toolbar "Reactions"
+                - generic [ref=e331]:
+                  - link "@rick-github's profile" [ref=e332] [cursor=pointer]:
+                    - /url: https://github.com/rick-github
+                    - img "rick-github" [ref=e333]
+                  - generic [ref=e340]:
+                    - generic [ref=e342]:
+                      - heading "rick-github commented on May 9, 2026 2 weeks ago" [level=3] [ref=e343]:
+                        - text: rick-github commented
+                        - generic "May 9, 2026, 5:14 PM GMT+8" [ref=e344]: on May 9, 2026 2 weeks ago
+                      - generic [ref=e345]:
+                        - link "rick-github" [ref=e347] [cursor=pointer]:
+                          - /url: /rick-github
+                        - link "on May 9, 20262 weeks ago" [ref=e350] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#issuecomment-4412131363
+                          - generic "May 9, 2026, 5:14 PM GMT+8" [ref=e351]: on May 9, 20262 weeks ago
+                      - generic [ref=e353]:
+                        - generic "This user has been invited to collaborate on the ollama repository." [ref=e355]: Collaborator
+                        - button "Actions for rick-github's comment, 5:14 PM on May 9" [ref=e357] [cursor=pointer]:
+                          - img [ref=e358]
+                    - generic [ref=e360]:
+                      - paragraph [ref=e363]: NVFP4 support is provided by the MLX engine. The MLX engine currently only runs on macOS, so macOS is required to run an NVFP4 model. Support for Linux and Windows in the MLX engine is a work in progress.
+                      - toolbar "Reactions"
+                - generic [ref=e364]:
+                  - link "@Huckies's profile" [ref=e365] [cursor=pointer]:
+                    - /url: https://github.com/Huckies
+                    - img "Huckies" [ref=e366]
+                  - generic [ref=e373]:
+                    - generic [ref=e375]:
+                      - heading "Huckies commented on May 9, 2026 2 weeks ago" [level=3] [ref=e376]:
+                        - text: Huckies commented
+                        - generic "May 9, 2026, 5:18 PM GMT+8" [ref=e377]: on May 9, 2026 2 weeks ago
+                      - generic [ref=e378]:
+                        - link "Huckies" [ref=e380] [cursor=pointer]:
+                          - /url: /Huckies
+                        - link "on May 9, 20262 weeks ago" [ref=e383] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#issuecomment-4412140428
+                          - generic "May 9, 2026, 5:18 PM GMT+8" [ref=e384]: on May 9, 20262 weeks ago
+                      - generic [ref=e386]:
+                        - generic "This user is the author of this issue" [ref=e388]: Author
+                        - button "Actions for Huckies's comment, 5:18 PM on May 9" [ref=e390] [cursor=pointer]:
+                          - img [ref=e391]
+                    - generic [ref=e393]:
+                      - paragraph [ref=e396]: Please check the link I post above, llama.cpp now supports nvfp4 without MLX engine.
+                      - toolbar "Reactions"
+                - generic [ref=e397]:
+                  - link "@rick-github's profile" [ref=e398] [cursor=pointer]:
+                    - /url: https://github.com/rick-github
+                    - img "rick-github" [ref=e399]
+                  - generic [ref=e406]:
+                    - generic [ref=e408]:
+                      - heading "rick-github commented on May 9, 2026 2 weeks ago" [level=3] [ref=e409]:
+                        - text: rick-github commented
+                        - generic "May 9, 2026, 5:21 PM GMT+8" [ref=e410]: on May 9, 2026 2 weeks ago
+                      - generic [ref=e411]:
+                        - link "rick-github" [ref=e413] [cursor=pointer]:
+                          - /url: /rick-github
+                        - link "on May 9, 20262 weeks ago" [ref=e416] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#issuecomment-4412146458
+                          - generic "May 9, 2026, 5:21 PM GMT+8" [ref=e417]: on May 9, 20262 weeks ago
+                      - generic [ref=e419]:
+                        - generic "This user has been invited to collaborate on the ollama repository." [ref=e421]: Collaborator
+                        - button "Actions for rick-github's comment, 5:21 PM on May 9" [ref=e423] [cursor=pointer]:
+                          - img [ref=e424]
+                    - generic [ref=e426]:
+                      - paragraph [ref=e429]: Then wait for the vendor sync.
+                      - toolbar "Reactions"
+                - region "Events" [ref=e430]:
+                  - generic [ref=e437]:
+                    - img [ref=e441]
+                    - generic [ref=e443]:
+                      - generic [ref=e445]:
+                        - link "paulpall" [ref=e447] [cursor=pointer]:
+                          - /url: /paulpall
+                          - generic [ref=e448]: paulpall
+                        - text: mentioned this
+                        - link "on May 15, 2026last week" [ref=e449] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/16056#event-6635070166
+                          - generic "May 15, 2026, 6:46 PM GMT+8" [ref=e450]: on May 15, 2026last week
+                      - region "Issues mentioned" [ref=e453]:
+                        - list [ref=e454]:
+                          - listitem [ref=e455]:
+                            - generic [ref=e456]:
+                              - img "Completed" [ref=e457]
+                              - 'link "Error: [ollama run qwen3.6:27b-coding-nvfp4] pull model manifest: 412: this model requires macOS #15854" [ref=e460] [cursor=pointer]':
+                                - /url: https://github.com/ollama/ollama/issues/15854
+                                - text: "Error: [ollama run qwen3.6:27b-coding-nvfp4] pull model manifest: 412: this model requires macOS"
+                                - generic [ref=e461]: "#15854"
+            - generic [ref=e462]:
+              - link "Sign up for free" [ref=e463] [cursor=pointer]:
+                - /url: /signup?return_to=https://github.com/ollama/ollama/issues/16056
+                - generic [ref=e465]: Sign up for free
+              - generic [ref=e466]:
+                - strong [ref=e467]: to join this conversation on GitHub.
+                - text: Already have an account?
+              - link "Sign in to comment" [ref=e468] [cursor=pointer]:
+                - /url: /login?return_to=https://github.com/ollama/ollama/issues/16056
+        - generic [ref=e470]:
+          - heading "Metadata" [level=2] [ref=e471]
+          - generic [ref=e473]:
+            - generic [ref=e475]:
+              - generic [ref=e476]:
+                - heading "Assignees" [level=3]
+              - generic [ref=e477]: No one assigned
+            - generic [ref=e478]:
+              - generic [ref=e480]:
+                - heading "Labels" [level=3]
+              - link "feature request New feature or request" [ref=e483] [cursor=pointer]:
+                - /url: https://github.com/ollama/ollama/issues?q=state%3Aopen%20label%3A%22feature%20request%22
+                - generic [ref=e485]: feature request
+                - generic [ref=e486]: New feature or request
+            - generic [ref=e488]:
+              - generic [ref=e489]:
+                - heading "Type" [level=3]
+              - generic [ref=e490]: No type
+            - generic [ref=e491]:
+              - generic [ref=e493]:
+                - heading "Fields" [level=3] [ref=e494]
+                - link "Give feedback" [ref=e495] [cursor=pointer]:
+                  - /url: https://github.com/orgs/community/discussions/189141
+              - generic [ref=e497]: No fields configured for issues without a type.
+            - generic [ref=e499]:
+              - generic [ref=e500]:
+                - heading "Projects" [level=3]
+              - generic [ref=e501]: No projects
+            - generic [ref=e503]:
+              - generic [ref=e504]:
+                - heading "Milestone" [level=3]
+              - generic [ref=e505]: No milestone
+            - generic [ref=e507]:
+              - generic [ref=e508]:
+                - heading "Relationships" [level=3]
+              - generic [ref=e509]: None yet
+            - generic [ref=e511]:
+              - generic [ref=e512]:
+                - heading "Development" [level=3]
+              - generic [ref=e513]: No branches or pull requests
+            - heading "Issue actions" [level=2] [ref=e514]
+            - list
+  - contentinfo [ref=e515]:
+    - heading "Footer" [level=2] [ref=e516]
+    - generic [ref=e517]:
+      - generic [ref=e518]:
+        - link "GitHub Homepage" [ref=e519] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e520]
+        - generic [ref=e522]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e523]:
+        - heading "Footer navigation" [level=3] [ref=e524]
+        - list "Footer navigation" [ref=e525]:
+          - listitem [ref=e526]:
+            - link "Terms" [ref=e527] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e528]:
+            - link "Privacy" [ref=e529] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e530]:
+            - link "Security" [ref=e531] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e532]:
+            - link "Status" [ref=e533] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e534]:
+            - link "Community" [ref=e535] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e536]:
+            - link "Docs" [ref=e537] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e538]:
+            - link "Contact" [ref=e539] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e540]:
+            - button "Manage cookies" [ref=e542] [cursor=pointer]
+          - listitem [ref=e543]:
+            - button "Do not share my personal information" [ref=e545] [cursor=pointer]

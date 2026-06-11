@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 require('dotenv').config({ override: true });
 
@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3001;
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://localhost:11434';
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'qwen3.5:35b';
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'qwen3.6:35b';
 const OBSIDIAN_MCP = 'http://localhost:3002';
 const TELEGRAM_MCP = 'http://localhost:3003';
 const DIGEST_TIME_SGT = process.env.DIGEST_TIME_SGT || '08:00';
@@ -442,9 +442,10 @@ INSTRUCTIONS:
 - Group stage context: teams may play cautiously, draws are valid
 - Give a realistic scoreline reflecting each team's style (not just 1-0)
 - Confidence: 50 = coin flip, 95 = near certainty
+- score_reasoning: 1-2 sentences explaining WHY each team scores that many goals (specific attacking/defensive reasons)
 
 Respond ONLY with valid JSON, no markdown, no explanation:
-{"winner":"${team1}|${team2}|draw","confidence":75,"predicted_score":"2-1","key_factors":["factor1","factor2","factor3"],"analysis_summary":"2-3 sentence tactical breakdown.","risk_factor":"low|medium|high"}`;
+{"winner":"${team1}|${team2}|draw","confidence":75,"predicted_score":"2-1","score_reasoning":"1-2 sentences on why team1 scores X and team2 scores Y","key_factors":["factor1","factor2","factor3"],"analysis_summary":"2-3 sentence tactical breakdown.","risk_factor":"low|medium|high"}`;
 }
 
 /**
@@ -484,12 +485,14 @@ async function runOllama(prompt) {
 
 /**
  * Gather relevant Obsidian notes for both teams in a match.
- * Returns combined context string.
+ * Also fetches live weather for the venue/date if provided.
  * @param {string} team1
  * @param {string} team2
+ * @param {string} [venue] - venue name matching VENUE_COORDS key
+ * @param {string} [dateSgt] - YYYY-MM-DD match date in SGT
  * @returns {Promise<string>}
  */
-async function gatherObsidianContext(team1, team2) {
+async function gatherObsidianContext(team1, team2, venue = null, dateSgt = null) {
   const parts = [];
 
   try {
@@ -566,6 +569,17 @@ async function gatherObsidianContext(team1, team2) {
     }
   } catch {}
 
+  // Weather context — fetched live from Open-Meteo (free, no key)
+  if (venue && dateSgt) {
+    try {
+      const weather = await fetchMatchWeather(venue, dateSgt);
+      const weatherCtx = buildWeatherContext(weather);
+      if (weatherCtx) parts.push(weatherCtx);
+    } catch (err) {
+      console.log('[WEATHER] Fetch error (non-fatal):', err.message);
+    }
+  }
+
   return parts.join('\n\n');
 }
 
@@ -636,10 +650,12 @@ ${prediction.analysis_summary}
 
 /**
  * POST /api/analyze/:matchId
- * Full analysis pipeline: Obsidian → Ollama → save → Telegram → Obsidian write
+ * Multi-agent analysis pipeline.
+ * Query param: ?mode=full (5 agents, default) | ?mode=fast (single improved Qwen call)
  */
 app.post('/api/analyze/:matchId', async (req, res) => {
   const { matchId } = req.params;
+  const mode = (req.query.mode === 'fast') ? 'fast' : 'full';
   const fixture = FIXTURES.find((f) => f.matchId === matchId);
 
   if (!fixture) {
@@ -647,30 +663,29 @@ app.post('/api/analyze/:matchId', async (req, res) => {
   }
 
   const { team1, team2, group } = fixture;
-  const s1 = TEAM_STATS[team1] || { rank: 99, goalsFor: 1.0, goalsAgainst: 1.5, form: 'DDDDD' };
-  const s2 = TEAM_STATS[team2] || { rank: 99, goalsFor: 1.0, goalsAgainst: 1.5, form: 'DDDDD' };
+  console.log(`[WC2026] Analyze (${mode}): ${team1} vs ${team2} (Group ${group})`);
 
-  console.log(`[WC2026] Analyzing: ${team1} vs ${team2} (Group ${group})`);
+  // Deps bundle — injected into orchestrator to keep agents decoupled
+  const deps = {
+    runOllama,
+    TEAM_STATS,
+    obsidianGet,
+    obsidianPost,
+    gatherObsidianContext,
+    fetchMatchWeather,
+    buildWeatherContext,
+  };
 
-  // Step 1-3: Gather Obsidian context (non-blocking on failure)
-  let obsidianContext = '';
-  try {
-    obsidianContext = await gatherObsidianContext(team1, team2);
-  } catch (err) {
-    console.log('[OBSIDIAN] Context fetch failed (non-fatal):', err.message);
-  }
-
-  // Step 4: Build prompt
-  const prompt = buildOllamaPrompt(team1, team2, group, s1, s2, obsidianContext);
-
-  // Step 5: Call Ollama
   let ollamaResult;
   try {
-    ollamaResult = await runOllama(prompt);
+    ollamaResult = await runOrchestrator(fixture, deps, mode);
   } catch (err) {
-    console.error('[WC2026] Ollama error:', err.message);
-    return res.status(503).json({ error: 'Ollama inference failed', details: err.message });
+    console.error('[WC2026] Orchestrator error:', err.message);
+    return res.status(503).json({ error: 'Analysis pipeline failed', details: err.message });
   }
+
+  // Strip internal agent debug fields before saving
+  const { _mode, _agentReports, _statReport, ...cleanResult } = ollamaResult;
 
   // Build full prediction object
   const prediction = {
@@ -682,42 +697,44 @@ app.post('/api/analyze/:matchId', async (req, res) => {
     timeSgt: fixture.timeSgt,
     venue: fixture.venue,
     analyzedAt: new Date().toISOString(),
-    ...ollamaResult,
+    analysisMode: mode,
+    ...cleanResult,
+    // Store agent votes if full mode ran
+    agentVotes: _agentReports ? {
+      statistical: _agentReports.stat?.statWinner,
+      tactical:    _agentReports.tactical?.tacticalEdge,
+      historical:  _agentReports.historian?.h2hVerdict,
+      psychological: _agentReports.psych?.psychologicalEdge,
+      devil_upset_pct: _agentReports.devil?.upsetProbability,
+      statXG: { team1: _agentReports.stat?.xG1, team2: _agentReports.stat?.xG2 },
+    } : undefined,
     telegramPosted: false,
     suppress: false,
   };
 
-  // Step 6: Atomic write to predictions.json
+  // Atomic write to predictions.json
   const predictions = readJson(PREDICTIONS_FILE);
   predictions[matchId] = prediction;
   writeJson(PREDICTIONS_FILE, predictions);
-  console.log(`[WC2026] Saved prediction: ${matchId}`);
+  console.log(`[WC2026] Saved prediction: ${matchId} (${mode} mode)`);
 
-  // Step 7: Telegram (fire and forget)
+  // Telegram (fire and forget)
   if (!prediction.suppress) {
     telegramPost('/send-analysis', prediction)
       .then(() => {
-        prediction.telegramPosted = true;
         const p = readJson(PREDICTIONS_FILE);
-        if (p[matchId]) {
-          p[matchId].telegramPosted = true;
-          writeJson(PREDICTIONS_FILE, p);
-        }
+        if (p[matchId]) { p[matchId].telegramPosted = true; writeJson(PREDICTIONS_FILE, p); }
         console.log(`[TELEGRAM] Posted analysis for ${matchId}`);
       })
       .catch((err) => console.error('[TELEGRAM] Post failed (non-fatal):', err.message));
   }
 
-  // Step 8: Write to Obsidian (fire and forget)
+  // Write to Obsidian (fire and forget)
   const noteContent = formatPredictionNote(prediction, fixture);
-  obsidianPost('/write', {
-    filename: `WC2026/predictions/${matchId}.md`,
-    content: noteContent,
-  })
+  obsidianPost('/write', { filename: `WC2026/predictions/${matchId}.md`, content: noteContent })
     .then(() => console.log(`[OBSIDIAN] Wrote prediction note: ${matchId}`))
     .catch((err) => console.error('[OBSIDIAN] Write failed (non-fatal):', err.message));
 
-  // Step 9: Return prediction
   res.json(prediction);
 });
 
@@ -1026,7 +1043,13 @@ app.post('/api/calendar/create-all', async (req, res) => {
 // ─── SCHEDULER / ALERT ROUTES ──────────────────────────────────────────────
 
 const { readResults, writeResult: saveResult, fetchTournamentStats } = require('./services/resultsService');
+const { readLiveStore } = require('./services/liveMatchService');
 const { isAlertSent } = require('./services/alertService');
+const { readKnockout, writeKnockout } = require('./services/knockoutService');
+const { analyzeKnockoutBracket } = require('./services/knockoutPredictionService');
+const { fetchMatchWeather, buildWeatherContext } = require('./services/weatherService');
+const { runOrchestrator } = require('./services/agents/orchestratorAgent');
+const { computeCalibration, writeCalibrationToObsidian } = require('./services/agents/calibrationAgent');
 
 const RESULTS_FILE = path.join(__dirname, 'data', 'match-results.json');
 const SENT_ALERTS_FILE = path.join(__dirname, 'data', 'sent-alerts.json');
@@ -1074,6 +1097,11 @@ app.post('/api/trigger/preview/:matchId', async (req, res) => {
   res.json({ success: true, message: `Preview for ${fixture.team1} vs ${fixture.team2} — restart app to trigger via scheduler or use /api/analyze/${fixture.matchId}` });
 });
 
+/** GET /api/live — current live match data (updated every minute during matches) */
+app.get('/api/live', (req, res) => {
+  res.json(readLiveStore());
+});
+
 /** GET /api/results — all stored match results */
 app.get('/api/results', (req, res) => {
   res.json(readResults());
@@ -1104,6 +1132,88 @@ app.post('/api/results/:matchId', (req, res) => {
 /** GET /api/tournament-stats */
 app.get('/api/tournament-stats', (req, res) => {
   res.json(fetchTournamentStats());
+});
+
+/** GET /api/calibration — prediction accuracy vs real results */
+app.get('/api/calibration', async (req, res) => {
+  try {
+    const report = computeCalibration();
+    // Fire-and-forget write to Obsidian
+    writeCalibrationToObsidian(report).catch(() => {});
+    res.json(report);
+  } catch (err) {
+    console.error('[CALIBRATION] Error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/calibration/sync
+ * Manually trigger calibration write to Obsidian vault.
+ */
+app.post('/api/calibration/sync', async (req, res) => {
+  try {
+    const report = computeCalibration();
+    await writeCalibrationToObsidian(report);
+    res.json({ success: true, totalCompared: report.totalCompared, outcomeAccuracy: report.outcomeAccuracy });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── KNOCKOUT PREDICTION ROUTES ───────────────────────────────────────────────
+
+/** GET /api/knockout — full knockout data: actual results + Qwen predictions */
+app.get('/api/knockout', (req, res) => {
+  res.json(readKnockout());
+});
+
+/**
+ * POST /api/analyze/knockout
+ * Stream Qwen bracket predictions from R32 → Final via Server-Sent Events.
+ * Each match emits a data event; final event has type=complete with champion.
+ * Full run: 31 Qwen calls (~20-60 min depending on Ollama speed).
+ */
+app.post('/api/analyze/knockout', async (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders();
+
+  const send = (data) => res.write(`data: ${JSON.stringify(data)}\n\n`);
+
+  const deps = {
+    runOllama,
+    gatherObsidianContext,
+    obsidianPost,
+    telegramPost,
+    writeJson,
+    readJson,
+    TEAM_STATS,
+  };
+
+  console.log('[KNOCKOUT] Starting full bracket analysis...');
+  try {
+    const bracket = await analyzeKnockoutBracket(deps, send);
+    send({ type: 'complete', champion: bracket.champion, bracket });
+    console.log(`[KNOCKOUT] Bracket analysis done — champion: ${bracket.champion}`);
+  } catch (err) {
+    console.error('[KNOCKOUT] Analysis failed:', err.message);
+    send({ type: 'error', message: err.message });
+  }
+  res.end();
+});
+
+/**
+ * POST /api/analyze/knockout/reset
+ * Clear Qwen knockout predictions only — actual API results are preserved.
+ */
+app.post('/api/analyze/knockout/reset', (req, res) => {
+  const ko = readKnockout();
+  delete ko.predictions;
+  writeKnockout(ko);
+  console.log('[KNOCKOUT] Predictions cleared');
+  res.json({ success: true, message: 'Knockout predictions cleared' });
 });
 
 // ─── COUNTDOWN ─────────────────────────────────────────────────────────────
@@ -1223,6 +1333,35 @@ async function startupHealthCheck() {
   console.log(`  OBSIDIAN_VAULT_PATH: ${vaultDisplay}`);
   console.log(`  Fixtures loaded: ${FIXTURES.length}`);
 }
+
+// ─── START SERVER ──────────────────────────────────────────────────────────
+
+// ─── GRACEFUL SHUTDOWN ─────────────────────────────────────────────────────
+
+async function handleShutdown(signal) {
+  console.log(`[WC2026] Received ${signal} — shutting down...`);
+  const token  = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHANNEL_ID;
+  if (token && chatId) {
+    try {
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id:    chatId,
+          text:       `🔴 <b>WC2026 Predictor stopped</b>\nReason: ${signal}\n${new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' })} SGT`,
+          parse_mode: 'HTML',
+        }),
+      });
+    } catch (err) {
+      console.error('[WC2026] Shutdown Telegram failed:', err.message);
+    }
+  }
+  process.exit(0);
+}
+
+process.on('SIGINT',  () => handleShutdown('SIGINT').catch(() => process.exit(1)));
+process.on('SIGTERM', () => handleShutdown('SIGTERM').catch(() => process.exit(1)));
 
 // ─── START SERVER ──────────────────────────────────────────────────────────
 

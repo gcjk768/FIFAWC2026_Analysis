@@ -9,10 +9,12 @@ const fetch = require('node-fetch');
 
 const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInNextDays, buildCalendarSection, todaySgt, OPENING_MATCH } = require('./services/countdownService');
 const { isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeDayPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
+const { toZh } = require('./services/countryNames');
 const { fetchWC2026News, fetchTeamNews, fetchTopNews, formatNews, writeNewsToObsidian, isNewsSent, markNewsSent } = require('./services/newsService');
 const { readResults, writeResult, fetchFullMatchData, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
 const { fetchKnockoutResults, readKnockout } = require('./services/knockoutService');
 const { onResultReceived, onKnockoutResultReceived } = require('./services/liveDataService');
+const { pollLiveMatches } = require('./services/liveMatchService');
 
 const DIGEST_TIME_SGT = process.env.DIGEST_TIME_SGT || '08:00';
 const SERVER_URL = `http://localhost:${process.env.PORT || 3001}`;
@@ -113,9 +115,9 @@ async function getPrediction(matchId) {
   try {
     const resp = await fetch(`${SERVER_URL}/api/predictions/${matchId}`, { timeout: 5000 });
     if (resp.status === 404) {
-      // Trigger analysis
-      console.log(`[SCHEDULER] No prediction for ${matchId} — triggering analysis`);
-      await fetch(`${SERVER_URL}/api/analyze/${matchId}`, { method: 'POST', timeout: 180000 });
+      // Trigger analysis — use full 5-agent mode for scheduled pre-match previews
+      console.log(`[SCHEDULER] No prediction for ${matchId} — triggering full-mode analysis`);
+      await fetch(`${SERVER_URL}/api/analyze/${matchId}?mode=full`, { method: 'POST', timeout: 600000 });
       const r2 = await fetch(`${SERVER_URL}/api/predictions/${matchId}`, { timeout: 5000 });
       if (r2.ok) return r2.json();
     }
@@ -151,7 +153,7 @@ async function sendDailyDigest() {
     dateSgt: today,
     countdownText: countdown.text,
     calendarSection: todayMatches.length
-      ? todayMatches.map((m) => `⚽ ${m.timeSgt} — ${m.team1} vs ${m.team2} | Group ${m.group}\n   🏟 ${m.venue}`).join('\n')
+      ? todayMatches.map((m) => `⚽ ${m.timeSgt} — ${m.team1} vs ${m.team2} (${toZh(m.team1)} vs ${toZh(m.team2)}) | Group ${m.group}\n   🏟 ${m.venue}`).join('\n')
       : `No matches today — next: ${getMatchesInNextDays(FIXTURES, 3).slice(0, 1).map((m) => `${m.team1} vs ${m.team2} on ${m.dateSgt}`)[0] || 'TBC'}`,
     newsSection,
     injurySection,
@@ -295,36 +297,55 @@ async function sendMidnightCountdown() {
   const { countdown } = getOpeningMatchCountdown();
   const today = todaySgt();
   const todayMatches = getMatchesForDate(FIXTURES, today);
+  const nextMatch = (!todayMatches.length && countdown.started)
+    ? (getMatchesInNextDays(FIXTURES, 3)[0] || null)
+    : null;
 
-  const lines = [];
-
+  // ── English ──
+  const en = [];
   if (!countdown.started) {
-    lines.push(`⏳ *WC2026 Countdown* | 世界杯倒计时`);
-    lines.push(``);
-    lines.push(`🏆 Opening match | 揭幕战：*Mexico vs South Africa*`);
-    lines.push(`📅 12 Jun 2026 at 01:00 SGT`);
-    lines.push(``);
-    lines.push(`⏰ ${countdown.text} to go | 还有 ${countdown.days} 天 ${countdown.hours} 小时 ${countdown.minutes} 分钟`);
+    en.push(`⏳ *WC2026 Countdown*`, ``);
+    en.push(`🏆 Opening match: *Mexico vs South Africa*`);
+    en.push(`📅 12 Jun 2026 at 03:00 SGT`, ``);
+    en.push(`⏰ ${countdown.text} to go`);
   } else {
-    lines.push(`🏆 *FIFA World Cup 2026 is live\\!* | 世界杯正在进行中！`);
-    lines.push(``);
-    lines.push(`📅 Today | 今天 — ${today} SGT`);
+    en.push(`🏆 *FIFA World Cup 2026 is live\\!*`, ``);
+    en.push(`📅 Today — ${today} SGT`);
   }
 
   if (todayMatches.length > 0) {
-    lines.push(``);
-    lines.push(`⚽ *Today's Matches | 今日赛程*`);
+    en.push(``, `⚽ *Today's Matches*`);
     for (const m of todayMatches) {
-      lines.push(`  ${m.timeSgt} — *${m.team1} vs ${m.team2}* | Group ${m.group}`);
-      lines.push(`  🏟 ${m.venue}`);
+      en.push(`  ${m.timeSgt} — *${m.team1} vs ${m.team2}* \\| Group ${m.group}`);
+      en.push(`  🏟 ${m.venue}`);
     }
   } else if (countdown.started) {
-    const next = getMatchesInNextDays(FIXTURES, 3).slice(0, 1)[0];
-    lines.push(``);
-    lines.push(`No matches today | 今天没有比赛${next ? ` — next up | 下一场：*${next.team1} vs ${next.team2}* on ${next.dateSgt}` : ''}`);
+    en.push(``, `No matches today${nextMatch ? ` — next up: *${nextMatch.team1} vs ${nextMatch.team2}* on ${nextMatch.dateSgt}` : ''}`);
   }
 
-  const msg = lines.join('\n');
+  // ── Chinese ──
+  const zh = [];
+  if (!countdown.started) {
+    zh.push(`⏳ *世界杯倒计时*`, ``);
+    zh.push(`🏆 揭幕战：*墨西哥 vs 南非*`);
+    zh.push(`📅 2026年6月12日 03:00 SGT`, ``);
+    zh.push(`⏰ 还有 ${countdown.days} 天 ${countdown.hours} 小时 ${countdown.minutes} 分钟`);
+  } else {
+    zh.push(`🏆 *FIFA世界杯2026赛事进行中\\!*`, ``);
+    zh.push(`📅 今天 — ${today} SGT`);
+  }
+
+  if (todayMatches.length > 0) {
+    zh.push(``, `⚽ *今日赛程*`);
+    for (const m of todayMatches) {
+      zh.push(`  ${m.timeSgt} — *${toZh(m.team1)} vs ${toZh(m.team2)}* \\| ${m.group}组`);
+      zh.push(`  🏟 ${m.venue}`);
+    }
+  } else if (countdown.started) {
+    zh.push(``, `今天没有比赛${nextMatch ? ` — 下一场：*${toZh(nextMatch.team1)} vs ${toZh(nextMatch.team2)}* 在 ${nextMatch.dateSgt}` : ''}`);
+  }
+
+  const msg = [...en, ``, `━━━━━━━━━━━━━━━━━━━━━━━━━`, ``, ...zh].join('\n');
   try {
     await sendToChannel(msg);
     console.log(`[SCHEDULER] Midnight countdown sent (${today})`);
@@ -357,20 +378,20 @@ async function checkNewsUpdates() {
   const escapeMd = (t) => String(t).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, (c) => `\\${c}`);
 
   const lines = [
-    `📰 *WC2026 News Update | 世界杯最新消息*`,
+    `📰 *WC2026 News Update \\| 世界杯最新消息*`,
     ``,
   ];
 
   for (const a of toPost) {
     const age = Math.round((Date.now() - new Date(a.publishedAt).getTime()) / 3600000);
-    const ageLabel = age < 1 ? 'just now | 刚刚' : `${age}h ago | ${age}小时前`;
+    const ageLabel = age < 1 ? 'just now \\| 刚刚' : `${age}h ago \\| ${age}小时前`;
     lines.push(`📌 *${escapeMd(a.title)}*`);
     if (a.summary) lines.push(`${escapeMd(a.summary.slice(0, 120))}${a.summary.length > 120 ? '\\.\\.\\.' : ''}`);
     lines.push(`_${escapeMd(a.source)} • ${ageLabel}_`);
     lines.push(``);
   }
 
-  lines.push(`_Source: FIFA\\.com Top Stories | 来源：FIFA官网精选_`);
+  lines.push(`_Source: FIFA\\.com Top Stories \\| 来源：FIFA官网精选_`);
 
   try {
     await sendToChannel(lines.join('\n'));
@@ -417,6 +438,7 @@ async function start() {
   console.log(`  - News Alerts:         every 4 hours (FIFA Top Stories → Telegram + Obsidian)`);
   console.log(`  - 3-Day Alerts:        checking every hour`);
   console.log(`  - 1-Day Alerts:        checking every hour`);
+  console.log(`  - Live Match Polling:  every 1min during match windows (kickoff/goal/HT alerts)`);
   console.log(`  - Result Polling:      every 5min during match windows`);
   console.log(`  - Knockout Polling:    every 5min from Jun 28 onwards`);
 
@@ -434,6 +456,9 @@ async function start() {
     await checkThreeDayAlerts();
     await checkOneDayAlerts();
   }, { timezone: 'Asia/Singapore' });
+
+  // Live match polling every minute — no-op outside match windows
+  cron.schedule('* * * * *', () => pollLiveMatches(FIXTURES), { timezone: 'Asia/Singapore' });
 
   // Result polling every 5 minutes
   cron.schedule('*/5 * * * *', checkResults, { timezone: 'Asia/Singapore' });
@@ -465,6 +490,7 @@ async function start() {
   await checkThreeDayAlerts();
   await checkOneDayAlerts();
   await checkResults();
+  await pollLiveMatches(FIXTURES);
   console.log('[SCHEDULER] Startup check complete — scheduler running');
 }
 

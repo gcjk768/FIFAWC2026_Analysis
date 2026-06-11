@@ -1,0 +1,812 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fissues
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fissues%2Findex&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e138]:
+      - heading "Issues" [level=1] [ref=e139]
+      - generic [ref=e140]:
+        - generic [ref=e142]:
+          - form "Search Issues" [ref=e144]:
+            - generic [ref=e145]: Search Issues
+            - generic [ref=e147]:
+              - generic [ref=e149]:
+                - generic [ref=e150]:
+                  - generic [ref=e151]:
+                    - text: "is:"
+                    - generic [ref=e152]: issue
+                  - generic [ref=e154]:
+                    - text: "state:"
+                    - generic [ref=e155]: open
+                - combobox "Search Issues" [ref=e158]: is:issue state:open
+              - button "Search" [ref=e159] [cursor=pointer]:
+                - img [ref=e160]
+          - generic [ref=e162]:
+            - link "Labels" [ref=e163] [cursor=pointer]:
+              - /url: /ollama/ollama/labels
+              - generic [ref=e164]:
+                - generic:
+                  - img
+                - generic [ref=e165]: Labels
+            - link "Milestones" [ref=e166] [cursor=pointer]:
+              - /url: /ollama/ollama/milestones
+              - generic [ref=e167]:
+                - generic:
+                  - img
+                - generic [ref=e168]: Milestones
+            - link "New issue" [ref=e169] [cursor=pointer]:
+              - /url: /login?return_to=https://github.com/ollama/ollama/issues
+              - generic [ref=e171]: New issue
+        - generic [ref=e172]:
+          - generic [ref=e175]:
+            - heading "Search results" [level=2] [ref=e176]
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - link "Open" [ref=e179] [cursor=pointer]:
+                  - /url: ""
+                  - generic [ref=e180]: Open
+                - link "Closed" [ref=e182] [cursor=pointer]:
+                  - /url: ""
+                  - generic [ref=e183]: Closed
+              - toolbar "Actions" [ref=e185]:
+                - generic [ref=e186]:
+                  - button "Filter by author" [ref=e188] [cursor=pointer]:
+                    - generic [ref=e189]:
+                      - generic [ref=e190]: Author
+                      - generic:
+                        - img
+                  - button "Filter by label" [ref=e192] [cursor=pointer]:
+                    - generic [ref=e193]:
+                      - generic [ref=e194]: Labels
+                      - generic:
+                        - img
+                  - button "Filter by project" [ref=e196] [cursor=pointer]:
+                    - generic [ref=e197]:
+                      - generic [ref=e198]: Projects
+                      - generic:
+                        - img
+                  - button "Filter by milestone" [ref=e200] [cursor=pointer]:
+                    - generic [ref=e201]:
+                      - generic [ref=e202]: Milestones
+                      - generic:
+                        - img
+                  - button "Filter by assignees" [ref=e204] [cursor=pointer]:
+                    - generic [ref=e205]:
+                      - generic [ref=e206]: Assignees
+                      - generic:
+                        - img
+                  - button "Filter by issue type" [ref=e208] [cursor=pointer]:
+                    - generic [ref=e209]:
+                      - generic [ref=e210]: Types
+                      - generic:
+                        - img
+                  - button "Sort by Newest , descending" [ref=e212] [cursor=pointer]:
+                    - generic [ref=e213]:
+                      - generic:
+                        - img
+                      - generic [ref=e214]:
+                        - generic [ref=e215]: Sort by
+                        - text: Newest
+                        - generic [ref=e216]: ", descending"
+                    - generic:
+                      - img
+            - list "Search results" [ref=e217]:
+              - 'listitem "Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code: Status: Open. #16279 In ollama/ollama;· heykb opened on May 24, 2026. More information available below." [ref=e220]':
+                - heading "Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code" [level=3] [ref=e222]:
+                  - link "Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code" [ref=e223] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16279
+                    - generic [ref=e224]: Tool calling is not streaming on macOS with MLX, causing timeout when write tool outputs large code
+                - generic [ref=e229]:
+                  - img [ref=e231]
+                  - generic [ref=e234]: "Status: Open."
+                - generic [ref=e238]:
+                  - generic [ref=e239]:
+                    - generic [ref=e240]: "#16279"
+                    - generic [ref=e241]: In ollama/ollama;
+                  - generic [ref=e242]:
+                    - text: ·
+                    - link "heykb" [ref=e243] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Aheykb
+                    - text: opened
+                    - generic "May 24, 2026, 10:23 AM GMT+8" [ref=e244]: on May 24, 20261 hour ago
+              - 'listitem "[Bug] Immediate \"file does not exist\" error on ollama pull despite active service (macOS Apple Silicon M4): Status: Open. #16278 In ollama/ollama;· ckpv5wpnt5-alt opened on May 23, 2026. More information available below." [ref=e248]':
+                - generic [ref=e249]:
+                  - heading "[Bug] Immediate \"file does not exist\" error on ollama pull despite active service (macOS Apple Silicon M4)" [level=3] [ref=e250]:
+                    - link "[Bug] Immediate \"file does not exist\" error on ollama pull despite active service (macOS Apple Silicon M4)" [ref=e251] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16278
+                      - generic [ref=e252]: "[Bug] Immediate \"file does not exist\" error on ollama pull despite active service (macOS Apple Silicon M4)"
+                  - link "bug Something isn't working" [ref=e256] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e258]: bug
+                    - generic [ref=e259]: Something isn't working
+                - generic [ref=e263]:
+                  - img [ref=e265]
+                  - generic [ref=e268]: "Status: Open."
+                - generic [ref=e272]:
+                  - generic [ref=e273]:
+                    - generic [ref=e274]: "#16278"
+                    - generic [ref=e275]: In ollama/ollama;
+                  - generic [ref=e276]:
+                    - text: ·
+                    - link "ckpv5wpnt5-alt" [ref=e277] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Ackpv5wpnt5-alt
+                    - text: opened
+                    - generic "May 23, 2026, 11:45 PM GMT+8" [ref=e278]: on May 23, 202611 hours ago
+              - 'listitem "Data races in progress.Progress type: Status: Open. #16271 In ollama/ollama;· blackwell-systems opened on May 23, 2026. More information available below." [ref=e282]':
+                - heading "Data races in progress.Progress type" [level=3] [ref=e284]:
+                  - link "Data races in progress.Progress type" [ref=e285] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16271
+                    - generic [ref=e286]: Data races in progress.Progress type
+                - generic [ref=e291]:
+                  - img [ref=e293]
+                  - generic [ref=e296]: "Status: Open."
+                - generic [ref=e300]:
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: "#16271"
+                    - generic [ref=e303]: In ollama/ollama;
+                  - generic [ref=e304]:
+                    - text: ·
+                    - link "blackwell-systems" [ref=e305] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Ablackwell-systems
+                    - text: opened
+                    - generic "May 23, 2026, 11:52 AM GMT+8" [ref=e306]: on May 23, 2026yesterday
+              - 'listitem "ollama does not work with windows 11 firewall control firewall set to allow all: Status: Open. #16270 In ollama/ollama;· akierum opened on May 23, 2026. More information available below." [ref=e310]':
+                - generic [ref=e311]:
+                  - heading "ollama does not work with windows 11 firewall control firewall set to allow all" [level=3] [ref=e312]:
+                    - link "ollama does not work with windows 11 firewall control firewall set to allow all" [ref=e313] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16270
+                      - generic [ref=e314]: ollama does not work with windows 11 firewall control firewall set to allow all
+                  - link "bug Something isn't working" [ref=e318] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e320]: bug
+                    - generic [ref=e321]: Something isn't working
+                - generic [ref=e325]:
+                  - img [ref=e327]
+                  - generic [ref=e330]: "Status: Open."
+                - generic [ref=e334]:
+                  - generic [ref=e335]:
+                    - generic [ref=e336]: "#16270"
+                    - generic [ref=e337]: In ollama/ollama;
+                  - generic [ref=e338]:
+                    - text: ·
+                    - link "akierum" [ref=e339] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Aakierum
+                    - text: opened
+                    - generic "May 23, 2026, 4:14 AM GMT+8" [ref=e340]: on May 23, 2026yesterday
+              - 'listitem "Feature Request: Provide vendored source code tarball for offline builds: Status: Open. #16268 In ollama/ollama;· linrs opened on May 23, 2026. More information available below." [ref=e344]':
+                - generic [ref=e345]:
+                  - 'heading "Feature Request: Provide vendored source code tarball for offline builds" [level=3] [ref=e346]':
+                    - 'link "Feature Request: Provide vendored source code tarball for offline builds" [ref=e347] [cursor=pointer]':
+                      - /url: /ollama/ollama/issues/16268
+                      - generic [ref=e348]: "Feature Request: Provide vendored source code tarball for offline builds"
+                  - link "feature request New feature or request" [ref=e352] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                    - generic [ref=e354]: feature request
+                    - generic [ref=e355]: New feature or request
+                - generic [ref=e359]:
+                  - img [ref=e361]
+                  - generic [ref=e364]: "Status: Open."
+                - generic [ref=e368]:
+                  - generic [ref=e369]:
+                    - generic [ref=e370]: "#16268"
+                    - generic [ref=e371]: In ollama/ollama;
+                  - generic [ref=e372]:
+                    - text: ·
+                    - link "linrs" [ref=e373] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Alinrs
+                    - text: opened
+                    - generic "May 23, 2026, 12:51 AM GMT+8" [ref=e374]: on May 23, 2026yesterday
+              - 'listitem "Turbo migration persists invalid cloud model names: Status: Open. #16266 In ollama/ollama;· fallintoplace opened on May 22, 2026. More information available below." [ref=e378]':
+                - heading "Turbo migration persists invalid cloud model names" [level=3] [ref=e380]:
+                  - link "Turbo migration persists invalid cloud model names" [ref=e381] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16266
+                    - generic [ref=e382]: Turbo migration persists invalid cloud model names
+                - generic [ref=e387]:
+                  - img [ref=e389]
+                  - generic [ref=e392]: "Status: Open."
+                - generic [ref=e396]:
+                  - generic [ref=e397]:
+                    - generic [ref=e398]: "#16266"
+                    - generic [ref=e399]: In ollama/ollama;
+                  - generic [ref=e400]:
+                    - text: ·
+                    - link "fallintoplace" [ref=e401] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Afallintoplace
+                    - text: opened
+                    - generic "May 22, 2026, 11:21 PM GMT+8" [ref=e402]: on May 22, 20262 days ago
+              - 'listitem "Ollama windows-amd64-mlx is denied MLX models from Ollama model catalog: Status: Open. #16265 In ollama/ollama;· MarkWard0110 opened on May 22, 2026. More information available below." [ref=e406]':
+                - generic [ref=e407]:
+                  - heading "Ollama windows-amd64-mlx is denied MLX models from Ollama model catalog" [level=3] [ref=e408]:
+                    - link "Ollama windows-amd64-mlx is denied MLX models from Ollama model catalog" [ref=e409] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16265
+                      - generic [ref=e410]: Ollama windows-amd64-mlx is denied MLX models from Ollama model catalog
+                  - link "bug Something isn't working" [ref=e414] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e416]: bug
+                    - generic [ref=e417]: Something isn't working
+                - generic [ref=e421]:
+                  - img [ref=e423]
+                  - generic [ref=e426]: "Status: Open."
+                - generic [ref=e430]:
+                  - generic [ref=e431]:
+                    - generic [ref=e432]: "#16265"
+                    - generic [ref=e433]: In ollama/ollama;
+                  - generic [ref=e434]:
+                    - text: ·
+                    - link "MarkWard0110" [ref=e435] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3AMarkWard0110
+                    - text: opened
+                    - generic "May 22, 2026, 10:56 PM GMT+8" [ref=e436]: on May 22, 20262 days ago
+              - 'listitem "Imported Qwen3-VL-8B GGUF + mmproj registers as vision-capable but crashes on first image request on Apple Silicon (exit status 2): Status: Open. #16264 In ollama/ollama;· j-zuilkowski opened on May 22, 2026. More information available below." [ref=e440]':
+                - heading "Imported Qwen3-VL-8B GGUF + mmproj registers as vision-capable but crashes on first image request on Apple Silicon (exit status 2)" [level=3] [ref=e442]:
+                  - link "Imported Qwen3-VL-8B GGUF + mmproj registers as vision-capable but crashes on first image request on Apple Silicon (exit status 2)" [ref=e443] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16264
+                    - generic [ref=e444]: Imported Qwen3-VL-8B GGUF + mmproj registers as vision-capable but crashes on first image request on Apple Silicon (exit status 2)
+                - generic [ref=e449]:
+                  - img [ref=e451]
+                  - generic [ref=e454]: "Status: Open."
+                - generic [ref=e458]:
+                  - generic [ref=e459]:
+                    - generic [ref=e460]: "#16264"
+                    - generic [ref=e461]: In ollama/ollama;
+                  - generic [ref=e462]:
+                    - text: ·
+                    - link "j-zuilkowski" [ref=e463] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Aj-zuilkowski
+                    - text: opened
+                    - generic "May 22, 2026, 10:38 PM GMT+8" [ref=e464]: on May 22, 20262 days ago
+              - 'listitem "AMD Radeon RX 9070 partial offload segfaults in ggml_backend_tensor_set: Status: Open. #16261 In ollama/ollama;· firelizzard18 opened on May 22, 2026. More information available below." [ref=e468]':
+                - generic [ref=e469]:
+                  - heading "AMD Radeon RX 9070 partial offload segfaults in ggml_backend_tensor_set" [level=3] [ref=e470]:
+                    - link "AMD Radeon RX 9070 partial offload segfaults in ggml_backend_tensor_set" [ref=e471] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16261
+                      - generic [ref=e472]: AMD Radeon RX 9070 partial offload segfaults in ggml_backend_tensor_set
+                  - link "bug Something isn't working" [ref=e476] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e478]: bug
+                    - generic [ref=e479]: Something isn't working
+                - generic [ref=e483]:
+                  - img [ref=e485]
+                  - generic [ref=e488]: "Status: Open."
+                - generic [ref=e492]:
+                  - generic [ref=e493]:
+                    - generic [ref=e494]: "#16261"
+                    - generic [ref=e495]: In ollama/ollama;
+                  - generic [ref=e496]:
+                    - text: ·
+                    - link "firelizzard18" [ref=e497] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Afirelizzard18
+                    - text: opened
+                    - generic "May 22, 2026, 5:01 AM GMT+8" [ref=e498]: on May 22, 20262 days ago
+              - 'listitem "Ollama opens in the wrong macOS Space/Desktop: Status: Open. #16260 In ollama/ollama;· brandonzylstra opened on May 22, 2026. More information available below." [ref=e502]':
+                - generic [ref=e503]:
+                  - heading "Ollama opens in the wrong macOS Space/Desktop" [level=3] [ref=e504]:
+                    - link "Ollama opens in the wrong macOS Space/Desktop" [ref=e505] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16260
+                      - generic [ref=e506]: Ollama opens in the wrong macOS Space/Desktop
+                  - link "bug Something isn't working" [ref=e510] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e512]: bug
+                    - generic [ref=e513]: Something isn't working
+                - generic [ref=e517]:
+                  - img [ref=e519]
+                  - generic [ref=e522]: "Status: Open."
+                - generic [ref=e526]:
+                  - generic [ref=e527]:
+                    - generic [ref=e528]: "#16260"
+                    - generic [ref=e529]: In ollama/ollama;
+                  - generic [ref=e530]:
+                    - text: ·
+                    - link "brandonzylstra" [ref=e531] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Abrandonzylstra
+                    - text: opened
+                    - generic "May 22, 2026, 4:29 AM GMT+8" [ref=e532]: on May 22, 20262 days ago
+              - 'listitem "Multiline UX Fix: Status: Open. #16257 In ollama/ollama;· mcandre opened on May 22, 2026. More information available below." [ref=e536]':
+                - generic [ref=e537]:
+                  - heading "Multiline UX Fix" [level=3] [ref=e538]:
+                    - link "Multiline UX Fix" [ref=e539] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16257
+                      - generic [ref=e540]: Multiline UX Fix
+                  - link "feature request New feature or request" [ref=e544] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                    - generic [ref=e546]: feature request
+                    - generic [ref=e547]: New feature or request
+                - generic [ref=e551]:
+                  - img [ref=e553]
+                  - generic [ref=e556]: "Status: Open."
+                - generic [ref=e560]:
+                  - generic [ref=e561]:
+                    - generic [ref=e562]: "#16257"
+                    - generic [ref=e563]: In ollama/ollama;
+                  - generic [ref=e564]:
+                    - text: ·
+                    - link "mcandre" [ref=e565] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Amcandre
+                    - text: opened
+                    - generic "May 22, 2026, 2:25 AM GMT+8" [ref=e566]: on May 22, 20262 days ago
+              - 'listitem "option to stop raising the gui every launch: Status: Open. #16256 In ollama/ollama;· mcandre opened on May 22, 2026. More information available below." [ref=e570]':
+                - generic [ref=e571]:
+                  - heading "option to stop raising the gui every launch" [level=3] [ref=e572]:
+                    - link "option to stop raising the gui every launch" [ref=e573] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16256
+                      - generic [ref=e574]: option to stop raising the gui every launch
+                  - link "feature request New feature or request" [ref=e578] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                    - generic [ref=e580]: feature request
+                    - generic [ref=e581]: New feature or request
+                - generic [ref=e585]:
+                  - img [ref=e587]
+                  - generic [ref=e590]: "Status: Open."
+                - generic [ref=e594]:
+                  - generic [ref=e595]:
+                    - generic [ref=e596]: "#16256"
+                    - generic [ref=e597]: In ollama/ollama;
+                  - generic [ref=e598]:
+                    - text: ·
+                    - link "mcandre" [ref=e599] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Amcandre
+                    - text: opened
+                    - generic "May 22, 2026, 2:19 AM GMT+8" [ref=e600]: on May 22, 20262 days ago
+              - 'listitem "Allow to set the the type of K/V Cache in Modelfile: Status: Open. #16245 In ollama/ollama;· lukaz17 opened on May 21, 2026. More information available below." [ref=e604]':
+                - generic [ref=e605]:
+                  - heading "Allow to set the the type of K/V Cache in Modelfile" [level=3] [ref=e606]:
+                    - link "Allow to set the the type of K/V Cache in Modelfile" [ref=e607] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16245
+                      - generic [ref=e608]: Allow to set the the type of K/V Cache in Modelfile
+                  - link "feature request New feature or request" [ref=e612] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                    - generic [ref=e614]: feature request
+                    - generic [ref=e615]: New feature or request
+                - generic [ref=e619]:
+                  - img [ref=e621]
+                  - generic [ref=e624]: "Status: Open."
+                - generic [ref=e628]:
+                  - generic [ref=e629]:
+                    - generic [ref=e630]: "#16245"
+                    - generic [ref=e631]: In ollama/ollama;
+                  - generic [ref=e632]:
+                    - text: ·
+                    - link "lukaz17" [ref=e633] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Alukaz17
+                    - text: opened
+                    - generic "May 21, 2026, 2:36 PM GMT+8" [ref=e634]: on May 21, 20263 days ago
+              - 'listitem "Large Response from tool Call causes python API failure: llama-server response: bufio.Scanner: token too long (status code: -1): Status: Open. #16243 In ollama/ollama;· sammyvoncheese opened on May 21, 2026. More information available below." [ref=e638]':
+                - generic [ref=e639]:
+                  - 'heading "Large Response from tool Call causes python API failure: llama-server response: bufio.Scanner: token too long (status code: -1)" [level=3] [ref=e640]':
+                    - 'link "Large Response from tool Call causes python API failure: llama-server response: bufio.Scanner: token too long (status code: -1)" [ref=e641] [cursor=pointer]':
+                      - /url: /ollama/ollama/issues/16243
+                      - generic [ref=e642]: "Large Response from tool Call causes python API failure: llama-server response: bufio.Scanner: token too long (status code: -1)"
+                  - link "bug Something isn't working" [ref=e646] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e648]: bug
+                    - generic [ref=e649]: Something isn't working
+                - generic [ref=e653]:
+                  - img [ref=e655]
+                  - generic [ref=e658]: "Status: Open."
+                - generic [ref=e662]:
+                  - generic [ref=e663]:
+                    - generic [ref=e664]: "#16243"
+                    - generic [ref=e665]: In ollama/ollama;
+                  - generic [ref=e666]:
+                    - text: ·
+                    - link "sammyvoncheese" [ref=e667] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Asammyvoncheese
+                    - text: opened
+                    - generic "May 21, 2026, 5:09 AM GMT+8" [ref=e668]: on May 21, 20263 days ago
+              - 'listitem "Feature request: ability to set template parameters like preserve_thinking via OpenAI-completions API: Status: Open. #16240 In ollama/ollama;· stefreak opened on May 20, 2026. More information available below." [ref=e672]':
+                - 'heading "Feature request: ability to set template parameters like preserve_thinking via OpenAI-completions API" [level=3] [ref=e674]':
+                  - 'link "Feature request: ability to set template parameters like preserve_thinking via OpenAI-completions API" [ref=e675] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16240
+                    - generic [ref=e677]:
+                      - text: "Feature request: ability to set template parameters like"
+                      - code [ref=e678]: preserve_thinking
+                      - text: via OpenAI-completions API
+                - generic [ref=e683]:
+                  - img [ref=e685]
+                  - generic [ref=e688]: "Status: Open."
+                - generic [ref=e692]:
+                  - generic [ref=e693]:
+                    - generic [ref=e694]: "#16240"
+                    - generic [ref=e695]: In ollama/ollama;
+                  - generic [ref=e696]:
+                    - text: ·
+                    - link "stefreak" [ref=e697] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Astefreak
+                    - text: opened
+                    - generic "May 20, 2026, 11:59 PM GMT+8" [ref=e698]: on May 20, 20263 days ago
+              - 'listitem "Security: Unauthenticated arbitrary model injection from untrusted registries + GGUF memory safety — active exploitation in the wild: Status: Open. #16236 In ollama/ollama;· k4w1992-lgtm opened on May 20, 2026. More information available below." [ref=e702]':
+                - 'heading "Security: Unauthenticated arbitrary model injection from untrusted registries + GGUF memory safety — active exploitation in the wild" [level=3] [ref=e704]':
+                  - 'link "Security: Unauthenticated arbitrary model injection from untrusted registries + GGUF memory safety — active exploitation in the wild" [ref=e705] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16236
+                    - generic [ref=e706]: "Security: Unauthenticated arbitrary model injection from untrusted registries + GGUF memory safety — active exploitation in the wild"
+                - generic [ref=e711]:
+                  - img [ref=e713]
+                  - generic [ref=e716]: "Status: Open."
+                - generic [ref=e720]:
+                  - generic [ref=e721]:
+                    - generic [ref=e722]: "#16236"
+                    - generic [ref=e723]: In ollama/ollama;
+                  - generic [ref=e724]:
+                    - text: ·
+                    - link "k4w1992-lgtm" [ref=e725] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Ak4w1992-lgtm
+                    - text: opened
+                    - generic "May 20, 2026, 6:45 PM GMT+8" [ref=e726]: on May 20, 20264 days ago
+              - 'listitem "Ollama does not detect my Nvdia GPU on Fedora 44: Status: Open. #16235 In ollama/ollama;· buildwithuk opened on May 20, 2026. More information available below." [ref=e730]':
+                - generic [ref=e731]:
+                  - heading "Ollama does not detect my Nvdia GPU on Fedora 44" [level=3] [ref=e732]:
+                    - link "Ollama does not detect my Nvdia GPU on Fedora 44" [ref=e733] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16235
+                      - generic [ref=e734]: Ollama does not detect my Nvdia GPU on Fedora 44
+                  - link "bug Something isn't working" [ref=e738] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e740]: bug
+                    - generic [ref=e741]: Something isn't working
+                - generic [ref=e745]:
+                  - img [ref=e747]
+                  - generic [ref=e750]: "Status: Open."
+                - generic [ref=e754]:
+                  - generic [ref=e755]:
+                    - generic [ref=e756]: "#16235"
+                    - generic [ref=e757]: In ollama/ollama;
+                  - generic [ref=e758]:
+                    - text: ·
+                    - link "buildwithuk" [ref=e759] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Abuildwithuk
+                    - text: opened
+                    - generic "May 20, 2026, 4:28 PM GMT+8" [ref=e760]: on May 20, 20264 days ago
+              - 'listitem "Better external apps support for the Ollama AI enginer: Status: Open. #16226 In ollama/ollama;· SIBA-DK opened on May 19, 2026. More information available below." [ref=e764]':
+                - generic [ref=e765]:
+                  - heading "Better external apps support for the Ollama AI enginer" [level=3] [ref=e766]:
+                    - link "Better external apps support for the Ollama AI enginer" [ref=e767] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16226
+                      - generic [ref=e768]: Better external apps support for the Ollama AI enginer
+                  - link "bug Something isn't working" [ref=e772] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e774]: bug
+                    - generic [ref=e775]: Something isn't working
+                - generic [ref=e779]:
+                  - img [ref=e781]
+                  - generic [ref=e784]: "Status: Open."
+                - generic [ref=e788]:
+                  - generic [ref=e789]:
+                    - generic [ref=e790]: "#16226"
+                    - generic [ref=e791]: In ollama/ollama;
+                  - generic [ref=e792]:
+                    - text: ·
+                    - link "SIBA-DK" [ref=e793] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3ASIBA-DK
+                    - text: opened
+                    - generic "May 19, 2026, 11:07 PM GMT+8" [ref=e794]: on May 19, 20265 days ago
+              - 'listitem "Ollama.com Password Change and MFA: Status: Open. #16224 In ollama/ollama;· tezgno opened on May 19, 2026. More information available below." [ref=e798]':
+                - generic [ref=e799]:
+                  - heading "Ollama.com Password Change and MFA" [level=3] [ref=e800]:
+                    - link "Ollama.com Password Change and MFA" [ref=e801] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16224
+                      - generic [ref=e802]: Ollama.com Password Change and MFA
+                  - link "feature request New feature or request" [ref=e806] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                    - generic [ref=e808]: feature request
+                    - generic [ref=e809]: New feature or request
+                - generic [ref=e813]:
+                  - img [ref=e815]
+                  - generic [ref=e818]: "Status: Open."
+                - generic [ref=e822]:
+                  - generic [ref=e823]:
+                    - generic [ref=e824]: "#16224"
+                    - generic [ref=e825]: In ollama/ollama;
+                  - generic [ref=e826]:
+                    - text: ·
+                    - link "tezgno" [ref=e827] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Atezgno
+                    - text: opened
+                    - generic "May 19, 2026, 9:32 PM GMT+8" [ref=e828]: on May 19, 20265 days ago
+              - 'listitem "Add OLLAMA_NO_FILE_FRAGMENTATION option to prevent severe NTFS file fragmentation on Windows: Status: Open. #16220 In ollama/ollama;· workturnedplay opened on May 19, 2026. More information available below." [ref=e832]':
+                - generic [ref=e833]:
+                  - heading "Add OLLAMA_NO_FILE_FRAGMENTATION option to prevent severe NTFS file fragmentation on Windows" [level=3] [ref=e834]:
+                    - link "Add OLLAMA_NO_FILE_FRAGMENTATION option to prevent severe NTFS file fragmentation on Windows" [ref=e835] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16220
+                      - generic [ref=e836]: Add OLLAMA_NO_FILE_FRAGMENTATION option to prevent severe NTFS file fragmentation on Windows
+                  - link "feature request New feature or request" [ref=e840] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                    - generic [ref=e842]: feature request
+                    - generic [ref=e843]: New feature or request
+                - generic [ref=e847]:
+                  - img [ref=e849]
+                  - generic [ref=e852]: "Status: Open."
+                - generic [ref=e856]:
+                  - generic [ref=e857]:
+                    - generic [ref=e858]: "#16220"
+                    - generic [ref=e859]: In ollama/ollama;
+                  - generic [ref=e860]:
+                    - text: ·
+                    - link "workturnedplay" [ref=e861] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Aworkturnedplay
+                    - text: opened
+                    - generic "May 19, 2026, 3:50 PM GMT+8" [ref=e862]: on May 19, 20265 days ago
+              - 'listitem "qwen3.6:35b vision - empty content response on specific pages with long prompt: Status: Open. #16216 In ollama/ollama;· Dongbin-youk opened on May 19, 2026. More information available below." [ref=e866]':
+                - heading "qwen3.6:35b vision - empty content response on specific pages with long prompt" [level=3] [ref=e868]:
+                  - link "qwen3.6:35b vision - empty content response on specific pages with long prompt" [ref=e869] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/16216
+                    - generic [ref=e870]: qwen3.6:35b vision - empty content response on specific pages with long prompt
+                - generic [ref=e875]:
+                  - img [ref=e877]
+                  - generic [ref=e880]: "Status: Open."
+                - generic [ref=e884]:
+                  - generic [ref=e885]:
+                    - generic [ref=e886]: "#16216"
+                    - generic [ref=e887]: In ollama/ollama;
+                  - generic [ref=e888]:
+                    - text: ·
+                    - link "Dongbin-youk" [ref=e889] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3ADongbin-youk
+                    - text: opened
+                    - generic "May 19, 2026, 9:26 AM GMT+8" [ref=e890]: on May 19, 20265 days ago
+              - 'listitem "launch/codex: map unsupported xhigh reasoning effort for Ollama models: Status: Open. #16214 In ollama/ollama;· BruceMacD opened on May 19, 2026. More information available below." [ref=e894]':
+                - 'heading "launch/codex: map unsupported xhigh reasoning effort for Ollama models" [level=3] [ref=e896]':
+                  - 'link "launch/codex: map unsupported xhigh reasoning effort for Ollama models" [ref=e897] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16214
+                    - generic [ref=e898]: "launch/codex: map unsupported xhigh reasoning effort for Ollama models"
+                - generic [ref=e903]:
+                  - img [ref=e905]
+                  - generic [ref=e908]: "Status: Open."
+                - generic [ref=e912]:
+                  - generic [ref=e913]:
+                    - generic [ref=e914]: "#16214"
+                    - generic [ref=e915]: In ollama/ollama;
+                  - generic [ref=e916]:
+                    - text: ·
+                    - link "BruceMacD" [ref=e917] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3ABruceMacD
+                    - text: opened
+                    - generic "May 19, 2026, 6:39 AM GMT+8" [ref=e918]: on May 19, 20265 days ago
+              - 'listitem "Codex App integration: switching GUI permissions from Custom(config.toml) to Full Access can break patch tool calls: Status: Open. #16209 In ollama/ollama;· YBJ0000 opened on May 18, 2026. More information available below." [ref=e922]':
+                - 'heading "Codex App integration: switching GUI permissions from Custom(config.toml) to Full Access can break patch tool calls" [level=3] [ref=e924]':
+                  - 'link "Codex App integration: switching GUI permissions from Custom(config.toml) to Full Access can break patch tool calls" [ref=e925] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16209
+                    - generic [ref=e926]: "Codex App integration: switching GUI permissions from Custom(config.toml) to Full Access can break patch tool calls"
+                - generic [ref=e931]:
+                  - img [ref=e933]
+                  - generic [ref=e936]: "Status: Open."
+                - generic [ref=e940]:
+                  - generic [ref=e941]:
+                    - generic [ref=e942]: "#16209"
+                    - generic [ref=e943]: In ollama/ollama;
+                  - generic [ref=e944]:
+                    - text: ·
+                    - link "YBJ0000" [ref=e945] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3AYBJ0000
+                    - text: opened
+                    - generic "May 18, 2026, 8:20 PM GMT+8" [ref=e946]: on May 18, 2026last week
+              - 'listitem "Getting on \"500 Internal Server Error: mlx runner failed: Error: failed to initialize MLX\" on Linux: Status: Open. #16204 In ollama/ollama;· sanel opened on May 18, 2026. More information available below." [ref=e950]':
+                - generic [ref=e951]:
+                  - 'heading "Getting on \"500 Internal Server Error: mlx runner failed: Error: failed to initialize MLX\" on Linux" [level=3] [ref=e952]':
+                    - 'link "Getting on \"500 Internal Server Error: mlx runner failed: Error: failed to initialize MLX\" on Linux" [ref=e953] [cursor=pointer]':
+                      - /url: /ollama/ollama/issues/16204
+                      - generic [ref=e954]: "Getting on \"500 Internal Server Error: mlx runner failed: Error: failed to initialize MLX\" on Linux"
+                  - link "bug Something isn't working" [ref=e958] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
+                    - generic [ref=e960]: bug
+                    - generic [ref=e961]: Something isn't working
+                - generic [ref=e965]:
+                  - img [ref=e967]
+                  - generic [ref=e970]: "Status: Open."
+                - generic [ref=e974]:
+                  - generic [ref=e975]:
+                    - generic [ref=e976]: "#16204"
+                    - generic [ref=e977]: In ollama/ollama;
+                  - generic [ref=e978]:
+                    - text: ·
+                    - link "sanel" [ref=e979] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Asanel
+                    - text: opened
+                    - generic "May 18, 2026, 5:34 AM GMT+8" [ref=e980]: on May 18, 2026last week
+              - 'listitem "[Feature request UX] Make the desktop app window narrow, resizable, and always on top - One-Click Tray Access: Status: Open. #16203 In ollama/ollama;· alexandre-leng opened on May 18, 2026. More information available below." [ref=e984]':
+                - generic [ref=e985]:
+                  - heading "[Feature request UX] Make the desktop app window narrow, resizable, and always on top - One-Click Tray Access" [level=3] [ref=e986]:
+                    - link "[Feature request UX] Make the desktop app window narrow, resizable, and always on top - One-Click Tray Access" [ref=e987] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues/16203
+                      - generic [ref=e988]: "[Feature request UX] Make the desktop app window narrow, resizable, and always on top - One-Click Tray Access"
+                  - generic [ref=e990]:
+                    - link "app" [ref=e992] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3Aapp
+                      - generic [ref=e994]: app
+                    - link "feature request New feature or request" [ref=e997] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22feature%20request%22
+                      - generic [ref=e999]: feature request
+                      - generic [ref=e1000]: New feature or request
+                - generic [ref=e1004]:
+                  - img [ref=e1006]
+                  - generic [ref=e1009]: "Status: Open."
+                - generic [ref=e1013]:
+                  - generic [ref=e1014]:
+                    - generic [ref=e1015]: "#16203"
+                    - generic [ref=e1016]: In ollama/ollama;
+                  - generic [ref=e1017]:
+                    - text: ·
+                    - link "alexandre-leng" [ref=e1018] [cursor=pointer]:
+                      - /url: /ollama/ollama/issues?q=is%3Aissue%20state%3Aopen%20author%3Aalexandre-leng
+                    - text: opened
+                    - generic "May 18, 2026, 4:42 AM GMT+8" [ref=e1019]: on May 18, 2026last week
+          - navigation "Pagination" [ref=e1021]:
+            - generic [ref=e1022]:
+              - generic [ref=e1023]:
+                - img [ref=e1024]
+                - text: Previous
+              - link "Page 1" [ref=e1026] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=1
+                - text: "1"
+              - link "Page 2" [ref=e1027] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=2
+                - text: "2"
+              - link "Page 3" [ref=e1028] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=3
+                - text: "3"
+              - link "Page 4" [ref=e1029] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=4
+                - text: "4"
+              - link "Page 5" [ref=e1030] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=5
+                - text: "5"
+              - link "Page 6" [ref=e1031] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=6
+                - text: "6"
+              - link "Page 7" [ref=e1032] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=7
+                - text: "7"
+              - link "Page 8..." [ref=e1033] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=8
+                - text: "8"
+              - text: …
+              - link "Page 39" [ref=e1034] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=39
+                - text: "39"
+              - link "Page 40" [ref=e1035] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=40
+                - text: "40"
+              - link "Next Page" [ref=e1036] [cursor=pointer]:
+                - /url: /ollama/ollama/issues?page=2
+                - text: Next
+                - img [ref=e1037]
+  - contentinfo [ref=e1039]:
+    - heading "Footer" [level=2] [ref=e1040]
+    - generic [ref=e1041]:
+      - generic [ref=e1042]:
+        - link "GitHub Homepage" [ref=e1043] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e1044]
+        - generic [ref=e1046]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e1047]:
+        - heading "Footer navigation" [level=3] [ref=e1048]
+        - list "Footer navigation" [ref=e1049]:
+          - listitem [ref=e1050]:
+            - link "Terms" [ref=e1051] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e1052]:
+            - link "Privacy" [ref=e1053] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e1054]:
+            - link "Security" [ref=e1055] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e1056]:
+            - link "Status" [ref=e1057] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e1058]:
+            - link "Community" [ref=e1059] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e1060]:
+            - link "Docs" [ref=e1061] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e1062]:
+            - link "Contact" [ref=e1063] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e1064]:
+            - button "Manage cookies" [ref=e1066] [cursor=pointer]
+          - listitem [ref=e1067]:
+            - button "Do not share my personal information" [ref=e1069] [cursor=pointer]

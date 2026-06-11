@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
+const { toZh } = require('./countryNames');
 
 const TELEGRAM_MCP = 'http://localhost:3003';
 const SENT_ALERTS_FILE = path.join(__dirname, '../data/sent-alerts.json');
@@ -58,19 +59,34 @@ function markAlertSent(alertKey) {
 // ─── TELEGRAM SEND ──────────────────────────────────────────────────────────
 
 /**
- * Send a message via the Telegram MCP.
+ * Send a message via the Telegram MCP with retry (up to 2 retries on transient failures).
  * @param {string} message
  * @param {string} [parseMode]
  * @returns {Promise<void>}
  */
 async function sendToChannel(message, parseMode = 'MarkdownV2') {
-  const resp = await fetch(`${TELEGRAM_MCP}/send`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, parse_mode: parseMode }),
-  });
-  const data = await resp.json();
-  if (!data.success) throw new Error(data.error || 'Telegram send failed');
+  const MAX_RETRIES = 2;
+  let lastErr;
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const resp = await fetch(`${TELEGRAM_MCP}/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, parse_mode: parseMode }),
+      });
+      const data = await resp.json();
+      if (!data.success) throw new Error(data.error || 'Telegram send failed');
+      return;
+    } catch (err) {
+      lastErr = err;
+      if (attempt === MAX_RETRIES) break;
+      const waitMs = Math.pow(2, attempt) * 1500;
+      console.warn(`[ALERT] sendToChannel attempt ${attempt + 1} failed — retrying in ${waitMs}ms`);
+      await new Promise((r) => setTimeout(r, waitMs));
+    }
+  }
+  throw lastErr;
 }
 
 // ─── MESSAGE FORMATTERS ─────────────────────────────────────────────────────
@@ -81,42 +97,42 @@ async function sendToChannel(message, parseMode = 'MarkdownV2') {
  * @param {string} opts.dateSgt
  * @param {string} opts.countdownText
  * @param {string} opts.calendarSection
- * @param {string} opts.newsSection
+ * @param {string} opts.newsSection - pre-escaped MarkdownV2 (from formatNews)
  * @param {string} opts.injurySection
  * @param {boolean} opts.tournamentStarted
  * @returns {string}
  */
 function buildDailyDigest({ dateSgt, countdownText, calendarSection, newsSection, injurySection, tournamentStarted }) {
   const lines = [
-    `⚽ *WC2026 Daily Digest | 每日简报 — ${escapeMd(dateSgt)} SGT*`,
+    `⚽ *WC2026 Daily Digest \\| 每日简报 — ${escapeMd(dateSgt)} SGT*`,
     ``,
   ];
 
   if (!tournamentStarted) {
     lines.push(
-      `⏱ *Countdown to Opening Match | 揭幕战倒计时*`,
+      `⏱ *Countdown to Opening Match \\| 揭幕战倒计时*`,
       `🏟 Mexico vs South Africa`,
-      `📅 12 Jun 2026, 01:00 SGT`,
-      `⏰ ${escapeMd(countdownText)} to go | 还有这么久`,
+      `📅 12 Jun 2026, 03:00 SGT`,
+      `⏰ ${escapeMd(countdownText)} to go \\| 还有这么久`,
       ``,
       `─────────────────────────`,
     );
   }
 
   lines.push(
-    `📅 *Today's Matches \\(SGT\\) | 今日赛程*`,
-    escapeMd(calendarSection) || `_No matches today | 今天没有比赛_`,
+    `📅 *Today's Matches \\(SGT\\) \\| 今日赛程*`,
+    escapeMd(calendarSection) || `_No matches today \\| 今天没有比赛_`,
     ``,
     `─────────────────────────`,
-    `📰 *Latest Football News | 最新足球新闻*`,
-    newsSection || `_News unavailable | 暂无新闻_`,
+    `📰 *Latest Football News \\| 最新足球新闻*`,
+    newsSection || `_News unavailable \\| 暂无新闻_`,
     ``,
     `─────────────────────────`,
-    `🚑 *Injury Updates | 伤病更新*`,
-    injurySection || `_No confirmed injuries | 暂无确认伤情_`,
+    `🚑 *Injury Updates \\| 伤病更新*`,
+    injurySection ? escapeMd(injurySection) : `_No confirmed injuries \\| 暂无确认伤情_`,
     ``,
     `─────────────────────────`,
-    `_Powered by qwen3\\.5:35b • ${escapeMd(dateSgt)} SGT_`,
+    `_Powered by qwen3\\.6:35b • ${escapeMd(dateSgt)} SGT_`,
   );
 
   return lines.join('\n');
@@ -135,42 +151,80 @@ function buildThreeDayPreview(fixture, prediction, injurySection, h2hSection) {
   const pred = prediction || {};
 
   const lines = [
-    `🔮 *3\\-DAY MATCH PREVIEW | 赛前3天预览*`,
+    `🔮 *3\\-DAY MATCH PREVIEW*`,
     ``,
     `⚽ *${escapeMd(team1)} vs ${escapeMd(team2)}*`,
     `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| Group ${escapeMd(group)}`,
     `📍 ${escapeMd(venue)}`,
-    `⏰ 3 days to go | 还有3天`,
+    `⏰ 3 days to go`,
     ``,
     `─────────────────────────`,
-    `🏆 *AI Prediction | AI预测 \\(qwen3\\.5:35b\\)*`,
+    `🏆 *AI Prediction \\(qwen3\\.6:35b\\)*`,
   ];
 
   if (pred.winner) {
     lines.push(
-      `Winner | 预测赢家: ${escapeMd(pred.winner)} \\| Score | 比分: ${escapeMd(pred.predicted_score || '?-?')}`,
-      `Confidence | 置信度: ${escapeMd(String(pred.confidence || 0))}% \\| Risk | 风险: ${escapeMd(pred.risk_factor || 'unknown')}`,
+      `Winner: ${escapeMd(pred.winner)} \\| Score: ${escapeMd(pred.predicted_score || '?-?')}`,
+      `Confidence: ${escapeMd(String(pred.confidence || 0))}% \\| Risk: ${escapeMd(pred.risk_factor || 'unknown')}`,
     );
   } else {
-    lines.push(`_Analysis not yet run | 尚未运行分析_`);
+    lines.push(`_Analysis not yet run_`);
   }
 
   if (pred.key_factors?.length) {
-    lines.push(``, `─────────────────────────`, `🔑 *Key Factors | 关键因素*`);
+    lines.push(``, `─────────────────────────`, `🔑 *Key Factors*`);
     pred.key_factors.slice(0, 3).forEach((f) => lines.push(`• ${escapeMd(f)}`));
   }
 
   lines.push(
     ``,
     `─────────────────────────`,
-    `🚑 *Injury \\& Doubt List | 伤病疑问名单*`,
-    injurySection ? escapeMd(injurySection) : `_No confirmed injuries | 暂无确认伤情_`,
+    `🚑 *Injury \\& Doubt List*`,
+    injurySection ? escapeMd(injurySection) : `_No confirmed injuries_`,
     ``,
     `─────────────────────────`,
-    `📊 *Head\\-to\\-Head | 历史交锋*`,
-    h2hSection ? escapeMd(h2hSection) : `_No H2H data available | 暂无历史交锋数据_`,
+    `📊 *Head\\-to\\-Head*`,
+    h2hSection ? escapeMd(h2hSection) : `_No H2H data available_`,
     ``,
-    `_Analysis by qwen3\\.5:35b via Ollama_`,
+    `_Analysis by qwen3\\.6:35b via Ollama_`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    `🇨🇳 *赛前3天预览*`,
+    ``,
+    `⚽ *${escapeMd(toZh(team1))} vs ${escapeMd(toZh(team2))}*`,
+    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| ${escapeMd(group)}组`,
+    `📍 ${escapeMd(venue)}`,
+    `⏰ 还有3天`,
+    ``,
+    `─────────────────────────`,
+    `🏆 *AI预测 \\(qwen3\\.6:35b\\)*`,
+  );
+
+  if (pred.winner) {
+    lines.push(
+      `预测赢家：${escapeMd(toZh(pred.winner))} \\| 比分：${escapeMd(pred.predicted_score || '?-?')}`,
+      `置信度：${escapeMd(String(pred.confidence || 0))}% \\| 风险：${escapeMd(pred.risk_factor || '未知')}`,
+    );
+  } else {
+    lines.push(`_尚未运行分析_`);
+  }
+
+  if (pred.key_factors?.length) {
+    lines.push(``, `─────────────────────────`, `🔑 *关键因素*`);
+    pred.key_factors.slice(0, 3).forEach((f) => lines.push(`• ${escapeMd(f)}`));
+  }
+
+  lines.push(
+    ``,
+    `─────────────────────────`,
+    `🚑 *伤病疑问名单*`,
+    injurySection ? escapeMd(injurySection) : `_暂无确认伤情_`,
+    ``,
+    `─────────────────────────`,
+    `📊 *历史交锋*`,
+    h2hSection ? escapeMd(h2hSection) : `_暂无历史交锋数据_`,
+    ``,
+    `_qwen3\\.6:35b via Ollama 提供支持_`,
   );
 
   return lines.join('\n');
@@ -181,7 +235,7 @@ function buildThreeDayPreview(fixture, prediction, injurySection, h2hSection) {
  * @param {object} fixture
  * @param {object} prediction
  * @param {string} weatherSection
- * @param {string} newsSection
+ * @param {string} newsSection - pre-escaped MarkdownV2 (from formatNews)
  * @param {string} injurySection
  * @returns {string}
  */
@@ -189,49 +243,86 @@ function buildOneDayPreview(fixture, prediction, weatherSection, newsSection, in
   const { team1, team2, group, dateSgt, timeSgt, venue } = fixture;
   const pred = prediction || {};
 
-  const kickoff = new Date(fixture.dateIso);
-  const hoursUntil = Math.round((kickoff - Date.now()) / 3600000);
-  const pred1 = TEAM_STATS_STUB[team1] || {};
-  const pred2 = TEAM_STATS_STUB[team2] || {};
+  const kickoff = fixture.dateIso ? new Date(fixture.dateIso) : new Date();
+  const hoursUntil = Math.max(0, Math.round((kickoff - Date.now()) / 3600000));
 
   const lines = [
-    `⚡ *MATCH TOMORROW | 明天比赛 — FINAL PREVIEW | 最终预测*`,
+    `⚡ *MATCH TOMORROW — FINAL PREVIEW*`,
     ``,
     `⚽ *${escapeMd(team1)} vs ${escapeMd(team2)}*`,
     `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| Group ${escapeMd(group)}`,
     `📍 ${escapeMd(venue)}`,
-    `⏰ Match in ~${escapeMd(String(hoursUntil))} hours | 约${escapeMd(String(hoursUntil))}小时后开赛`,
+    `⏰ Match in \\~${escapeMd(String(hoursUntil))} hours`,
     ``,
     `─────────────────────────`,
-    `🏆 *Final Prediction | 最终预测*`,
+    `🏆 *Final Prediction*`,
   ];
 
   if (pred.winner) {
     lines.push(
-      `Winner | 预测赢家: *${escapeMd(pred.winner)}*`,
-      `Score | 比分: *${escapeMd(pred.predicted_score || '?-?')}*`,
-      `Confidence | 置信度: ${escapeMd(String(pred.confidence || 0))}%`,
+      `Winner: *${escapeMd(pred.winner)}*`,
+      `Score: *${escapeMd(pred.predicted_score || '?-?')}*`,
+      `Confidence: ${escapeMd(String(pred.confidence || 0))}%`,
     );
   } else {
-    lines.push(`_No prediction yet | 尚无预测_`);
+    lines.push(`_No prediction yet_`);
   }
 
   lines.push(
     ``,
     `─────────────────────────`,
-    `🌤 *Match Conditions | 比赛条件*`,
-    `Venue | 场馆: ${escapeMd(venue)}`,
-    weatherSection ? escapeMd(weatherSection) : `_Weather data unavailable | 天气数据不可用_`,
+    `🌤 *Match Conditions*`,
+    `Venue: ${escapeMd(venue)}`,
+    weatherSection ? escapeMd(weatherSection) : `_Weather data unavailable_`,
     ``,
     `─────────────────────────`,
-    `📰 *Pre\\-Match News | 赛前新闻*`,
-    newsSection || `_No news available | 暂无新闻_`,
+    `📰 *Pre\\-Match News*`,
+    newsSection || `_No news available_`,
     ``,
     `─────────────────────────`,
-    `🚑 *Late Injury News | 最新伤病消息*`,
-    injurySection ? escapeMd(injurySection) : `_No confirmed injuries | 暂无确认伤情_`,
+    `🚑 *Late Injury News*`,
+    injurySection ? escapeMd(injurySection) : `_No confirmed injuries_`,
     ``,
-    `_Match day tomorrow | 明天是比赛日 — qwen3\\.5:35b is ready_ ⚽`,
+    `_Match day tomorrow — qwen3\\.6:35b is ready_ ⚽`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    `🇨🇳 *明天比赛 — 最终预测*`,
+    ``,
+    `⚽ *${escapeMd(toZh(team1))} vs ${escapeMd(toZh(team2))}*`,
+    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| ${escapeMd(group)}组`,
+    `📍 ${escapeMd(venue)}`,
+    `⏰ 约${escapeMd(String(hoursUntil))}小时后开赛`,
+    ``,
+    `─────────────────────────`,
+    `🏆 *最终预测*`,
+  );
+
+  if (pred.winner) {
+    lines.push(
+      `预测赢家：*${escapeMd(toZh(pred.winner))}*`,
+      `比分：*${escapeMd(pred.predicted_score || '?-?')}*`,
+      `置信度：${escapeMd(String(pred.confidence || 0))}%`,
+    );
+  } else {
+    lines.push(`_尚无预测_`);
+  }
+
+  lines.push(
+    ``,
+    `─────────────────────────`,
+    `🌤 *比赛条件*`,
+    `场馆：${escapeMd(venue)}`,
+    weatherSection ? escapeMd(weatherSection) : `_天气数据不可用_`,
+    ``,
+    `─────────────────────────`,
+    `📰 *赛前新闻*`,
+    newsSection || `_暂无新闻_`,
+    ``,
+    `─────────────────────────`,
+    `🚑 *最新伤病消息*`,
+    injurySection ? escapeMd(injurySection) : `_暂无确认伤情_`,
+    ``,
+    `_明天是比赛日 — qwen3\\.6:35b 已就绪_ ⚽`,
   );
 
   return lines.join('\n');
@@ -246,58 +337,63 @@ function buildOneDayPreview(fixture, prediction, weatherSection, newsSection, in
  */
 function buildResultMessage(fixture, result, prediction) {
   const { team1, team2, group, dateSgt, venue } = fixture;
-  const { score1, score2, htScore1, htScore2, goalscorers = [], cards = [], substitutions = [], stats = {} } = result;
+  const { score1, score2, htScore1, htScore2, goalscorers = [], cards = [], stats = {} } = result;
   const pred = prediction || {};
 
-  const actual = `${score1}\\-${score2}`;
+  const actual = `${score1}:${score2}`;
   const actualWinner = score1 > score2 ? team1 : score2 > score1 ? team2 : 'draw';
   const predWinner = pred.winner || '?';
   const predScore = escapeMd(pred.predicted_score || '?-?');
+  const hasHt = htScore1 !== null && htScore2 !== null;
+  const hasStats = stats && Object.values(stats).some((v) => v !== null && v !== undefined && v !== 'espn');
+  const pad = (v, w = 6) => String(v !== null && v !== undefined ? v : '—').padEnd(w);
 
-  let accuracy = '❌ Wrong prediction | 预测错误';
+  let accuracyEn, accuracyZh;
   if (predWinner === actualWinner) {
-    accuracy = pred.predicted_score === `${score1}-${score2}`
-      ? '✅ Perfect prediction\\! | 完美预测！'
-      : '🤏 Correct winner, wrong score | 赢家预测正确，比分有误';
+    if (pred.predicted_score === `${score1}-${score2}`) {
+      accuracyEn = '✅ Perfect prediction\\!';
+      accuracyZh = '✅ 完美预测！';
+    } else {
+      accuracyEn = '🤏 Correct winner, wrong score';
+      accuracyZh = '🤏 赢家预测正确，比分有误';
+    }
+  } else {
+    accuracyEn = '❌ Wrong prediction';
+    accuracyZh = '❌ 预测错误';
   }
 
-  const htLine = htScore1 !== null && htScore2 !== null
-    ? `\n🕐 *Half Time | 半场:* ${htScore1} — ${htScore2}`
-    : '';
-
-  const lines = [
-    `🏁 *FULL TIME | 比赛结束*`,
+  // ── English section ──
+  const en = [
+    `🏁 *FULL TIME*`,
     ``,
-    `⚽ *${escapeMd(team1)} ${score1} — ${score2} ${escapeMd(team2)}*`,
-    htLine,
+    `⚽ *${escapeMd(team1)} ${score1}:${score2} ${escapeMd(team2)}*`,
+    hasHt ? `🕐 *Half Time:* ${htScore1}:${htScore2}` : '',
     `📅 ${escapeMd(dateSgt)} SGT \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
     ``,
     `─────────────────────────`,
   ].filter((l) => l !== '');
 
   if (goalscorers.length) {
-    lines.push(`⚽ *Goals | 进球*`);
+    en.push(`⚽ *Goals*`);
     goalscorers.forEach((g) => {
       const tag = g.type === 'PENALTY' ? ' 🎯' : g.type === 'OWN_GOAL' ? ' \\(og\\)' : '';
-      lines.push(`${escapeMd(String(g.minute))}\\'  ${escapeMd(g.player)} \\(${escapeMd(g.team)}\\)${tag}`);
+      en.push(`${escapeMd(String(g.minute))}\\'  ${escapeMd(g.player)} \\(${escapeMd(g.team)}\\)${tag}`);
     });
-    lines.push(``);
+    en.push(``);
   }
 
   if (cards.length) {
-    lines.push(`🟨 *Cards | 纪律*`);
-    cards.forEach((c) => lines.push(`${escapeMd(String(c.minute))}\\'  ${escapeMd(c.player)} \\(${escapeMd(c.team)}\\) — ${escapeMd(c.type)}`));
-    lines.push(``);
+    en.push(`🟨 *Cards*`);
+    cards.forEach((c) => en.push(`${escapeMd(String(c.minute))}\\'  ${escapeMd(c.player)} \\(${escapeMd(c.team)}\\) — ${escapeMd(c.type)}`));
+    en.push(``);
   }
 
-  const hasStats = stats && Object.values(stats).some((v) => v !== null && v !== undefined && v !== 'espn');
   if (hasStats) {
-    const pad = (v, w = 6) => String(v !== null && v !== undefined ? v : '—').padEnd(w);
     const t1h = team1.slice(0, 10).padEnd(10);
     const t2h = team2.slice(0, 10);
-    lines.push(
+    en.push(
       `─────────────────────────`,
-      `📊 *Match Stats | 比赛数据*`,
+      `📊 *Match Stats*`,
       `\`\`\``,
       `             ${t1h}  ${t2h}`,
       `Possession   ${pad(stats.possession1)}%   ${stats.possession2 !== null ? stats.possession2 + '%' : '—'}`,
@@ -312,21 +408,74 @@ function buildResultMessage(fixture, result, prediction) {
     );
   }
 
-  lines.push(
+  en.push(
     `─────────────────────────`,
-    `🎯 *Prediction Accuracy | 预测准确性*`,
-    `My prediction | 我的预测: ${predScore} \\(${escapeMd(predWinner)}\\)`,
-    `Actual result | 实际结果: ${actual} \\(${escapeMd(actualWinner)}\\)`,
-    accuracy,
+    `🎯 *Prediction Accuracy*`,
+    `My prediction: ${predScore} \\(${escapeMd(predWinner)}\\)`,
+    `Actual result: ${actual} \\(${escapeMd(actualWinner)}\\)`,
+    accuracyEn,
     ``,
-    `_Result saved to Obsidian | 结果已保存至Obsidian_ 📓`,
+    `_Result saved to Obsidian_ 📓`,
   );
 
-  return lines.join('\n');
-}
+  // ── Chinese section ──
+  const zh = [
+    `🇨🇳 *比赛结束*`,
+    ``,
+    `⚽ *${escapeMd(toZh(team1))} ${score1}:${score2} ${escapeMd(toZh(team2))}*`,
+    hasHt ? `🕐 *半场：* ${htScore1}:${htScore2}` : '',
+    `📅 ${escapeMd(dateSgt)} SGT \\| ${escapeMd(group)}组 \\| ${escapeMd(venue)}`,
+    ``,
+    `─────────────────────────`,
+  ].filter((l) => l !== '');
 
-// Stub — scheduler passes real stats from server
-const TEAM_STATS_STUB = {};
+  if (goalscorers.length) {
+    zh.push(`⚽ *进球*`);
+    goalscorers.forEach((g) => {
+      const tag = g.type === 'PENALTY' ? ' 🎯' : g.type === 'OWN_GOAL' ? ' \\(og\\)' : '';
+      zh.push(`${escapeMd(String(g.minute))}\\'  ${escapeMd(g.player)} \\(${escapeMd(toZh(g.team))}\\)${tag}`);
+    });
+    zh.push(``);
+  }
+
+  if (cards.length) {
+    zh.push(`🟨 *纪律*`);
+    cards.forEach((c) => zh.push(`${escapeMd(String(c.minute))}\\'  ${escapeMd(c.player)} \\(${escapeMd(toZh(c.team))}\\) — ${escapeMd(c.type)}`));
+    zh.push(``);
+  }
+
+  if (hasStats) {
+    const t1h = toZh(team1).slice(0, 10).padEnd(10);
+    const t2h = toZh(team2).slice(0, 10);
+    zh.push(
+      `─────────────────────────`,
+      `📊 *比赛数据*`,
+      `\`\`\``,
+      `             ${t1h}  ${t2h}`,
+      `控球率   ${pad(stats.possession1)}%   ${stats.possession2 !== null ? stats.possession2 + '%' : '—'}`,
+      `射门     ${pad(stats.shots1)}    ${stats.shots2 !== null ? stats.shots2 : '—'}`,
+      `射正     ${pad(stats.shotsOnTarget1)}    ${stats.shotsOnTarget2 !== null ? stats.shotsOnTarget2 : '—'}`,
+      `传球     ${pad(stats.passes1)}    ${stats.passes2 !== null ? stats.passes2 : '—'}`,
+      `传球准确 ${pad(stats.passAccuracy1)}%   ${stats.passAccuracy2 !== null ? stats.passAccuracy2 + '%' : '—'}`,
+      `角球     ${pad(stats.corners1)}    ${stats.corners2 !== null ? stats.corners2 : '—'}`,
+      `犯规     ${pad(stats.fouls1)}    ${stats.fouls2 !== null ? stats.fouls2 : '—'}`,
+      `扑救     ${pad(stats.saves1)}    ${stats.saves2 !== null ? stats.saves2 : '—'}`,
+      `\`\`\``,
+    );
+  }
+
+  zh.push(
+    `─────────────────────────`,
+    `🎯 *预测准确性*`,
+    `我的预测：${predScore} \\(${escapeMd(toZh(predWinner))}\\)`,
+    `实际结果：${actual} \\(${escapeMd(toZh(actualWinner))}\\)`,
+    accuracyZh,
+    ``,
+    `_结果已保存至Obsidian_ 📓`,
+  );
+
+  return [...en, ``, `━━━━━━━━━━━━━━━━━━━━━━━━━`, ``, ...zh].join('\n');
+}
 
 module.exports = {
   escapeMd,

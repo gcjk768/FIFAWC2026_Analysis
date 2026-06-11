@@ -1,0 +1,543 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fissues%3Fq%3Dfp4
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fissues%2Findex&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e138]:
+      - heading "Issues" [level=1] [ref=e139]
+      - generic [ref=e140]:
+        - generic [ref=e142]:
+          - form "Search Issues" [ref=e144]:
+            - generic [ref=e145]: Search Issues
+            - generic [ref=e147]:
+              - generic [ref=e149]:
+                - generic [ref=e151]: fp4
+                - combobox "Search Issues" [ref=e153]: fp4
+              - button "Search" [ref=e154] [cursor=pointer]:
+                - img [ref=e155]
+          - generic [ref=e157]:
+            - link "Labels" [ref=e158] [cursor=pointer]:
+              - /url: /ollama/ollama/labels
+              - generic [ref=e159]:
+                - generic:
+                  - img
+                - generic [ref=e160]: Labels
+            - link "Milestones" [ref=e161] [cursor=pointer]:
+              - /url: /ollama/ollama/milestones
+              - generic [ref=e162]:
+                - generic:
+                  - img
+                - generic [ref=e163]: Milestones
+            - link "New issue" [ref=e164] [cursor=pointer]:
+              - /url: /login?return_to=https://github.com/ollama/ollama/issues?q=fp4
+              - generic [ref=e166]: New issue
+        - generic [ref=e170]:
+          - heading "Search results" [level=2] [ref=e171]
+          - generic [ref=e172]:
+            - generic [ref=e173]:
+              - link "Open" [ref=e174] [cursor=pointer]:
+                - /url: ""
+                - generic [ref=e175]: Open
+              - link "Closed" [ref=e177] [cursor=pointer]:
+                - /url: ""
+                - generic [ref=e178]: Closed
+            - toolbar "Actions" [ref=e180]:
+              - generic [ref=e181]:
+                - button "Filter by author" [ref=e183] [cursor=pointer]:
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: Author
+                    - generic:
+                      - img
+                - button "Filter by label" [ref=e187] [cursor=pointer]:
+                  - generic [ref=e188]:
+                    - generic [ref=e189]: Labels
+                    - generic:
+                      - img
+                - button "Filter by project" [ref=e191] [cursor=pointer]:
+                  - generic [ref=e192]:
+                    - generic [ref=e193]: Projects
+                    - generic:
+                      - img
+                - button "Filter by milestone" [ref=e195] [cursor=pointer]:
+                  - generic [ref=e196]:
+                    - generic [ref=e197]: Milestones
+                    - generic:
+                      - img
+                - button "Filter by assignees" [ref=e199] [cursor=pointer]:
+                  - generic [ref=e200]:
+                    - generic [ref=e201]: Assignees
+                    - generic:
+                      - img
+                - button "Filter by issue type" [ref=e203] [cursor=pointer]:
+                  - generic [ref=e204]:
+                    - generic [ref=e205]: Types
+                    - generic:
+                      - img
+                - button "Sort by Newest , descending" [ref=e207] [cursor=pointer]:
+                  - generic [ref=e208]:
+                    - generic:
+                      - img
+                    - generic [ref=e209]:
+                      - generic [ref=e210]: Sort by
+                      - text: Newest
+                      - generic [ref=e211]: ", descending"
+                  - generic:
+                    - img
+          - list "Search results" [ref=e212]:
+            - listitem "More information available below." [ref=e215]:
+              - 'heading "runner: Remove CGO engines, use llama-server exclusively for GGML models" [level=3] [ref=e217]':
+                - 'link "runner: Remove CGO engines, use llama-server exclusively for GGML models" [ref=e218] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/16031
+                  - generic [ref=e219]: "runner: Remove CGO engines, use llama-server exclusively for GGML models"
+              - generic [ref=e224]:
+                - img [ref=e226]
+                - generic [ref=e228]: "Status: Open (in progress)."
+              - generic [ref=e232]:
+                - generic [ref=e233]:
+                  - text: ollama/ollama
+                  - generic [ref=e234]: number 16031
+                - generic [ref=e235]:
+                  - generic [ref=e236]: "#16031"
+                  - generic [ref=e237]: In ollama/ollama;
+                - generic [ref=e238]:
+                  - text: ·
+                  - link "dhiltgen" [ref=e239] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Adhiltgen
+                  - text: opened
+                  - generic "May 7, 2026, 8:08 AM GMT+8" [ref=e240]: on May 7, 20262 weeks ago
+            - listitem "More information available below." [ref=e248]:
+              - generic [ref=e249]:
+                - 'heading "bug: x/flux2-klein silently returns empty response in <10ms on Apple Silicon, DMG v0.23.1" [level=3] [ref=e250]':
+                  - 'link "bug: x/flux2-klein silently returns empty response in <10ms on Apple Silicon, DMG v0.23.1" [ref=e251] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/16021
+                    - generic [ref=e252]: "bug: x/flux2-klein silently returns empty response in <10ms on Apple Silicon, DMG v0.23.1"
+                - link "bug Something isn't working" [ref=e256] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3Abug
+                  - generic [ref=e258]: bug
+                  - generic [ref=e259]: Something isn't working
+              - generic [ref=e263]:
+                - img [ref=e265]
+                - generic [ref=e268]: "Status: Closed (completed)."
+              - generic [ref=e272]:
+                - generic [ref=e273]:
+                  - generic [ref=e274]: "#16021"
+                  - generic [ref=e275]: In ollama/ollama;
+                - generic [ref=e276]:
+                  - text: · by
+                  - link "AMatisse" [ref=e277] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3AAMatisse
+                  - text: was closed
+                  - generic "May 12, 2026, 4:05 AM GMT+8" [ref=e278]: on May 12, 20262 weeks ago
+            - listitem "More information available below." [ref=e282]:
+              - 'heading "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8" [level=3] [ref=e284]':
+                - 'link "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8" [ref=e285] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/15902
+                  - generic [ref=e286]: "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8"
+              - generic [ref=e291]:
+                - img [ref=e293]
+                - generic [ref=e295]: "Status: Open (in progress)."
+              - generic [ref=e299]:
+                - generic [ref=e300]:
+                  - text: ollama/ollama
+                  - generic [ref=e301]: number 15902
+                - generic [ref=e302]:
+                  - generic [ref=e303]: "#15902"
+                  - generic [ref=e304]: In ollama/ollama;
+                - generic [ref=e305]:
+                  - text: ·
+                  - link "ArkaD171717" [ref=e306] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3AArkaD171717
+                  - text: opened
+                  - generic "May 1, 2026, 12:32 AM GMT+8" [ref=e307]: on May 1, 20263 weeks ago
+            - listitem "More information available below." [ref=e315]:
+              - heading "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero" [level=3] [ref=e317]:
+                - link "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero" [ref=e318] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues/15866
+                  - generic [ref=e319]: qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero
+              - generic [ref=e324]:
+                - img [ref=e326]
+                - generic [ref=e329]: "Status: Open."
+              - generic [ref=e333]:
+                - generic [ref=e334]:
+                  - generic [ref=e335]: "#15866"
+                  - generic [ref=e336]: In ollama/ollama;
+                - generic [ref=e337]:
+                  - text: ·
+                  - link "andreinknv" [ref=e338] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Aandreinknv
+                  - text: opened
+                  - generic "Apr 29, 2026, 6:42 AM GMT+8" [ref=e339]: on Apr 29, 2026last month
+            - listitem "More information available below." [ref=e343]:
+              - generic [ref=e344]:
+                - heading "qwen3.5 nvfp4 models say \"this model requires macOS\"" [level=3] [ref=e345]:
+                  - link "qwen3.5 nvfp4 models say \"this model requires macOS\"" [ref=e346] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/15149
+                    - generic [ref=e347]: qwen3.5 nvfp4 models say "this model requires macOS"
+                - link "bug Something isn't working" [ref=e351] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3Abug
+                  - generic [ref=e353]: bug
+                  - generic [ref=e354]: Something isn't working
+              - generic [ref=e358]:
+                - img [ref=e360]
+                - generic [ref=e363]: "Status: Closed (completed)."
+              - generic [ref=e367]:
+                - generic [ref=e368]:
+                  - generic [ref=e369]: "#15149"
+                  - generic [ref=e370]: In ollama/ollama;
+                - generic [ref=e371]:
+                  - text: · by
+                  - link "duffyjp" [ref=e372] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Aduffyjp
+                  - text: was closed
+                  - generic "Mar 31, 2026, 4:08 AM GMT+8" [ref=e373]: on Mar 31, 2026on Mar 31
+            - listitem "More information available below." [ref=e377]:
+              - generic [ref=e378]:
+                - heading "FLUX.2 Klein MLX error" [level=3] [ref=e379]:
+                  - link "FLUX.2 Klein MLX error" [ref=e380] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/14046
+                    - generic [ref=e381]: FLUX.2 Klein MLX error
+                - link "bug Something isn't working" [ref=e385] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3Abug
+                  - generic [ref=e387]: bug
+                  - generic [ref=e388]: Something isn't working
+              - generic [ref=e392]:
+                - img [ref=e394]
+                - generic [ref=e397]: "Status: Open."
+              - generic [ref=e401]:
+                - generic [ref=e402]:
+                  - generic [ref=e403]: "#14046"
+                  - generic [ref=e404]: In ollama/ollama;
+                - generic [ref=e405]:
+                  - text: ·
+                  - link "kamenik" [ref=e406] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Akamenik
+                  - text: opened
+                  - generic "Feb 3, 2026, 10:43 PM GMT+8" [ref=e407]: on Feb 3, 2026on Feb 3
+            - listitem "More information available below." [ref=e411]:
+              - 'heading "x/imagegen: add FP4 quantization support for image generation models" [level=3] [ref=e413]':
+                - 'link "x/imagegen: add FP4 quantization support for image generation models" [ref=e414] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/13773
+                  - generic [ref=e415]: "x/imagegen: add FP4 quantization support for image generation models"
+              - generic [ref=e420]:
+                - img [ref=e422]
+                - generic [ref=e424]: "Status: Merged (completed)."
+              - generic [ref=e428]:
+                - generic [ref=e429]:
+                  - text: ollama/ollama
+                  - generic [ref=e430]: number 13773
+                - generic [ref=e431]:
+                  - generic [ref=e432]: "#13773"
+                  - generic [ref=e433]: In ollama/ollama;
+                - generic [ref=e434]:
+                  - text: · by
+                  - link "jmorganca" [ref=e435] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Ajmorganca
+                  - text: was closed
+                  - generic "Jan 19, 2026, 4:54 PM GMT+8" [ref=e436]: on Jan 19, 2026on Jan 19
+            - listitem "More information available below." [ref=e444]:
+              - 'heading "x/imagegen: add naive TeaCache and FP8 quantization support" [level=3] [ref=e446]':
+                - 'link "x/imagegen: add naive TeaCache and FP8 quantization support" [ref=e447] [cursor=pointer]':
+                  - /url: /ollama/ollama/pull/13683
+                  - generic [ref=e448]: "x/imagegen: add naive TeaCache and FP8 quantization support"
+              - generic [ref=e453]:
+                - img [ref=e455]
+                - generic [ref=e457]: "Status: Merged (completed)."
+              - generic [ref=e461]:
+                - generic [ref=e462]:
+                  - text: ollama/ollama
+                  - generic [ref=e463]: number 13683
+                - generic [ref=e464]:
+                  - generic [ref=e465]: "#13683"
+                  - generic [ref=e466]: In ollama/ollama;
+                - generic [ref=e467]:
+                  - text: · by
+                  - link "jmorganca" [ref=e468] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Ajmorganca
+                  - text: was closed
+                  - generic "Jan 13, 2026, 5:45 AM GMT+8" [ref=e469]: on Jan 13, 2026on Jan 13
+            - listitem "More information available below." [ref=e477]:
+              - heading "Vendor sync to b7735" [level=3] [ref=e479]:
+                - link "Vendor sync to b7735" [ref=e480] [cursor=pointer]:
+                  - /url: /ollama/ollama/pull/13570
+                  - generic [ref=e481]: Vendor sync to b7735
+              - generic [ref=e486]:
+                - img [ref=e488]
+                - generic [ref=e490]: "Status: Closed (abandoned)."
+              - generic [ref=e494]:
+                - generic [ref=e495]:
+                  - text: ollama/ollama
+                  - generic [ref=e496]: number 13570
+                - generic [ref=e497]:
+                  - generic [ref=e498]: "#13570"
+                  - generic [ref=e499]: In ollama/ollama;
+                - generic [ref=e500]:
+                  - text: · by
+                  - link "inforithmics" [ref=e501] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Ainforithmics
+                  - text: was closed
+                  - generic "Jan 22, 2026, 3:56 PM GMT+8" [ref=e502]: on Jan 22, 2026on Jan 22
+            - listitem "More information available below." [ref=e510]:
+              - generic [ref=e511]:
+                - heading "support deepseek 671b fp4" [level=3] [ref=e512]:
+                  - link "support deepseek 671b fp4" [ref=e513] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/9419
+                    - generic [ref=e514]: support deepseek 671b fp4
+                - link "model Model requests" [ref=e518] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3Amodel
+                  - generic [ref=e520]: model
+                  - generic [ref=e521]: Model requests
+              - generic [ref=e525]:
+                - img [ref=e527]
+                - generic [ref=e530]: "Status: Open."
+              - generic [ref=e534]:
+                - generic [ref=e535]:
+                  - generic [ref=e536]: "#9419"
+                  - generic [ref=e537]: In ollama/ollama;
+                - generic [ref=e538]:
+                  - text: ·
+                  - link "liudonghua123" [ref=e539] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Aliudonghua123
+                  - text: opened
+                  - generic "Feb 28, 2025, 10:34 PM GMT+8" [ref=e540]: on Feb 28, 2025on Feb 28, 2025
+            - listitem "More information available below." [ref=e544]:
+              - generic [ref=e545]:
+                - heading "Ollama current/stable (or built from source) appears broken on AMD MI300x ROCm gfx942" [level=3] [ref=e546]:
+                  - link "Ollama current/stable (or built from source) appears broken on AMD MI300x ROCm gfx942" [ref=e547] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/8843
+                    - generic [ref=e548]: Ollama current/stable (or built from source) appears broken on AMD MI300x ROCm gfx942
+                - generic [ref=e550]:
+                  - link "amd Issues relating to AMD GPUs and ROCm" [ref=e552] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20label%3Aamd
+                    - generic [ref=e554]: amd
+                    - generic [ref=e555]: Issues relating to AMD GPUs and ROCm
+                  - link "bug Something isn't working" [ref=e557] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20label%3Abug
+                    - generic [ref=e559]: bug
+                    - generic [ref=e560]: Something isn't working
+                  - link "gpu" [ref=e562] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20label%3Agpu
+                    - generic [ref=e564]: gpu
+              - generic [ref=e569]:
+                - img [ref=e571]
+                - generic [ref=e574]: "Status: Open."
+              - generic [ref=e578]:
+                - generic [ref=e579]:
+                  - generic [ref=e580]: "#8843"
+                  - generic [ref=e581]: In ollama/ollama;
+                - generic [ref=e582]:
+                  - text: ·
+                  - link "zebrax0r" [ref=e583] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Azebrax0r
+                  - text: opened
+                  - generic "Feb 5, 2025, 6:41 PM GMT+8" [ref=e584]: on Feb 5, 2025on Feb 5, 2025
+            - listitem "More information available below." [ref=e588]:
+              - generic [ref=e589]:
+                - 'heading "Model Support: FP8 Full Precision for Deepseek R1 671B" [level=3] [ref=e590]':
+                  - 'link "Model Support: FP8 Full Precision for Deepseek R1 671B" [ref=e591] [cursor=pointer]':
+                    - /url: /ollama/ollama/issues/8740
+                    - generic [ref=e592]: "Model Support: FP8 Full Precision for Deepseek R1 671B"
+                - link "model Model requests" [ref=e596] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3Amodel
+                  - generic [ref=e598]: model
+                  - generic [ref=e599]: Model requests
+              - generic [ref=e603]:
+                - img [ref=e605]
+                - generic [ref=e608]: "Status: Closed (completed)."
+              - generic [ref=e612]:
+                - generic [ref=e613]:
+                  - generic [ref=e614]: "#8740"
+                  - generic [ref=e615]: In ollama/ollama;
+                - generic [ref=e616]:
+                  - text: · by
+                  - link "ghostplant" [ref=e617] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Aghostplant
+                  - text: was closed
+                  - generic "Feb 15, 2025, 7:20 AM GMT+8" [ref=e618]: on Feb 15, 2025on Feb 15, 2025
+            - listitem "More information available below." [ref=e622]:
+              - generic [ref=e623]:
+                - heading "Support for NVLM" [level=3] [ref=e624]:
+                  - link "Support for NVLM" [ref=e625] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/7080
+                    - generic [ref=e626]: Support for NVLM
+                - link "model Model requests" [ref=e630] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3Amodel
+                  - generic [ref=e632]: model
+                  - generic [ref=e633]: Model requests
+              - generic [ref=e637]:
+                - img [ref=e639]
+                - generic [ref=e642]: "Status: Open."
+              - generic [ref=e646]:
+                - generic [ref=e647]:
+                  - generic [ref=e648]: "#7080"
+                  - generic [ref=e649]: In ollama/ollama;
+                - generic [ref=e650]:
+                  - text: ·
+                  - link "mitar" [ref=e651] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Amitar
+                  - text: opened
+                  - generic "Oct 2, 2024, 11:40 PM GMT+8" [ref=e652]: on Oct 2, 2024on Oct 2, 2024
+            - listitem "More information available below." [ref=e656]:
+              - generic [ref=e657]:
+                - heading "TPU backend support" [level=3] [ref=e658]:
+                  - link "TPU backend support" [ref=e659] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues/990
+                    - generic [ref=e660]: TPU backend support
+                - link "feature request New feature or request" [ref=e664] [cursor=pointer]:
+                  - /url: /ollama/ollama/issues?q=fp4%20label%3A%22feature%20request%22
+                  - generic [ref=e666]: feature request
+                  - generic [ref=e667]: New feature or request
+              - generic [ref=e671]:
+                - img [ref=e673]
+                - generic [ref=e676]: "Status: Open."
+              - generic [ref=e680]:
+                - generic [ref=e681]:
+                  - generic [ref=e682]: "#990"
+                  - generic [ref=e683]: In ollama/ollama;
+                - generic [ref=e684]:
+                  - text: ·
+                  - link "coolrazor007" [ref=e685] [cursor=pointer]:
+                    - /url: /ollama/ollama/issues?q=fp4%20author%3Acoolrazor007
+                  - text: opened
+                  - generic "Nov 4, 2023, 5:39 AM GMT+8" [ref=e686]: on Nov 4, 2023on Nov 4, 2023
+  - contentinfo [ref=e688]:
+    - heading "Footer" [level=2] [ref=e689]
+    - generic [ref=e690]:
+      - generic [ref=e691]:
+        - link "GitHub Homepage" [ref=e692] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e693]
+        - generic [ref=e695]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e696]:
+        - heading "Footer navigation" [level=3] [ref=e697]
+        - list "Footer navigation" [ref=e698]:
+          - listitem [ref=e699]:
+            - link "Terms" [ref=e700] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e701]:
+            - link "Privacy" [ref=e702] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e703]:
+            - link "Security" [ref=e704] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e705]:
+            - link "Status" [ref=e706] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e707]:
+            - link "Community" [ref=e708] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e709]:
+            - link "Docs" [ref=e710] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e711]:
+            - link "Contact" [ref=e712] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e713]:
+            - button "Manage cookies" [ref=e715] [cursor=pointer]
+          - listitem [ref=e716]:
+            - button "Do not share my personal information" [ref=e718] [cursor=pointer]

@@ -1,7 +1,7 @@
 'use strict';
 
 const OPENING_MATCH = {
-  dateIso: process.env.OPENING_MATCH_DATE || '2026-06-12T01:00:00+08:00',
+  dateIso: process.env.OPENING_MATCH_DATE || '2026-06-12T03:00:00+08:00',
   team1: 'Mexico',
   team2: 'South Africa',
   group: 'A',

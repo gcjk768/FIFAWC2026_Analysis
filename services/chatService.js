@@ -1,11 +1,11 @@
-'use strict';
+﻿'use strict';
 
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://localhost:11434';
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'qwen3.5:35b';
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'qwen3.6:35b';
 const SERVER_URL = `http://localhost:${process.env.PORT || 3001}`;
 const OBSIDIAN_MCP = 'http://localhost:3002';
 const CHAT_HISTORY_FILE = path.join(__dirname, '../data/chat-history.json');
@@ -108,14 +108,45 @@ function checkRateLimit(userId) {
   return true;
 }
 
+// ─── THINKING MODE ────────────────────────────────────────────────────────────
+
+const _COMPLEX = [
+  /\b(why|how|explain|analyze|analyse|compare|strategy|tactic|should|best way|difference between)\b/i,
+  /\b(debug|calculate|reason|prove|argument|case for|weakness|strength|disadvantage|advantage)\b/i,
+  /\b(will\s.{0,20}win|can\s.{0,20}beat|who is better|which is better|what would happen)\b/i,
+  /\b(predict why|what.{0,15}chance|how likely|tactical|formation)\b/i,
+];
+
+const _SIMPLE = [
+  /^\/?(today|tomorrow|groups?|standings|topscorers|stats|bracket|result|squad|help|start)\b/i,
+  /\b(what time|when is|who scored|what.{0,10}score|next match|kickoff|kick.?off)\b/i,
+];
+
+/**
+ * Decide whether a query needs Qwen's thinking mode.
+ * Returns true for complex reasoning queries, false for quick lookups.
+ * Users can force either mode with /think or /no_think prefix.
+ * @param {string} text
+ * @returns {boolean}
+ */
+function needsThinking(text) {
+  if (!text) return false;
+  const t = text.toLowerCase();
+  if (/\/no_think\b/i.test(t)) return false;
+  if (/\/think\b/i.test(t)) return true;
+  if (_SIMPLE.some((p) => p.test(t))) return false;
+  return _COMPLEX.some((p) => p.test(t));
+}
+
 // ─── OLLAMA ───────────────────────────────────────────────────────────────────
 
 /**
  * Ask Qwen a question via Ollama.
  * @param {string} prompt
+ * @param {boolean} [think=false]
  * @returns {Promise<string>}
  */
-async function callOllama(prompt) {
+async function callOllama(prompt, think = false, maxTokens = null) {
   const resp = await fetch(`${OLLAMA_HOST}/api/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -123,15 +154,14 @@ async function callOllama(prompt) {
       model: OLLAMA_MODEL,
       prompt,
       stream: false,
-      think: false,        // top-level for qwen3 thinking control
+      think,
       keep_alive: '10m',
-      options: { num_predict: 500 }, // bilingual responses need more tokens
+      options: { num_predict: maxTokens || (think ? 800 : 500) },
     }),
     timeout: 300000, // 5 minutes
   });
   if (!resp.ok) throw new Error(`Ollama HTTP ${resp.status}`);
   const data = await resp.json();
-  // Strip any <think>...</think> blocks that leak through
   const raw = (data.response || '').trim();
   return raw.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
 }
@@ -149,9 +179,9 @@ function getQueueDepth() {
 async function _drainQueue() {
   if (_ollamaRunning || _ollamaQueue.length === 0) return;
   _ollamaRunning = true;
-  const { prompt, resolve, reject } = _ollamaQueue.shift();
+  const { prompt, think, maxTokens, resolve, reject } = _ollamaQueue.shift();
   try {
-    resolve(await callOllama(prompt));
+    resolve(await callOllama(prompt, think, maxTokens));
   } catch (err) {
     reject(err);
   } finally {
@@ -163,11 +193,13 @@ async function _drainQueue() {
 /**
  * Queue a prompt for Qwen — runs serially so concurrent requests don't slam Ollama.
  * @param {string} prompt
+ * @param {boolean} [think=false]
+ * @param {number|null} [maxTokens=null]
  * @returns {Promise<string>}
  */
-function callOllamaQueued(prompt) {
+function callOllamaQueued(prompt, think = false, maxTokens = null) {
   return new Promise((resolve, reject) => {
-    _ollamaQueue.push({ prompt, resolve, reject });
+    _ollamaQueue.push({ prompt, think, maxTokens, resolve, reject });
     _drainQueue();
   });
 }
@@ -241,6 +273,7 @@ module.exports = {
   getChatHistory,
   saveToHistory,
   checkRateLimit,
+  needsThinking,
   callOllama,
   callOllamaQueued,
   getQueueDepth,

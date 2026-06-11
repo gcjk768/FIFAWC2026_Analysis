@@ -1,0 +1,834 @@
+- generic [ref=e2]:
+  - generic:
+    - generic:
+      - tooltip "This user is the author of this issue"
+    - generic:
+      - tooltip "This user is the author of this issue"
+    - generic:
+      - tooltip "This user is the author of this issue"
+    - generic:
+      - tooltip "This user is the author of this issue"
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fissues%2F15866
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fvoltron%2Fissues_fragments%2Fissue_layout&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e133]:
+      - region "Header" [ref=e135]:
+        - generic [ref=e136]:
+          - 'heading "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights (layers 0-1 entirely zero), making linear attention output zero #15866" [level=1] [ref=e138]'
+          - generic [ref=e140]:
+            - button "New issue" [ref=e142] [cursor=pointer]:
+              - generic [ref=e144]: New issue
+            - button "Copy link" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+      - generic [ref=e152]:
+        - generic [ref=e154]:
+          - img "Issue" [ref=e155]
+          - text: Open
+        - 'link "Open #15902" [ref=e159] [cursor=pointer]':
+          - /url: https://github.com/ollama/ollama/pull/15902
+          - img "Open" [ref=e160]
+          - generic [ref=e162]: "#15902"
+      - generic [ref=e164]:
+        - generic [ref=e165]:
+          - generic [ref=e167]:
+            - link "@andreinknv's profile" [ref=e168] [cursor=pointer]:
+              - /url: https://github.com/andreinknv
+              - img "@andreinknv" [ref=e169]
+            - generic [ref=e170]:
+              - heading "Description" [level=2] [ref=e171]
+              - generic [ref=e173]:
+                - generic [ref=e175]:
+                  - generic [ref=e176]:
+                    - link "andreinknv" [ref=e178] [cursor=pointer]:
+                      - /url: https://github.com/andreinknv
+                    - generic [ref=e179]:
+                      - text: opened
+                      - link "on Apr 28, 2026last month" [ref=e180] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/issues/15866#issue-4346696984
+                        - generic "Apr 29, 2026, 6:42 AM GMT+8" [ref=e181]: on Apr 28, 2026last month
+                  - button "Issue body actions" [ref=e185] [cursor=pointer]:
+                    - img [ref=e186]
+                - generic [ref=e188]:
+                  - generic [ref=e190]:
+                    - heading "qwen3.6:35b-a3b-coding-nvfp4 model file has corrupted K-projection weights for early linear-attention layers" [level=1] [ref=e191]:
+                      - code [ref=e192]: qwen3.6:35b-a3b-coding-nvfp4
+                      - text: model file has corrupted K-projection weights for early linear-attention layers
+                    - heading "What is the issue?" [level=2] [ref=e193]
+                    - paragraph [ref=e194]:
+                      - text: The NVFP4 packaging of
+                      - code [ref=e195]: qwen3.6:35b-a3b-coding-nvfp4
+                      - text: shipped from
+                      - code [ref=e196]: registry.ollama.ai/library/qwen3.6
+                      - text: has the K-projection portion of
+                      - code [ref=e197]: linear_attn.in_proj_qkv.weight
+                      - strong [ref=e198]: entirely zeroed out
+                      - text: for layer 0 and mostly zeroed for layer 1 — making coherent generation impossible regardless of any runner-side fix.
+                    - paragraph [ref=e199]:
+                      - text: This is a model-packaging issue, not a runtime bug. The
+                      - code [ref=e200]: mlx-community/Qwen3.6-35B-A3B-4bit
+                      - text: model (same architecture, same source weights, MLX 4-bit affine quant instead of NVFP4) has the expected natural sparsity (3-5%) in the same regions.
+                    - heading "Reproducer" [level=2] [ref=e201]
+                    - paragraph [ref=e202]:
+                      - text: The
+                      - code [ref=e203]: linear_attn.in_proj_qkv.weight
+                      - text: tensor is laid out per HF transformers as
+                      - code [ref=e204]: "[Q rows 0..2047 | K rows 2048..4095 | V rows 4096..8191]"
+                      - text: ". A direct read of the safetensors blob shows:"
+                    - generic [ref=e205]:
+                      - code [ref=e207]: layer 0 K-zero-rows = 2048 / 2048 (100% — entire K projection is zero!) layer 1 K-zero-rows = 1797 / 2048 ( 88%) layer 2 K-zero-rows = 57 / 2048 ( 3%) layer 3 ... (full attention layer, no in_proj_qkv) layer 4+ K-zero-rows ≤ 2 / 2048 (~natural sparsity)
+                      - button "Copy code to clipboard" [ref=e209] [cursor=pointer]:
+                        - img [ref=e210]
+                    - paragraph [ref=e213]:
+                      - text: For comparison, on
+                      - code [ref=e214]: mlx-community/Qwen3.6-35B-A3B-4bit
+                      - text: "(4-bit affine, same architecture):"
+                    - generic [ref=e215]:
+                      - code [ref=e217]: layer 0 K-zero-rows = 56 / 2048 layer 1 K-zero-rows = 102 / 2048 layer 2 K-zero-rows = 56 / 2048
+                      - button "Copy code to clipboard" [ref=e219] [cursor=pointer]:
+                        - img [ref=e220]
+                    - paragraph [ref=e223]:
+                      - text: The mlx-community model generates coherent text via
+                      - code [ref=e224]: mlx-lm generate
+                      - text: (top next token for "What is 2+2?" → "Here", correctly leading into a thinking trace). The Ollama NVFP4 model cannot generate coherent text under any code fix because layers 0 and 1 of the linear-attention path produce K=0 → linear attention output = 0 → the residual stream loses the entire linear-attention contribution from those layers.
+                    - heading "Verification commands" [level=2] [ref=e225]
+                    - generic [ref=e226]:
+                      - generic [ref=e227]: "# Reproduce against the cached blob (replace the SHA with whichever blob holds the layer-0 in_proj_qkv tensor): import struct, json, numpy as np blob = \"/Users/<you>/.ollama/models/blobs/sha256-...\" # blob carrying layers.0.linear_attn.in_proj_qkv with open(blob, 'rb') as f: hsz = struct.unpack('<Q', f.read(8))[0] hdr = json.loads(f.read(hsz)) body = 8 + hsz info = hdr['language_model.model.layers.0.linear_attn.in_proj_qkv.weight'] s, e = info['data_offsets'] f.seek(body + s) arr = np.frombuffer(f.read(e-s), dtype=np.uint32).reshape(info['shape']) print('K rows zero:', sum(1 for r in arr[2048:4096] if not r.any()), '/ 2048') # → 2048 / 2048 on the broken model"
+                      - button "Copy code to clipboard" [ref=e229] [cursor=pointer]:
+                        - img [ref=e230]
+                    - heading "Likely cause" [level=2] [ref=e233]
+                    - paragraph [ref=e234]: The conversion from BF16 (or the source FP8/BF16 RedHatAI NVFP4) to Ollama's NVFP4 packaging picked a global scale per tensor that was too large to represent the small magnitudes in early-layer K projections — they all rounded to the FP4 zero codepoint.
+                    - paragraph [ref=e235]:
+                      - text: "For verification: the"
+                      - emphasis [ref=e236]: scales
+                      - text: tensor for
+                      - code [ref=e237]: in_proj_qkv
+                      - text: is non-zero across all rows (max-row-abs ≈ 1144 on K rows for layer 0), but the underlying FP4 nibbles are all zero, so dequantization yields zero regardless of the (non-zero) scale. That fingerprint matches "small-magnitude rows quantized below FP4 representable range" rather than "block of weights deleted in I/O".
+                    - heading "Suggested fixes" [level=2] [ref=e238]
+                    - list [ref=e239]:
+                      - listitem [ref=e240]: Re-quantize with per-tensor (or per-row block) scales chosen to preserve the K projection's dynamic range — or fall back to a higher-precision quant for early-layer linear-attention weights.
+                      - listitem [ref=e241]:
+                        - text: Check the same artefact for the
+                        - code [ref=e242]: mxfp8
+                        - text: and other variants in the library (
+                        - code [ref=e243]: qwen3.6:35b-a3b-coding-mxfp8
+                        - text: ","
+                        - code [ref=e244]: qwen3.6:35b-a3b-nvfp4
+                        - text: ","
+                        - code [ref=e245]: qwen3.6:27b-coding-nvfp4
+                        - text: ).
+                      - listitem [ref=e246]:
+                        - text: Re-run the conversion using the per-tensor quant overrides path (e.g. matching the pattern in
+                        - generic [ref=e247]:
+                          - img [ref=e248]
+                          - 'link "x/mlxrunner: apply config.json per-tensor quant overrides for mixed-precision MoE (supersedes #15744) #15760" [ref=e250] [cursor=pointer]':
+                            - /url: https://github.com/ollama/ollama/pull/15760
+                        - text: ", where"
+                        - code [ref=e251]: mlp.gate
+                        - text: and
+                        - code [ref=e252]: mlp.shared_expert_gate
+                        - text: get an 8-bit override) — applying an 8-bit override (or skipping quant entirely) to
+                        - code [ref=e253]: linear_attn.in_proj_qkv
+                        - text: would avoid the zero-collapse.
+                    - heading "Related" [level=2] [ref=e254]
+                    - list [ref=e255]:
+                      - listitem [ref=e256]:
+                        - generic [ref=e257]:
+                          - img [ref=e258]
+                          - 'link "mlxrunner: gated_delta_step kernel writes recurrent state in InT (bf16) instead of StT (fp32), corrupting Qwen3.5/3.6 GatedDeltaNet output #15865" [ref=e261] [cursor=pointer]':
+                            - /url: https://github.com/ollama/ollama/issues/15865
+                        - text: — independent recurrent-state precision bug in
+                        - code [ref=e262]: gated_delta_step
+                        - text: (the kernel cast state to
+                        - code [ref=e263]: InT
+                        - text: instead of
+                        - code [ref=e264]: StT
+                        - text: ). With
+                        - strong [ref=e265]: only
+                        - text: that fix and
+                        - strong [ref=e266]: without
+                        - text: this corruption, the model reaches the sampler but the very first decode step gets wrong logits because layer-0 linear attention contributes zero. Together, both issues explain the "broken Qwen3.6 NVFP4 generation on Ollama".
+                      - listitem [ref=e267]:
+                        - generic [ref=e268]:
+                          - img [ref=e269]
+                          - 'link "MLX runner failed with qwen3.6:35b-a3b-coding-bf16 format=json #15822" [ref=e272] [cursor=pointer]':
+                            - /url: https://github.com/ollama/ollama/issues/15822
+                        - text: ","
+                        - generic [ref=e273]:
+                          - img [ref=e274]
+                          - 'link "qwen3.6-35b-a3b/gemma-4-E2B-it-GGUF not loading properly on ollama #15834" [ref=e277] [cursor=pointer]':
+                            - /url: https://github.com/ollama/ollama/issues/15834
+                        - text: ","
+                        - generic [ref=e278]:
+                          - img [ref=e279]
+                          - 'link "MacbookPro M5 can''t run qwen3.6:35b-a3b-q4_K_M #15700" [ref=e282] [cursor=pointer]':
+                            - /url: https://github.com/ollama/ollama/issues/15700
+                        - text: — user reports of broken generation on this model family on macOS; this issue likely explains the coding-nvfp4 sub-cases.
+                      - listitem [ref=e283]:
+                        - text: mlx-community / Qwen3.6-35B-A3B-4bit on HF works correctly via
+                        - code [ref=e284]: mlx-lm
+                        - text: ", demonstrating the architecture is otherwise sound."
+                    - heading "Environment" [level=2] [ref=e285]
+                    - list [ref=e286]:
+                      - listitem [ref=e287]: "Ollama version: v0.22.0 (as of 2026-04-28)"
+                      - listitem [ref=e288]: "OS: macOS 26.4.1, Apple M4 Max"
+                      - listitem [ref=e289]:
+                        - text: "Source model:"
+                        - code [ref=e290]: registry.ollama.ai/library/qwen3.6:35b-a3b-coding-nvfp4
+                        - text: (digest
+                        - code [ref=e291]: sha256:cd2692a833e6...
+                        - text: )
+                  - toolbar "Reactions" [ref=e293]:
+                    - switch "❤️ 2 reactions" [ref=e294]:
+                      - generic [ref=e295]:
+                        - generic: ❤️
+                        - generic [ref=e296]:
+                          - generic [ref=e297]: React with ❤️
+                          - text: "2"
+          - generic [ref=e299]:
+            - generic [ref=e300]:
+              - heading "Activity" [level=2] [ref=e301]
+              - generic [ref=e302]:
+                - generic [ref=e303]:
+                  - link "@andreinknv's profile" [ref=e304] [cursor=pointer]:
+                    - /url: https://github.com/andreinknv
+                    - img "andreinknv" [ref=e305]
+                  - generic [ref=e312]:
+                    - generic [ref=e314]:
+                      - heading "andreinknv commented on Apr 29, 2026 last month" [level=3] [ref=e315]:
+                        - text: andreinknv commented
+                        - generic "Apr 29, 2026, 7:00 AM GMT+8" [ref=e316]: on Apr 29, 2026 last month
+                      - generic [ref=e317]:
+                        - link "andreinknv" [ref=e319] [cursor=pointer]:
+                          - /url: /andreinknv
+                        - link "on Apr 29, 2026last month" [ref=e322] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#issuecomment-4339694632
+                          - generic "Apr 29, 2026, 7:00 AM GMT+8" [ref=e323]: on Apr 29, 2026last month
+                      - generic [ref=e325]:
+                        - generic "This user is the author of this issue" [ref=e327]: Author
+                        - button "Actions for andreinknv's comment, 7:00 AM on April 29" [ref=e329] [cursor=pointer]:
+                          - img [ref=e330]
+                    - generic [ref=e332]:
+                      - generic [ref=e334]:
+                        - paragraph [ref=e335]: Confirmed the corruption is introduced by Ollama's repackaging, not in the upstream source.
+                        - paragraph [ref=e336]:
+                          - code [ref=e337]: RedHatAI/Qwen3.6-35B-A3B-NVFP4
+                          - text: (the likely upstream source) keeps all
+                          - code [ref=e338]: linear_attn.*
+                          - text: weights in
+                          - strong [ref=e339]: BF16
+                          - text: ", with only the bulk MoE expert weights in NVFP4 (a mixed-precision approach):"
+                        - generic [ref=e340]:
+                          - code [ref=e342]: model.language_model.layers.0.linear_attn.in_proj_qkv.weight shape=[8192, 2048] dtype=BF16 model.language_model.layers.0.linear_attn.in_proj_z.weight shape=[4096, 2048] dtype=BF16 model.language_model.layers.0.linear_attn.in_proj_a.weight shape=[32, 2048] dtype=BF16 model.language_model.layers.0.linear_attn.in_proj_b.weight shape=[32, 2048] dtype=BF16
+                          - button "Copy code to clipboard" [ref=e344] [cursor=pointer]:
+                            - img [ref=e345]
+                        - paragraph [ref=e348]:
+                          - text: A direct HTTP-range fetch of just the K-region (rows 2048-4095) from RedHat's
+                          - code [ref=e349]: model.safetensors
+                          - text: "confirms the source weights are fully populated:"
+                        - generic [ref=e350]:
+                          - code [ref=e352]: "RedHatAI source K rows zero: 0 / 2048 first-row first-8 floats: [0.0147, -0.0098, 0.0172, -0.0074, 0.0052, 0.0064, -0.0405, -0.0004]"
+                          - button "Copy code to clipboard" [ref=e354] [cursor=pointer]:
+                            - img [ref=e355]
+                        - paragraph [ref=e358]:
+                          - text: Compare to Ollama's repackaged tensor (
+                          - code [ref=e359]: registry.ollama.ai/library/qwen3.6:35b-a3b-coding-nvfp4
+                          - text: "):"
+                        - generic [ref=e360]:
+                          - code [ref=e362]: "Ollama tensor: shape=[8192, 256] dtype=U32 (NVFP4 packed, group_size=16) K rows zero: 2048 / 2048 ← every K row collapsed to zero on quantization"
+                          - button "Copy code to clipboard" [ref=e364] [cursor=pointer]:
+                            - img [ref=e365]
+                        - paragraph [ref=e368]: The values RedHat keeps in BF16 are typical small attention-projection magnitudes (~0.01-0.04). When NVFP4-quantized at group_size=16, those magnitudes fall below the smallest representable codepoint and round to zero across whole rows.
+                        - paragraph [ref=e369]:
+                          - strong [ref=e370]: Conclusion
+                          - text: ": Ollama's NVFP4 packaging tool is quantizing tensors that should remain BF16 (or at minimum should use a higher-bit override, mirroring how"
+                          - code [ref=e371]: mlp.gate
+                          - text: already gets an 8-bit override). The fix is to mirror RedHat's mixed-precision recipe — keep
+                          - code [ref=e372]: linear_attn.*
+                          - text: projections in BF16, NVFP4 only the MoE expert weights.
+                        - paragraph [ref=e373]:
+                          - text: This affects every Qwen3.6/3.5 35B-A3B
+                          - code [ref=e374]: "*-nvfp4"
+                          - text: tag in the official library; same check should be re-run on
+                          - code [ref=e375]: 27b-coding-nvfp4
+                          - text: ","
+                          - code [ref=e376]: 35b-a3b-nvfp4
+                          - text: (non-coding), and
+                          - code [ref=e377]: 27b-nvfp4
+                          - text: .
+                        - paragraph [ref=e378]:
+                          - text: In the meantime, users on Apple Silicon can route around this by running
+                          - code [ref=e379]: mlx-community/Qwen3.6-35B-A3B-4bit
+                          - text: via
+                          - code [ref=e380]: mlx-lm generate
+                          - text: "directly — that quant uses MLX 4-bit affine with group_size=64 and produces coherent output (verified: top next token for \"What is 2+2?\" is"
+                          - code [ref=e381]: Here
+                          - text: ", leading into a thinking trace)."
+                      - toolbar "Reactions" [ref=e382]:
+                        - switch "👍 2 reactions" [ref=e383]:
+                          - generic [ref=e384]:
+                            - generic: 👍
+                            - generic [ref=e385]:
+                              - generic [ref=e386]: React with 👍
+                              - text: "2"
+                - generic [ref=e387]:
+                  - link "@andreinknv's profile" [ref=e388] [cursor=pointer]:
+                    - /url: https://github.com/andreinknv
+                    - img "andreinknv" [ref=e389]
+                  - generic [ref=e396]:
+                    - generic [ref=e398]:
+                      - heading "andreinknv commented on Apr 29, 2026 last month" [level=3] [ref=e399]:
+                        - text: andreinknv commented
+                        - generic "Apr 29, 2026, 7:15 AM GMT+8" [ref=e400]: on Apr 29, 2026 last month
+                      - generic [ref=e401]:
+                        - link "andreinknv" [ref=e403] [cursor=pointer]:
+                          - /url: /andreinknv
+                        - link "on Apr 29, 2026last month" [ref=e406] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#issuecomment-4339768732
+                          - generic "Apr 29, 2026, 7:15 AM GMT+8" [ref=e407]: on Apr 29, 2026last month
+                      - generic [ref=e409]:
+                        - generic "This user is the author of this issue" [ref=e411]: Author
+                        - button "Actions for andreinknv's comment, 7:15 AM on April 29" [ref=e413] [cursor=pointer]:
+                          - img [ref=e414]
+                    - generic [ref=e416]:
+                      - generic [ref=e418]:
+                        - heading "Working around it on Apple Silicon today" [level=3] [ref=e419]
+                        - paragraph [ref=e420]:
+                          - text: For anyone hitting this and wanting a working setup right now, the same model architecture is available pre-packaged on Hugging Face as
+                          - code [ref=e421]: mlx-community/Qwen3.6-35B-A3B-4bit
+                          - text: (4-bit affine, group_size 64). Running it through
+                          - code [ref=e422]: mlx-lm
+                          - text: directly produces coherent output for both reasoning and coding prompts.
+                        - paragraph [ref=e423]:
+                          - text: Verified on
+                          - strong [ref=e424]: M4 Max / 36 GB / macOS 26.4.1
+                          - text: ":"
+                        - list [ref=e425]:
+                          - listitem [ref=e426]:
+                            - text: "Peak memory:"
+                            - strong [ref=e427]: ~19.7 GB
+                          - listitem [ref=e428]:
+                            - text: "Throughput:"
+                            - strong [ref=e429]: ~112 tok/s
+                          - listitem [ref=e430]: "Coding output: clean, type-hinted Python with proper error handling at temp 0"
+                        - heading "Setup (one-time, ~5 min)" [level=4] [ref=e431]
+                        - generic [ref=e432]:
+                          - generic [ref=e433]:
+                            - generic [ref=e434]: "# 1) Need a recent Python; brew Python 3.14 in a venv works:"
+                            - text: /opt/homebrew/bin/python3.14 -m venv ~/mlxlm-venv source ~/mlxlm-venv/bin/activate
+                            - generic [ref=e435]: "# 2) Install mlx-lm from main (the PyPI 0.29.x release doesn't ship qwen3_5 yet):"
+                            - text: pip install --upgrade pip pip install
+                            - generic [ref=e436]: "\"git+https://github.com/ml-explore/mlx-lm@main\""
+                            - generic [ref=e437]: "# 3) Download the model (~21 GB):"
+                            - text: python -c
+                            - generic [ref=e438]: "\"from huggingface_hub import snapshot_download; \\"
+                            - generic [ref=e439]: snapshot_download(repo_id='mlx-community/Qwen3.6-35B-A3B-4bit', \
+                            - generic [ref=e440]: local_dir='$HOME/qwen3_6_mlx')"
+                          - button "Copy code to clipboard" [ref=e442] [cursor=pointer]:
+                            - img [ref=e443]
+                        - heading "Daily-driver wrapper" [level=4] [ref=e446]
+                        - generic [ref=e447]:
+                          - generic [ref=e448]:
+                            - generic [ref=e449]: "#!/bin/bash"
+                            - generic [ref=e450]: "# qwen-chat.sh"
+                            - text: set -e source ~/mlxlm-venv/bin/activate MODEL=
+                            - generic [ref=e451]:
+                              - text: "\""
+                              - generic [ref=e452]: "${MODEL:-$HOME/qwen3_6_mlx}"
+                              - text: "\""
+                            - text: if [
+                            - generic [ref=e453]: "\"$1\""
+                            - text: =
+                            - generic [ref=e454]: "\"--once\""
+                            - text: "]; then shift python -m mlx_lm generate --model"
+                            - generic [ref=e455]: "\"$MODEL\""
+                            - text: \ --prompt
+                            - generic [ref=e456]: "\"$*\""
+                            - text: "--max-tokens"
+                            - generic [ref=e457]:
+                              - text: "\""
+                              - generic [ref=e458]: "${MAX_TOKENS:-1000}"
+                              - text: "\""
+                            - text: "--temp"
+                            - generic [ref=e459]:
+                              - text: "\""
+                              - generic [ref=e460]: "${TEMP:-0.3}"
+                              - text: "\""
+                            - text: else exec python -m mlx_lm chat --model
+                            - generic [ref=e461]: "\"$MODEL\""
+                            - text: fi
+                          - button "Copy code to clipboard" [ref=e463] [cursor=pointer]:
+                            - img [ref=e464]
+                        - generic [ref=e467]:
+                          - generic [ref=e468]:
+                            - generic [ref=e469]: "# Interactive chat:"
+                            - text: ./qwen-chat.sh
+                            - generic [ref=e470]: "# One-shot:"
+                            - text: MAX_TOKENS=1500 TEMP=0.0 ./qwen-chat.sh --once \
+                            - generic [ref=e471]: "\"Write a Python function that parses ISO-8601 dates.\""
+                          - button "Copy code to clipboard" [ref=e473] [cursor=pointer]:
+                            - img [ref=e474]
+                        - paragraph [ref=e477]:
+                          - text: This leaves your Ollama install untouched — switch back any time with
+                          - code [ref=e478]: brew services start ollama
+                          - text: .
+                        - heading "Notes" [level=4] [ref=e479]
+                        - list [ref=e480]:
+                          - listitem [ref=e481]:
+                            - strong [ref=e482]: Memory tier
+                            - text: ": 4-bit (~21 GB) is what fits 36 GB unified memory. The 8-bit MLX variant ("
+                            - code [ref=e483]: unsloth/Qwen3.6-35B-A3B-MLX-8bit
+                            - text: ) weighs ~37.7 GB on disk and won't fit once OS + KV cache + activations are accounted for.
+                          - listitem [ref=e484]:
+                            - strong [ref=e485]:
+                              - text: About the
+                              - code [ref=e486]: coding
+                              - text: tag
+                            - text: ": there's no separate"
+                            - code [ref=e487]: Qwen3.6-Coder
+                            - text: weights on Hugging Face — the base
+                            - code [ref=e488]: Qwen3.6-35B-A3B
+                            - text: does coding well on its own.
+                          - listitem [ref=e489]:
+                            - strong [ref=e490]: Mixed precision recipe
+                            - text: ": the working MLX-format models keep"
+                            - code [ref=e491]: linear_attn.*
+                            - text: projections in higher precision (BF16) and only quantize the bulk MoE expert weights, which avoids the magnitudes-too-small-for-FP4 case.
+                          - listitem [ref=e492]:
+                            - strong [ref=e493]: Code-side companion fix
+                            - text: ":"
+                            - generic [ref=e494]:
+                              - img [ref=e495]
+                              - 'link "mlxrunner: gated_delta_step kernel writes recurrent state in InT (bf16) instead of StT (fp32), corrupting Qwen3.5/3.6 GatedDeltaNet output #15865" [ref=e498] [cursor=pointer]':
+                                - /url: https://github.com/ollama/ollama/issues/15865
+                            - text: is a small kernel-precision patch that variants of this model family on the MLX runner are likely to need regardless of which quant they use; it's mergeable independently of this issue.
+                      - toolbar "Reactions" [ref=e499]:
+                        - switch "❤️ 2 reactions" [ref=e500]:
+                          - generic [ref=e501]:
+                            - generic: ❤️
+                            - generic [ref=e502]:
+                              - generic [ref=e503]: React with ❤️
+                              - text: "2"
+                - generic [ref=e504]:
+                  - link "@andreinknv's profile" [ref=e505] [cursor=pointer]:
+                    - /url: https://github.com/andreinknv
+                    - img "andreinknv" [ref=e506]
+                  - generic [ref=e513]:
+                    - generic [ref=e515]:
+                      - heading "andreinknv commented on Apr 29, 2026 last month" [level=3] [ref=e516]:
+                        - text: andreinknv commented
+                        - generic "Apr 29, 2026, 9:05 AM GMT+8" [ref=e517]: on Apr 29, 2026 last month
+                      - generic [ref=e518]:
+                        - link "andreinknv" [ref=e520] [cursor=pointer]:
+                          - /url: /andreinknv
+                        - link "on Apr 29, 2026last month" [ref=e523] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#issuecomment-4340170806
+                          - generic "Apr 29, 2026, 9:05 AM GMT+8" [ref=e524]: on Apr 29, 2026last month
+                      - generic [ref=e526]:
+                        - generic "This user is the author of this issue" [ref=e528]: Author
+                        - button "Actions for andreinknv's comment, 9:05 AM on April 29" [ref=e530] [cursor=pointer]:
+                          - img [ref=e531]
+                    - generic [ref=e533]:
+                      - generic [ref=e535]:
+                        - 'heading "Update: the working mlx-community model can also run inside Ollama (with #15865 + a small cache fix)" [level=3] [ref=e536]':
+                          - text: "Update: the working"
+                          - code [ref=e537]: mlx-community
+                          - text: model can also run inside Ollama (with
+                          - link "#15865" [ref=e538] [cursor=pointer]:
+                            - /url: https://github.com/ollama/ollama/issues/15865
+                          - text: + a small cache fix)
+                        - paragraph [ref=e539]:
+                          - text: Following up on the workaround above — for anyone who'd rather stay inside Ollama, importing
+                          - code [ref=e540]: mlx-community/Qwen3.6-35B-A3B-4bit
+                          - text: via
+                          - code [ref=e541]: ollama create --experimental
+                          - text: works
+                          - emphasis [ref=e542]: if
+                          - text: the local build also includes a small follow-up to
+                          - link "#15865" [ref=e543] [cursor=pointer]:
+                            - /url: https://github.com/ollama/ollama/issues/15865
+                          - text: (
+                          - code [ref=e544]: RecurrentCache
+                          - text: ensure split — see
+                          - 'link "my comment on #15865" [ref=e545] [cursor=pointer]':
+                            - /url: https://github.com/ollama/ollama/issues/15865
+                          - text: ). Without that follow-up, the dtype change in
+                          - link "#15865" [ref=e546] [cursor=pointer]:
+                            - /url: https://github.com/ollama/ollama/issues/15865
+                          - text: silently zeros the cache between every step and you get the same gibberish that this issue describes for the NVFP4 build, so I missed the path the first time around.
+                        - paragraph [ref=e547]: "End-to-end import + run on M4 Max / 36 GB:"
+                        - generic [ref=e548]:
+                          - generic [ref=e549]:
+                            - generic [ref=e550]: "# 1) Build patched Ollama with #15865 (kernel + qwen3_5 + cache split)."
+                            - generic [ref=e551]: "# 2) Import the working MLX model:"
+                            - text: cat > Modelfile
+                            - generic [ref=e552]: <<'EOF'
+                            - text: FROM /path/to/mlx-community/Qwen3.6-35B-A3B-4bit
+                            - generic [ref=e553]: EOF
+                            - text: ./dist/darwin-arm64/ollama create --experimental qwen3.6-mlx-4bit -f Modelfile
+                            - generic [ref=e554]: "# 3) Run it:"
+                            - text: ./dist/darwin-arm64/ollama run qwen3.6-mlx-4bit
+                          - button "Copy code to clipboard" [ref=e556] [cursor=pointer]:
+                            - img [ref=e557]
+                        - paragraph [ref=e560]:
+                          - text: "Verified throughput:"
+                          - strong [ref=e561]: ~110 tok/s
+                          - text: (essentially identical to running the same checkpoint via
+                          - code [ref=e562]: mlx-lm
+                          - text: directly, ~112 tok/s).
+                        - paragraph [ref=e563]:
+                          - text: This is independent of the NVFP4 packaging fix this issue tracks — once the upstream NVFP4 tag is re-quantized with the mixed-precision recipe (skip
+                          - code [ref=e564]: linear_attn.*
+                          - text: ), the patched build should make
+                          - code [ref=e565]: qwen3.6:35b-a3b-coding-nvfp4
+                          - text: work too without needing the import dance.
+                      - toolbar "Reactions" [ref=e566]:
+                        - switch "❤️ 2 reactions" [ref=e567]:
+                          - generic [ref=e568]:
+                            - generic: ❤️
+                            - generic [ref=e569]:
+                              - generic [ref=e570]: React with ❤️
+                              - text: "2"
+                - region "Events" [ref=e571]:
+                  - generic [ref=e578]:
+                    - img [ref=e582]
+                    - generic [ref=e584]:
+                      - generic [ref=e586]:
+                        - link "andreinknv" [ref=e588] [cursor=pointer]:
+                          - /url: /andreinknv
+                          - generic [ref=e589]: andreinknv
+                        - text: mentioned this
+                        - link "on Apr 29, 2026last month" [ref=e590] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#event-6275412858
+                          - generic "Apr 29, 2026, 9:26 AM GMT+8" [ref=e591]: on Apr 29, 2026last month
+                      - region "Issues mentioned" [ref=e594]:
+                        - list [ref=e595]:
+                          - listitem [ref=e596]:
+                            - generic [ref=e597]:
+                              - img "Closed" [ref=e598]
+                              - 'link "fix(mlxrunner): preserve fp32 precision in gated_delta_step recurrent state #15870" [ref=e600] [cursor=pointer]':
+                                - /url: https://github.com/ollama/ollama/pull/15870
+                                - text: "fix(mlxrunner): preserve fp32 precision in gated_delta_step recurrent state"
+                                - generic [ref=e601]: "#15870"
+                - generic [ref=e602]:
+                  - link "@andreinknv's profile" [ref=e603] [cursor=pointer]:
+                    - /url: https://github.com/andreinknv
+                    - img "andreinknv" [ref=e604]
+                  - generic [ref=e611]:
+                    - generic [ref=e613]:
+                      - heading "andreinknv commented on Apr 29, 2026 last month" [level=3] [ref=e614]:
+                        - text: andreinknv commented
+                        - generic "Apr 29, 2026, 9:26 AM GMT+8" [ref=e615]: on Apr 29, 2026 last month
+                      - generic [ref=e616]:
+                        - link "andreinknv" [ref=e618] [cursor=pointer]:
+                          - /url: /andreinknv
+                        - link "on Apr 29, 2026last month" [ref=e621] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#issuecomment-4340234327
+                          - generic "Apr 29, 2026, 9:26 AM GMT+8" [ref=e622]: on Apr 29, 2026last month
+                      - generic [ref=e624]:
+                        - generic "This user is the author of this issue" [ref=e626]: Author
+                        - button "Actions for andreinknv's comment, 9:26 AM on April 29" [ref=e628] [cursor=pointer]:
+                          - img [ref=e629]
+                    - generic [ref=e631]:
+                      - paragraph [ref=e634]:
+                        - text: PR for the related precision/cache fix is up at
+                        - link "#15870" [ref=e635] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15870
+                        - text: — independent of the NVFP4 packaging issue this report tracks, but applying it is a prerequisite for the working
+                        - code [ref=e636]: mlx-community
+                        - text: import path described in my earlier comment to actually run end-to-end.
+                      - toolbar "Reactions" [ref=e637]:
+                        - switch "❤️ 2 reactions" [ref=e638]:
+                          - generic [ref=e639]:
+                            - generic: ❤️
+                            - generic [ref=e640]:
+                              - generic [ref=e641]: React with ❤️
+                              - text: "2"
+                - region "Events" [ref=e642]:
+                  - generic [ref=e649]:
+                    - img [ref=e653]
+                    - generic [ref=e655]:
+                      - generic [ref=e657]:
+                        - link "xmddmx" [ref=e659] [cursor=pointer]:
+                          - /url: /xmddmx
+                          - generic [ref=e660]: xmddmx
+                        - text: mentioned this
+                        - link "on Apr 29, 2026last month" [ref=e661] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#event-6287058605
+                          - generic "Apr 29, 2026, 10:40 PM GMT+8" [ref=e662]: on Apr 29, 2026last month
+                      - region "Issues mentioned" [ref=e665]:
+                        - list [ref=e666]:
+                          - listitem [ref=e667]:
+                            - generic [ref=e668]:
+                              - img "Open" [ref=e669]
+                              - 'link "qwen3.6:35b-a3b-nvfp4 1b50c6fdc2d4 gets stuck in thinking loop #15880" [ref=e672] [cursor=pointer]':
+                                - /url: https://github.com/ollama/ollama/issues/15880
+                                - text: qwen3.6:35b-a3b-nvfp4 1b50c6fdc2d4 gets stuck in thinking loop
+                                - generic [ref=e673]: "#15880"
+                  - generic [ref=e677]:
+                    - img [ref=e681]
+                    - generic [ref=e683]:
+                      - generic [ref=e685]:
+                        - link "ArkaD171717" [ref=e687] [cursor=pointer]:
+                          - /url: /ArkaD171717
+                          - generic [ref=e688]: ArkaD171717
+                        - text: linked a pull request that will close this issue
+                        - link "on May 1, 20263 weeks ago" [ref=e689] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#event-6311501206
+                          - generic "May 1, 2026, 12:32 AM GMT+8" [ref=e690]: on May 1, 20263 weeks ago
+                      - region "Issues mentioned" [ref=e693]:
+                        - list [ref=e694]:
+                          - listitem [ref=e695]:
+                            - generic [ref=e696]:
+                              - img "Open" [ref=e697]
+                              - 'link "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8 #15902" [ref=e699] [cursor=pointer]':
+                                - /url: https://github.com/ollama/ollama/pull/15902
+                                - text: "create: keep linear_attn in_proj_qkv and in_proj_z in BF16 for NVFP4/MXFP4/MXFP8"
+                                - generic [ref=e700]: "#15902"
+                - generic [ref=e701]:
+                  - link "@ArkaD171717's profile" [ref=e702] [cursor=pointer]:
+                    - /url: https://github.com/ArkaD171717
+                    - img "ArkaD171717" [ref=e703]
+                  - generic [ref=e710]:
+                    - generic [ref=e712]:
+                      - heading "ArkaD171717 commented on May 1, 2026 3 weeks ago" [level=3] [ref=e713]:
+                        - text: ArkaD171717 commented
+                        - generic "May 1, 2026, 1:03 AM GMT+8" [ref=e714]: on May 1, 2026 3 weeks ago
+                      - generic [ref=e715]:
+                        - link "ArkaD171717" [ref=e717] [cursor=pointer]:
+                          - /url: /ArkaD171717
+                        - link "on May 1, 20263 weeks ago" [ref=e720] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#issuecomment-4354503507
+                          - generic "May 1, 2026, 1:03 AM GMT+8" [ref=e721]: on May 1, 20263 weeks ago
+                      - button "Actions for ArkaD171717's comment, 1:03 AM on May 1" [ref=e725] [cursor=pointer]:
+                        - img [ref=e726]
+                    - generic [ref=e728]:
+                      - paragraph [ref=e731]:
+                        - text: "Wrote PR:"
+                        - link "#15902" [ref=e732] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/pull/15902
+                      - toolbar "Reactions" [ref=e733]:
+                        - switch "❤️ 2 reactions" [ref=e734]:
+                          - generic [ref=e735]:
+                            - generic: ❤️
+                            - generic [ref=e736]:
+                              - generic [ref=e737]: React with ❤️
+                              - text: "2"
+                - region "Events" [ref=e738]:
+                  - generic [ref=e745]:
+                    - img [ref=e749]
+                    - generic [ref=e751]:
+                      - generic [ref=e753]:
+                        - link "NvMayMay" [ref=e755] [cursor=pointer]:
+                          - /url: /NvMayMay
+                          - generic [ref=e756]: NvMayMay
+                        - text: mentioned this
+                        - link "on May 15, 2026last week" [ref=e757] [cursor=pointer]:
+                          - /url: https://github.com/ollama/ollama/issues/15866#event-6636956910
+                          - generic "May 15, 2026, 8:43 PM GMT+8" [ref=e758]: on May 15, 2026last week
+                      - region "Issues mentioned" [ref=e761]:
+                        - list [ref=e762]:
+                          - listitem [ref=e763]:
+                            - generic [ref=e764]:
+                              - img "Completed" [ref=e765]
+                              - link "Applying Dora to o_proj of Meta-Llama-3.1-8B results in NaN huggingface/peft#2049" [ref=e768] [cursor=pointer]:
+                                - /url: https://github.com/huggingface/peft/issues/2049
+                                - text: Applying Dora to o_proj of Meta-Llama-3.1-8B results in NaN
+                                - generic [ref=e769]: huggingface/peft#2049
+                          - listitem [ref=e770]:
+                            - generic [ref=e771]:
+                              - img "Closed" [ref=e772]
+                              - link "Fix DoRA inf/NaN from zero or near-zero rows in base weight (#2049) huggingface/peft#3237" [ref=e774] [cursor=pointer]:
+                                - /url: https://github.com/huggingface/peft/pull/3237
+                                - text: Fix DoRA inf/NaN from zero or near-zero rows in base weight (#2049)
+                                - generic [ref=e775]: huggingface/peft#3237
+            - generic [ref=e776]:
+              - link "Sign up for free" [ref=e777] [cursor=pointer]:
+                - /url: /signup?return_to=https://github.com/ollama/ollama/issues/15866
+                - generic [ref=e779]: Sign up for free
+              - generic [ref=e780]:
+                - strong [ref=e781]: to join this conversation on GitHub.
+                - text: Already have an account?
+              - link "Sign in to comment" [ref=e782] [cursor=pointer]:
+                - /url: /login?return_to=https://github.com/ollama/ollama/issues/15866
+        - generic [ref=e784]:
+          - heading "Metadata" [level=2] [ref=e785]
+          - generic [ref=e787]:
+            - generic [ref=e789]:
+              - generic [ref=e790]:
+                - heading "Assignees" [level=3]
+              - generic [ref=e791]: No one assigned
+            - generic [ref=e793]:
+              - generic [ref=e794]:
+                - heading "Labels" [level=3]
+              - generic [ref=e795]: No labels
+            - generic [ref=e797]:
+              - generic [ref=e798]:
+                - heading "Type" [level=3]
+              - generic [ref=e799]: No type
+            - generic [ref=e800]:
+              - generic [ref=e802]:
+                - heading "Fields" [level=3] [ref=e803]
+                - link "Give feedback" [ref=e804] [cursor=pointer]:
+                  - /url: https://github.com/orgs/community/discussions/189141
+              - generic [ref=e806]: No fields configured for issues without a type.
+            - generic [ref=e808]:
+              - generic [ref=e809]:
+                - heading "Projects" [level=3]
+              - generic [ref=e810]: No projects
+            - generic [ref=e812]:
+              - generic [ref=e813]:
+                - heading "Milestone" [level=3]
+              - generic [ref=e814]: No milestone
+            - generic [ref=e816]:
+              - generic [ref=e817]:
+                - heading "Relationships" [level=3]
+              - generic [ref=e818]: None yet
+            - generic [ref=e820]:
+              - generic [ref=e821]:
+                - heading "Development" [level=3]
+              - generic [ref=e822]: No branches or pull requests
+            - heading "Issue actions" [level=2] [ref=e823]
+            - list
+  - contentinfo [ref=e824]:
+    - heading "Footer" [level=2] [ref=e825]
+    - generic [ref=e826]:
+      - generic [ref=e827]:
+        - link "GitHub Homepage" [ref=e828] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e829]
+        - generic [ref=e831]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e832]:
+        - heading "Footer navigation" [level=3] [ref=e833]
+        - list "Footer navigation" [ref=e834]:
+          - listitem [ref=e835]:
+            - link "Terms" [ref=e836] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e837]:
+            - link "Privacy" [ref=e838] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e839]:
+            - link "Security" [ref=e840] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e841]:
+            - link "Status" [ref=e842] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e843]:
+            - link "Community" [ref=e844] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e845]:
+            - link "Docs" [ref=e846] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e847]:
+            - link "Contact" [ref=e848] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e849]:
+            - button "Manage cookies" [ref=e851] [cursor=pointer]
+          - listitem [ref=e852]:
+            - button "Do not share my personal information" [ref=e854] [cursor=pointer]

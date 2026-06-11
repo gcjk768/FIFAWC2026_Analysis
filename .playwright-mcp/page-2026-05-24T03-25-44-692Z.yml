@@ -1,0 +1,325 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=e6]:
+      - heading "Navigation Menu" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - link "Homepage" [ref=e10] [cursor=pointer]:
+          - /url: /
+          - img [ref=e11]
+        - generic [ref=e13]:
+          - navigation "Global" [ref=e16]:
+            - list [ref=e17]:
+              - listitem [ref=e18]:
+                - button "Platform" [ref=e20] [cursor=pointer]:
+                  - text: Platform
+                  - img [ref=e21]
+              - listitem [ref=e23]:
+                - button "Solutions" [ref=e25] [cursor=pointer]:
+                  - text: Solutions
+                  - img [ref=e26]
+              - listitem [ref=e28]:
+                - button "Resources" [ref=e30] [cursor=pointer]:
+                  - text: Resources
+                  - img [ref=e31]
+              - listitem [ref=e33]:
+                - button "Open Source" [ref=e35] [cursor=pointer]:
+                  - text: Open Source
+                  - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "Enterprise" [ref=e40] [cursor=pointer]:
+                  - text: Enterprise
+                  - img [ref=e41]
+              - listitem [ref=e43]:
+                - link "Pricing" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+                  - generic [ref=e45]: Pricing
+          - generic [ref=e46]:
+            - button "Search or jump to…" [ref=e49] [cursor=pointer]:
+              - img [ref=e51]
+            - link "Sign in" [ref=e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fpull%2F13773
+            - link "Sign up" [ref=e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fvoltron%2Fpull_requests_fragments%2Fpull_request_layout&source=header-repo&source_repo=ollama%2Follama
+            - button "Appearance settings" [ref=e58] [cursor=pointer]:
+              - img
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]:
+          - img [ref=e67]
+          - link "ollama" [ref=e70] [cursor=pointer]:
+            - /url: /ollama
+          - generic [ref=e71]: /
+          - strong [ref=e72]:
+            - link "ollama" [ref=e73] [cursor=pointer]:
+              - /url: /ollama/ollama
+          - generic [ref=e74]: Public
+        - generic [ref=e75]:
+          - list:
+            - listitem [ref=e76]:
+              - link "You must be signed in to change notification settings" [ref=e77] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e78]
+                - text: Notifications
+            - listitem [ref=e80]:
+              - link "Fork 16.3k" [ref=e81] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e82]
+                - text: Fork
+                - generic "16,267" [ref=e84]: 16.3k
+            - listitem [ref=e85]:
+              - link "You must be signed in to star a repository" [ref=e87] [cursor=pointer]:
+                - /url: /login?return_to=%2Follama%2Follama
+                - img [ref=e88]
+                - text: Star
+                - generic "172133 users starred this repository" [ref=e90]: 172k
+      - navigation "Repository" [ref=e91]:
+        - list [ref=e92]:
+          - listitem [ref=e93]:
+            - link "Code" [ref=e94] [cursor=pointer]:
+              - /url: /ollama/ollama
+              - img [ref=e95]
+              - generic [ref=e97]: Code
+          - listitem [ref=e98]:
+            - link "Issues 2.4k" [ref=e99] [cursor=pointer]:
+              - /url: /ollama/ollama/issues
+              - img [ref=e100]
+              - generic [ref=e103]: Issues
+              - generic "2,351" [ref=e104]: 2.4k
+          - listitem [ref=e105]:
+            - link "Pull requests 913" [ref=e106] [cursor=pointer]:
+              - /url: /ollama/ollama/pulls
+              - img [ref=e107]
+              - generic [ref=e109]: Pull requests
+              - generic "913" [ref=e110]
+          - listitem [ref=e111]:
+            - link "Actions" [ref=e112] [cursor=pointer]:
+              - /url: /ollama/ollama/actions
+              - img [ref=e113]
+              - generic [ref=e115]: Actions
+          - listitem [ref=e116]:
+            - link "Security and quality" [ref=e117] [cursor=pointer]:
+              - /url: /ollama/ollama/security
+              - img [ref=e118]
+              - generic [ref=e120]: Security and quality
+          - listitem [ref=e121]:
+            - link "Insights" [ref=e122] [cursor=pointer]:
+              - /url: /ollama/ollama/pulse
+              - img [ref=e123]
+              - generic [ref=e125]: Insights
+    - generic [ref=e132]:
+      - generic [ref=e135]:
+        - 'heading "x/imagegen: add FP4 quantization support for image generation models #13773" [level=1] [ref=e137]':
+          - text: "x/imagegen: add FP4 quantization support for image generation models"
+          - generic [ref=e139]: "#13773"
+        - generic [ref=e141]:
+          - generic [ref=e143]:
+            - img "Pull request" [ref=e144]
+            - text: Merged
+          - generic [ref=e147]:
+            - link "jmorganca" [ref=e148] [cursor=pointer]:
+              - /url: /jmorganca
+            - text: merged 1 commit into
+            - generic [ref=e149]:
+              - link "main" [ref=e150] [cursor=pointer]:
+                - /url: /ollama/ollama/tree/main
+              - generic [ref=e151]: from
+              - generic [ref=e152]:
+                - link "jmorganca/fp4-quantization" [ref=e153] [cursor=pointer]:
+                  - /url: /ollama/ollama/tree/jmorganca/fp4-quantization
+                - button "Copy head branch name to clipboard" [ref=e154] [cursor=pointer]:
+                  - img [ref=e155]
+            - generic "Jan 19, 2026, 4:54 PM GMT+8" [ref=e158]: Jan 19, 2026on Jan 19
+        - navigation "Pull request navigation tabs" [ref=e162]:
+          - tablist [ref=e163]:
+            - tab "Conversation" [selected] [ref=e164] [cursor=pointer]:
+              - img [ref=e165]
+              - text: Conversation
+            - tab "Commits (1)" [ref=e167] [cursor=pointer]:
+              - img [ref=e168]
+              - text: Commits
+              - generic [ref=e170]: "1"
+              - generic [ref=e171]: (1)
+            - tab "Checks" [ref=e172] [cursor=pointer]:
+              - img [ref=e173]
+              - text: Checks
+            - tab "Files changed" [ref=e175] [cursor=pointer]:
+              - img [ref=e176]
+              - text: Files changed
+      - generic [ref=e182]:
+        - generic [ref=e184]:
+          - heading "Conversation" [level=2] [ref=e185]
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e189]:
+                - link "@jmorganca" [ref=e190] [cursor=pointer]:
+                  - /url: /jmorganca
+                  - img "@jmorganca" [ref=e191]
+                - generic [ref=e193]:
+                  - generic [ref=e194]:
+                    - generic [ref=e195]:
+                      - group [ref=e197]:
+                        - button "Show options" [ref=e198] [cursor=pointer]:
+                          - img "Show options" [ref=e201]
+                      - generic "This user is a member of the ollama organization." [ref=e204]:
+                        - generic [ref=e205]: Member
+                    - heading "jmorganca commented Jan 19, 2026on Jan 19" [level=3] [ref=e206]:
+                      - generic [ref=e207]:
+                        - strong [ref=e208]:
+                          - link "jmorganca" [ref=e209] [cursor=pointer]:
+                            - /url: /jmorganca
+                        - text: commented
+                        - link "Jan 19, 2026on Jan 19" [ref=e210] [cursor=pointer]:
+                          - /url: "#issue-3828486418"
+                  - generic [ref=e214]:
+                    - paragraph [ref=e215]: Add --quantize fp4 support to ollama create for image generation models (flux2, z-image-turbo), using MLX's affine 4-bit quantization.
+                    - paragraph [ref=e216]: "Changes:"
+                    - list [ref=e217]:
+                      - listitem [ref=e218]: Add fp4 to validation in CreateImageGenModel
+                      - listitem [ref=e219]: Add FP4 case to quantizeTensor (group_size=32, bits=4, affine mode)
+                      - listitem [ref=e220]: Add GetQuantization() to WeightSource interface for dynamic params
+                      - listitem [ref=e221]: Update LoadLinearLayer to use quantization params from model metadata
+                  - 'button "hooray (1): jmorganca, 08:00AM on January 19" [disabled] [ref=e226]':
+                    - generic [ref=e227]: 🎉
+                    - generic [ref=e228]: "1"
+              - generic [ref=e229]:
+                - generic [ref=e233]:
+                  - img [ref=e235]
+                  - generic [ref=e240]:
+                    - link "@jmorganca" [ref=e243] [cursor=pointer]:
+                      - /url: /jmorganca
+                      - img "@jmorganca" [ref=e244]
+                    - generic [ref=e245]:
+                      - code [ref=e246]:
+                        - 'link "x/imagegen: add FP4 quantization support for image generation models" [ref=e247] [cursor=pointer]':
+                          - /url: /ollama/ollama/pull/13773/commits/e37fdcd25144b02e2d4c787b19b776d65c2faa69
+                      - button "Commit message body" [ref=e249] [cursor=pointer]: …
+                    - code [ref=e257]:
+                      - link "e37fdcd" [ref=e258] [cursor=pointer]:
+                        - /url: /ollama/ollama/pull/13773/commits/e37fdcd25144b02e2d4c787b19b776d65c2faa69
+                - generic [ref=e259]:
+                  - generic [ref=e260]:
+                    - img [ref=e262]
+                    - generic [ref=e264]:
+                      - link "@jmorganca" [ref=e265] [cursor=pointer]:
+                        - /url: /jmorganca
+                        - img "@jmorganca" [ref=e266]
+                      - link "jmorganca" [ref=e267] [cursor=pointer]:
+                        - /url: /jmorganca
+                      - link "force-pushed" [ref=e268] [cursor=pointer]:
+                        - /url: /ollama/ollama/compare/d899e97dc85155cd4f9410896730ebd23ab13c84..e37fdcd25144b02e2d4c787b19b776d65c2faa69
+                      - text: the
+                      - generic [ref=e270]: jmorganca/fp4-quantization
+                      - text: branch from
+                      - link "d899e97" [ref=e271] [cursor=pointer]:
+                        - /url: /ollama/ollama/commit/d899e97dc85155cd4f9410896730ebd23ab13c84
+                        - code [ref=e272]: d899e97
+                      - text: to
+                      - link "e37fdcd" [ref=e273] [cursor=pointer]:
+                        - /url: /ollama/ollama/commit/e37fdcd25144b02e2d4c787b19b776d65c2faa69
+                        - code [ref=e274]: e37fdcd
+                      - link "Compare" [ref=e275] [cursor=pointer]:
+                        - /url: /ollama/ollama/compare/d899e97dc85155cd4f9410896730ebd23ab13c84..e37fdcd25144b02e2d4c787b19b776d65c2faa69
+                        - generic [ref=e277]: Compare
+                      - link "January 19, 2026 08:164 months ago" [ref=e278] [cursor=pointer]:
+                        - /url: "#event-22131450611"
+                  - generic [ref=e279]:
+                    - img [ref=e281]
+                    - generic [ref=e283]:
+                      - button "View details" [ref=e284] [cursor=pointer]
+                      - link "@jmorganca" [ref=e285] [cursor=pointer]:
+                        - /url: /jmorganca
+                        - img "@jmorganca" [ref=e286]
+                      - link "jmorganca" [ref=e287] [cursor=pointer]:
+                        - /url: /jmorganca
+                      - text: merged commit
+                      - link "03bf241" [ref=e288] [cursor=pointer]:
+                        - /url: /ollama/ollama/commit/03bf241c33b4bc20a22e58e6133635a59caae94e
+                        - code [ref=e289]: 03bf241
+                      - text: into
+                      - generic [ref=e291]: main
+                      - link "Jan 19, 2026on Jan 19" [ref=e292] [cursor=pointer]:
+                        - /url: https://github.com/ollama/ollama/pull/13773#event-22132253401
+                      - generic [ref=e293]: 9 checks passed
+                  - generic [ref=e295]:
+                    - img [ref=e297]
+                    - generic [ref=e299]:
+                      - link "@jmorganca" [ref=e300] [cursor=pointer]:
+                        - /url: /jmorganca
+                        - img "@jmorganca" [ref=e301]
+                      - link "jmorganca" [ref=e302] [cursor=pointer]:
+                        - /url: /jmorganca
+                      - text: deleted the
+                      - generic [ref=e304]: jmorganca/fp4-quantization
+                      - text: branch
+                      - link "January 19, 2026 08:544 months ago" [ref=e305] [cursor=pointer]:
+                        - /url: "#event-22132254280"
+            - generic [ref=e309]:
+              - link "Sign up for free" [ref=e310] [cursor=pointer]:
+                - /url: /join?source=comment-repo
+              - strong [ref=e311]: to join this conversation on GitHub
+              - text: . Already have an account?
+              - link "Sign in to comment" [ref=e312] [cursor=pointer]:
+                - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Follama%2Follama%2Fpull%2F13773
+        - generic [ref=e316]:
+          - form "Select reviewers" [ref=e318]:
+            - heading "Reviewers" [level=3] [ref=e319]
+            - text: No reviews
+          - form "Select assignees" [ref=e321]:
+            - heading "Assignees" [level=3] [ref=e322]
+            - text: No one assigned
+          - generic [ref=e323]:
+            - heading "Labels" [level=3] [ref=e324]
+            - generic [ref=e325]: None yet
+          - form "Select projects" [ref=e327]:
+            - heading "Projects" [level=3] [ref=e328]
+            - text: None yet
+          - form "Select milestones" [ref=e330]:
+            - heading "Milestone" [level=3] [ref=e331]
+            - text: No milestone
+          - form "Link issues" [ref=e337]:
+            - heading "Development" [level=3] [ref=e338]
+            - paragraph [ref=e339]: Successfully merging this pull request may close these issues.
+          - generic [ref=e341]:
+            - heading "1 participant" [level=3] [ref=e342]
+            - link "@jmorganca" [ref=e344] [cursor=pointer]:
+              - /url: /jmorganca
+              - img "@jmorganca" [ref=e345]
+  - contentinfo [ref=e346]:
+    - heading "Footer" [level=2] [ref=e347]
+    - generic [ref=e348]:
+      - generic [ref=e349]:
+        - link "GitHub Homepage" [ref=e350] [cursor=pointer]:
+          - /url: https://github.com
+          - img [ref=e351]
+        - generic [ref=e353]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=e354]:
+        - heading "Footer navigation" [level=3] [ref=e355]
+        - list "Footer navigation" [ref=e356]:
+          - listitem [ref=e357]:
+            - link "Terms" [ref=e358] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=e359]:
+            - link "Privacy" [ref=e360] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=e361]:
+            - link "Security" [ref=e362] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=e363]:
+            - link "Status" [ref=e364] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=e365]:
+            - link "Community" [ref=e366] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=e367]:
+            - link "Docs" [ref=e368] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=e369]:
+            - link "Contact" [ref=e370] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=e371]:
+            - button "Manage cookies" [ref=e373] [cursor=pointer]
+          - listitem [ref=e374]:
+            - button "Do not share my personal information" [ref=e376] [cursor=pointer]

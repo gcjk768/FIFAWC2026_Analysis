@@ -1,8 +1,8 @@
-# WC2026 Match Predictor — Claude Code Instructions
+﻿# WC2026 Match Predictor — Claude Code Instructions
 
 ## Project Overview
 FIFA World Cup 2026 Match Analysis Dashboard with:
-- Local AI analysis via Ollama qwen3.5:35b
+- Local AI analysis via Ollama qwen3.6:35b
 - Obsidian vault integration (read team notes, write predictions)
 - Telegram alerts after every analysis
 - Google Calendar events for all matches in SGT (UTC+8)
@@ -11,7 +11,7 @@ FIFA World Cup 2026 Match Analysis Dashboard with:
 - Storage: data/predictions.json — ALWAYS atomic writes (write .tmp → rename)
 
 ## OLLAMA MODEL
-- Model: qwen3.5:35b (hardcoded — do not auto-detect, do not change)
+- Model: qwen3.6:35b (hardcoded — do not auto-detect, do not change)
 - Host: process.env.OLLAMA_HOST (default: http://localhost:11434)
 - All calls: POST /api/generate with stream: false
 - Prepend /no_think to every prompt (disables CoT, returns faster JSON)
@@ -20,7 +20,7 @@ FIFA World Cup 2026 Match Analysis Dashboard with:
 ## ENVIRONMENT VARIABLES (.env)
 PORT=3001
 OLLAMA_HOST=http://localhost:11434
-OLLAMA_MODEL=qwen3.5:35b
+OLLAMA_MODEL=qwen3.6:35b
 
 TELEGRAM_BOT_TOKEN=         # from @BotFather
 TELEGRAM_CHAT_ID=           # your personal chat ID with the bot
@@ -81,7 +81,7 @@ telegram_send_analysis must format the prediction object like this:
 
 📝 {analysis_summary}
 
-_Powered by qwen3.5:35b via Ollama_
+_Powered by qwen3.6:35b via Ollama_
 ```
 Escape all special chars for Telegram MarkdownV2: . ! ( ) - = # + { }
 

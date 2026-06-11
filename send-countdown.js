@@ -7,7 +7,7 @@ const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.TELEGRAM_CHANNEL_ID;
 const topicId = Number(process.env.TELEGRAM_TOPIC_ID);
 
-const firstMatchDate = new Date('2026-06-12T01:00:00+08:00');
+const firstMatchDate = new Date('2026-06-12T03:00:00+08:00');
 
 const diff = firstMatchDate - Date.now();
 const days = Math.floor(diff / 86400000);
@@ -25,7 +25,7 @@ const msg = [
   '',
   '🏟 *Opening Match*',
   `*${esc('Mexico')}* vs *${esc('South Africa')}*`,
-  `📅 12 Jun 2026, 01:00 SGT \\| Group A`,
+  `📅 12 Jun 2026, 03:00 SGT \\| Group A`,
   `📍 ${esc('SoFi Stadium, Los Angeles')}`,
   '',
   '⏳ *Countdown to Kickoff:*',

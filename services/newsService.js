@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
+const { escapeMd } = require('./alertService');
 
 const NEWS_API_KEY    = process.env.NEWS_API_KEY || '';
 const SENT_NEWS_FILE  = path.join(__dirname, '../data/sent-news.json');
@@ -263,12 +264,13 @@ async function fetchTeamNews(team1, team2, limit = 2) {
 
 /**
  * Format news articles for Telegram (MarkdownV2).
+ * Title and source are escaped per-field so the `_italics_` markup survives.
  * @param {Array} articles
- * @returns {string}
+ * @returns {string} pre-escaped MarkdownV2 — do not escape again downstream
  */
 function formatNews(articles) {
   if (!articles || articles.length === 0) return '';
-  return articles.map((a) => `• ${a.title} — _${a.source}_`).join('\n');
+  return articles.map((a) => `• ${escapeMd(a.title)} — _${escapeMd(a.source)}_`).join('\n');
 }
 
 // ─── OBSIDIAN WRITE ───────────────────────────────────────────────────────────

@@ -187,8 +187,8 @@ async function fetchKnockoutResults() {
 function formatKnockoutMatch(m) {
   if (!m) return '• TBD vs TBD';
   if (m.status === 'FINISHED') {
-    const pen = m.penalties ? ` (pen ${m.penalties.home}–${m.penalties.away})` : '';
-    return `✅ *${m.team1}* ${m.score1}–${m.score2} *${m.team2}*${pen}`;
+    const pen = m.penalties ? ` (pen ${m.penalties.home}:${m.penalties.away})` : '';
+    return `✅ *${m.team1}* ${m.score1}:${m.score2} *${m.team2}*${pen}`;
   }
   if (m.team1 === 'TBD' && m.team2 === 'TBD') return `🔜 TBD vs TBD`;
   return `🔜 ${m.team1} vs ${m.team2} \\| ${m.dateSgt} ${m.timeSgt} SGT`;
