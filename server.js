@@ -1182,7 +1182,24 @@ app.post('/api/trigger/digest', async (req, res) => {
 app.post('/api/trigger/preview/:matchId', async (req, res) => {
   const fixture = FIXTURES.find((f) => f.matchId === req.params.matchId);
   if (!fixture) return res.status(404).json({ error: 'Match not found' });
-  res.json({ success: true, message: `Preview for ${fixture.team1} vs ${fixture.team2} — restart app to trigger via scheduler or use /api/analyze/${fixture.matchId}` });
+
+  try {
+    const { buildThreeHourPreview, sendToChannel } = require('./services/alertService');
+    const prediction = readJson(PREDICTIONS_FILE)[fixture.matchId] || null;
+
+    let injuryNote = '';
+    try {
+      const data = await obsidianGet(`/read?filename=${encodeURIComponent('WC2026/injuries.md')}`);
+      injuryNote = data.content || '';
+    } catch { /* preview still goes out without injuries */ }
+
+    await sendToChannel(buildThreeHourPreview(fixture, prediction, injuryNote));
+    console.log(`[WC2026] Manual preview sent: ${fixture.team1} vs ${fixture.team2}`);
+    res.json({ success: true, message: `Preview sent for ${fixture.team1} vs ${fixture.team2}` });
+  } catch (err) {
+    console.error('[WC2026] Manual preview error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 /** GET /api/live — current live match data (updated every minute during matches) */

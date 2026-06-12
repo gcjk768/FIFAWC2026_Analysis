@@ -156,14 +156,20 @@ function buildDailyDigest({ dateSgt, countdownText, calendarSection, newsSection
  * @returns {string}
  */
 function buildThreeHourPreview(fixture, prediction, injurySection) {
-  const { team1, team2, group, dateSgt, timeSgt, venue } = fixture;
+  const { team1, team2, dateSgt, timeSgt, venue } = fixture;
   const pred = prediction || {};
+
+  const headerParts = [
+    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT`,
+    stageTag(fixture),
+    venue ? escapeMd(venue) : '',
+  ].filter(Boolean);
 
   const lines = [
     `🔮 *KICKOFF IN \\~3 HOURS*`,
     ``,
     `⚽ *${escapeMd(team1)} vs ${escapeMd(team2)}*`,
-    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
+    headerParts.join(' \\| '),
     ``,
     `🔑 *Key Points*`,
   ];
@@ -208,7 +214,7 @@ function buildOneDayPreview(fixture, prediction, weatherSection, newsSection, in
     `⚡ *MATCH TOMORROW — FINAL PREVIEW*`,
     ``,
     `⚽ *${escapeMd(team1)} vs ${escapeMd(team2)}*`,
-    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| Group ${escapeMd(group)}`,
+    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| ${stageTag(fixture)}`,
     `📍 ${escapeMd(venue)}`,
     `⏰ Match in \\~${escapeMd(String(hoursUntil))} hours`,
     ``,
@@ -247,7 +253,7 @@ function buildOneDayPreview(fixture, prediction, weatherSection, newsSection, in
     `🇨🇳 *明天比赛 — 最终预测*`,
     ``,
     `⚽ *${escapeMd(toZh(team1))} vs ${escapeMd(toZh(team2))}*`,
-    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| ${escapeMd(group)}组`,
+    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| ${fixture.stageLabel ? escapeMd(fixture.stageLabel) : `${escapeMd(group)}组`}`,
     `📍 ${escapeMd(venue)}`,
     `⏰ 约${escapeMd(String(hoursUntil))}小时后开赛`,
     ``,
@@ -326,7 +332,7 @@ function buildResultMessage(fixture, result, prediction) {
     ``,
     `⚽ *${escapeMd(team1)} ${score1}:${score2} ${escapeMd(team2)}*`,
     hasHt ? `🕐 *Half Time:* ${htScore1}:${htScore2}` : '',
-    `📅 ${escapeMd(dateSgt)} \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
+    `📅 ${escapeMd(dateSgt)} \\| ${stageTag(fixture)}${venue ? ` \\| ${escapeMd(venue)}` : ''}`,
     ``,
     `─────────────────────────`,
   ].filter((l) => l !== '');
@@ -382,7 +388,7 @@ function buildResultMessage(fixture, result, prediction) {
     ``,
     `⚽ *${escapeMd(toZh(team1))} ${score1}:${score2} ${escapeMd(toZh(team2))}*`,
     hasHt ? `🕐 *半场：* ${htScore1}:${htScore2}` : '',
-    `📅 ${escapeMd(dateSgt)} \\| ${escapeMd(group)}组 \\| ${escapeMd(venue)}`,
+    `📅 ${escapeMd(dateSgt)} \\| ${fixture.stageLabel ? escapeMd(fixture.stageLabel) : `${escapeMd(group)}组`}${venue ? ` \\| ${escapeMd(venue)}` : ''}`,
     ``,
     `─────────────────────────`,
   ].filter((l) => l !== '');
@@ -437,6 +443,7 @@ function buildResultMessage(fixture, result, prediction) {
 
 module.exports = {
   escapeMd,
+  stageTag,
   isAlertSent,
   markAlertSent,
   sendToChannel,

@@ -43,14 +43,20 @@ const { fetchCalibrationNote } = require('../analytics/calibrationDesk');
  * @param {object} s2
  * @param {string} obsidianContext
  * @param {object} statReport
+ * @param {object} [stage] - { knockout, stageLabel }
  * @returns {string}
  */
-function buildFastPrompt(team1, team2, group, s1, s2, obsidianContext, statReport) {
+function buildFastPrompt(team1, team2, group, s1, s2, obsidianContext, statReport, stage = {}) {
+  const matchLine = stage.knockout
+    ? `${team1} vs ${team2} | ${stage.stageLabel || 'Knockout'} | KNOCKOUT — NO DRAWS, you must name a winner (extra time/penalties if level)`
+    : `${team1} vs ${team2} | Group ${group} | Group Stage (draws valid)`;
+  const winnerOptions = stage.knockout ? `${team1}|${team2}` : `${team1}|${team2}|draw`;
+
   return `/no_think
 You are a professional football analyst for FIFA World Cup 2026. Think step by step, then output JSON.
 
 ═══ MATCH ═══
-${team1} vs ${team2} | Group ${group} | Group Stage (draws valid)
+${matchLine}
 
 ═══ TEAM DATA ═══
 ${formatTeamProfile(team1, s1)}
@@ -74,7 +80,7 @@ STEP 4 — SCORE: What is the most realistic score? (use stat model top scores a
 STEP 5 — RISK: What is the realistic upset scenario and how likely?
 
 Respond ONLY with valid JSON — no markdown, no preamble:
-{"winner":"${team1}|${team2}|draw","confidence":75,"predicted_score":"2-1","score_reasoning":"Why ${team1} scores X: [reason with player names]. Why ${team2} scores Y: [reason].","key_factors":["factor1","factor2","factor3"],"analysis_summary":"3 sentences. Name specific players. Cover main tactical battle.","risk_factor":"low|medium|high"}`;
+{"winner":"${winnerOptions}","confidence":75,"predicted_score":"2-1","score_reasoning":"Why ${team1} scores X: [reason with player names]. Why ${team2} scores Y: [reason].","key_factors":["factor1","factor2","factor3"],"analysis_summary":"3 sentences. Name specific players. Cover main tactical battle.","risk_factor":"low|medium|high"}`;
 }
 
 // ─── CONTEXT HELPERS ──────────────────────────────────────────────────────────
@@ -148,7 +154,7 @@ async function gatherH2HContext(team1, team2, obsidianGet) {
  * @returns {Promise<object>} prediction object ready to save
  */
 async function runOrchestrator(fixture, deps, mode = 'full') {
-  const { team1, team2, group, matchday, venue, dateSgt, dateIso } = fixture;
+  const { team1, team2, group, matchday, venue, dateSgt, dateIso, knockout = false, stageLabel = '' } = fixture;
 
   const {
     runOllama,
@@ -192,7 +198,7 @@ async function runOrchestrator(fixture, deps, mode = 'full') {
       obsCtx = await gatherObsidianContext(team1, team2, venue, matchDate);
     } catch { /* non-fatal */ }
 
-    const prompt = buildFastPrompt(team1, team2, group, enriched1, enriched2, obsCtx, statReport);
+    const prompt = buildFastPrompt(team1, team2, group, enriched1, enriched2, obsCtx, statReport, { knockout, stageLabel });
     const result = await runOllama(prompt);
     console.log(`[CEO] Fast decision: ${result.winner} ${result.predicted_score} (${result.confidence}%)`);
     return { ...result, _mode: 'fast', _statReport: statReport };
@@ -226,7 +232,7 @@ async function runOrchestrator(fixture, deps, mode = 'full') {
   console.log(`[CEO] → Strategy Department: Chief Strategist synthesising final prediction (Qwen #2)...`);
   const finalPrediction = await runConsensusAgent(
     team1, team2, group,
-    { stat: statReport, tactical, historian, psych, weather, calibration: calibrationNote, s1: enriched1, s2: enriched2 },
+    { stat: statReport, tactical, historian, psych, weather, calibration: calibrationNote, s1: enriched1, s2: enriched2, knockout, stageLabel },
     runOllama,
     { formatStatReport, formatTacticalReport, formatHistorianReport, formatPsychReport, buildWeatherContext }
   );

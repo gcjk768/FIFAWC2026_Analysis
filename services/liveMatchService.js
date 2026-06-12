@@ -5,7 +5,7 @@ const path = require('path');
 const fetch = require('node-fetch');
 
 const { espnNameMatches, espnStat, sofascoreNameMatches, fifaNameMatches } = require('./resultsService');
-const { escapeMd, isAlertSent, markAlertSent, sendToChannel } = require('./alertService');
+const { escapeMd, stageTag, isAlertSent, markAlertSent, sendToChannel } = require('./alertService');
 const { toZh } = require('./countryNames');
 const { computeLiveOutlook, refreshLiveAnalysis, readPreMatchPrediction } = require('./livePredictionService');
 
@@ -13,9 +13,11 @@ const LIVE_FILE = path.join(__dirname, '../data/live-matches.json');
 const OBSIDIAN_MCP = 'http://localhost:3002';
 const FIFA_COMPETITION_ID = '17';
 
-// Match window: start polling 10min before kickoff, stop 150min after
+// Match window: start polling 10min before kickoff, stop 150min after.
+// Knockout matches can run to extra time + penalties — extend to 220min.
 const PRE_KICKOFF_MS = 10 * 60000;
 const POST_KICKOFF_MS = 150 * 60000;
+const POST_KICKOFF_KO_MS = 220 * 60000;
 
 // FIFA MatchStatus codes (from live FIFA website network calls)
 const FIFA_STATUS_FINISHED = 0;
@@ -401,7 +403,7 @@ function statsLines(fixture, stats) {
  * @returns {Promise<boolean>} true if a key event happened (kickoff/goal/HT)
  */
 async function alertOnTransitions(fixture, prev, live, outlook, stats) {
-  const { matchId, team1, team2, group } = fixture;
+  const { matchId, team1, team2 } = fixture;
   const zh = `${toZh(team1)} vs ${toZh(team2)}`;
   let keyEvent = false;
 
@@ -411,7 +413,7 @@ async function alertOnTransitions(fixture, prev, live, outlook, stats) {
       `🟢 *KICK\\-OFF \\| 开球*`,
       ``,
       `⚽ *${escapeMd(team1)} vs ${escapeMd(team2)}* \\(${escapeMd(zh)}\\)`,
-      `📍 Group ${escapeMd(group)} \\| 🏟 ${escapeMd(fixture.venue || '')}`,
+      `📍 ${stageTag(fixture)}${fixture.venue ? ` \\| 🏟 ${escapeMd(fixture.venue)}` : ''}`,
       ``,
       ...outlookLines(fixture, outlook),
       ``,
@@ -561,7 +563,8 @@ async function pollLiveMatches(fixtures) {
     const now = Date.now();
     const windowMatches = fixtures.filter((f) => {
       const kickoff = new Date(f.dateIso).getTime();
-      return now >= kickoff - PRE_KICKOFF_MS && now <= kickoff + POST_KICKOFF_MS;
+      const postWindow = f.knockout ? POST_KICKOFF_KO_MS : POST_KICKOFF_MS;
+      return now >= kickoff - PRE_KICKOFF_MS && now <= kickoff + postWindow;
     });
 
     const store = readLiveStore();

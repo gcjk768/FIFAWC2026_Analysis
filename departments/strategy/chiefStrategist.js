@@ -29,16 +29,24 @@ function buildConsensusPrompt(
   team1, team2, group,
   statBlock, tacticalBlock, historianBlock, psychBlock,
   qualBlock, weatherBlock, calibrationNote,
-  statReport
+  statReport, stage = {}
 ) {
   const winPct1 = (statReport.winProb1 * 100).toFixed(1);
   const drawPct = (statReport.drawProb  * 100).toFixed(1);
   const winPct2 = (statReport.winProb2  * 100).toFixed(1);
 
+  const matchLine = stage.knockout
+    ? `${team1} vs ${team2} | ${stage.stageLabel || 'Knockout'} | KNOCKOUT — NO DRAWS, a winner MUST advance (extra time/penalties if level after 90)`
+    : `${team1} vs ${team2} | Group ${group} | Group Stage (draws are VALID)`;
+  const drawRule = stage.knockout
+    ? `6. KNOCKOUT: you MUST name a winner — "draw" is INVALID. If teams are evenly matched, pick who advances (consider penalty pedigree, squad depth for extra time, big-game experience) and lower confidence accordingly.`
+    : `6. Group stage: draw prob = ${drawPct}% per the model. Respect this — do not force a winner if teams are evenly matched.`;
+  const winnerOptions = stage.knockout ? `${team1}|${team2}` : `${team1}|${team2}|draw`;
+
   return `/no_think
 You are the HEAD ANALYST at a professional football intelligence firm. Your team has filed the reports below. Synthesise them into ONE definitive match prediction.
 
-MATCH: ${team1} vs ${team2} | Group ${group} | Group Stage (draws are VALID)
+MATCH: ${matchLine}
 
 ══════════════════════════════════════════
 DEPARTMENT REPORTS
@@ -73,11 +81,11 @@ SYNTHESIS RULES
 3. If rotation risk flagged → reduce confidence by 5-10 points; shift score prediction lower-scoring.
 4. Score must reflect game style (cagey=1-0/0-0 more likely; open=2-1/2-0 more likely). Use stat model top scores: ${statReport.topScores.slice(0, 3).join(', ')}.
 5. Name SPECIFIC PLAYERS in analysis_summary — generic output is not acceptable.
-6. Group stage: draw prob = ${drawPct}% per the model. Respect this — do not force a winner if teams are evenly matched.
+${drawRule}
 7. Win probabilities from stats: ${team1} ${winPct1}% | Draw ${drawPct}% | ${team2} ${winPct2}%.
 
 Respond ONLY with valid JSON — no markdown, no preamble:
-{"winner":"${team1}|${team2}|draw","confidence":75,"predicted_score":"2-1","score_reasoning":"Why ${team1} scores X: [specific reason + player names]. Why ${team2} scores Y: [specific reason + player names].","key_factors":["factor1 with specifics","factor2 with specifics","factor3 with specifics"],"analysis_summary":"3 sentences. Name specific players. Cover the key tactical battle, the decisive factor, and the risk.","risk_factor":"low|medium|high","devil_upset_pct":22,"devil_upset_scenario":"one sentence on how the underdog wins","agent_votes":{"statistical":"${team1}|${team2}|draw","tactical":"${team1}|${team2}|neutral","historical":"${team1}|${team2}|neutral","psychological":"${team1}|${team2}|neutral"}}`;
+{"winner":"${winnerOptions}","confidence":75,"predicted_score":"2-1","score_reasoning":"Why ${team1} scores X: [specific reason + player names]. Why ${team2} scores Y: [specific reason + player names].","key_factors":["factor1 with specifics","factor2 with specifics","factor3 with specifics"],"analysis_summary":"3 sentences. Name specific players. Cover the key tactical battle, the decisive factor, and the risk.","risk_factor":"low|medium|high","devil_upset_pct":22,"devil_upset_scenario":"one sentence on how the underdog wins","agent_votes":{"statistical":"${team1}|${team2}|draw","tactical":"${team1}|${team2}|neutral","historical":"${team1}|${team2}|neutral","psychological":"${team1}|${team2}|neutral"}}`;
 }
 
 /**
@@ -127,12 +135,17 @@ function buildQualifierBlock(s1, s2, team1, team2) {
  * @param {object} stat - statistical model report
  * @param {string} team1
  * @param {string} team2
+ * @param {boolean} [knockout] - knockout matches must never resolve to a draw
  * @returns {object}
  */
-function sanitizeDecision(raw, stat, team1, team2) {
-  const statWinner = stat.statWinner === 'team1' ? team1 : stat.statWinner === 'team2' ? team2 : 'draw';
+function sanitizeDecision(raw, stat, team1, team2, knockout = false) {
+  // In knockout the statistical fallback is whichever side has the higher win prob
+  const statWinner = stat.statWinner === 'team1' ? team1
+    : stat.statWinner === 'team2' ? team2
+    : knockout ? (stat.winProb1 >= stat.winProb2 ? team1 : team2) : 'draw';
+  const validWinners = knockout ? [team1, team2] : [team1, team2, 'draw'];
   const result = { ...raw };
-  if (![team1, team2, 'draw'].includes(result.winner)) result.winner = statWinner;
+  if (!validWinners.includes(result.winner)) result.winner = statWinner;
   if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 100) {
     result.confidence = stat.statConfidence;
   }
@@ -159,7 +172,8 @@ function sanitizeDecision(raw, stat, team1, team2) {
       return winnerIsTeam1 ? x > y : y > x;
     });
     if (consistent) result.predicted_score = consistent;
-    else result.winner = 'draw';
+    // Knockout: a level score with a named winner is valid (extra time/pens)
+    else if (!knockout) result.winner = 'draw';
   } else if (g1 !== g2) {
     const scoreWinner = g1 > g2 ? team1 : team2;
     if (result.winner === 'draw') result.winner = scoreWinner;
@@ -175,14 +189,14 @@ function sanitizeDecision(raw, stat, team1, team2) {
  * @param {string} team1
  * @param {string} team2
  * @param {string} group
- * @param {object} reports - { stat, tactical, historian, psych, weather, calibration, s1, s2 }
+ * @param {object} reports - { stat, tactical, historian, psych, weather, calibration, s1, s2, knockout, stageLabel }
  * @param {Function} runOllama
  * @param {object} formatters - { formatStatReport, formatTacticalReport, formatHistorianReport, formatPsychReport, buildWeatherContext }
  * @returns {Promise<object>}
  */
 async function runConsensusAgent(
   team1, team2, group,
-  { stat, tactical, historian, psych, weather, calibration, s1, s2 },
+  { stat, tactical, historian, psych, weather, calibration, s1, s2, knockout = false, stageLabel = '' },
   runOllama,
   { formatStatReport, formatTacticalReport, formatHistorianReport, formatPsychReport, buildWeatherContext }
 ) {
@@ -198,17 +212,19 @@ async function runConsensusAgent(
     team1, team2, group,
     statBlock, tacticalBlock, historianBlock, psychBlock,
     qualBlock, weatherBlock, calibrationNote,
-    stat
+    stat, { knockout, stageLabel }
   );
 
   try {
     const raw = await runOllama(prompt);
-    const result = sanitizeDecision(raw, stat, team1, team2);
+    const result = sanitizeDecision(raw, stat, team1, team2, knockout);
     console.log(`[STRATEGY:CHIEF] ${team1} vs ${team2} — decision: ${result.winner} ${result.predicted_score} | confidence: ${result.confidence}% | upset risk: ${result.devil_upset_pct}%`);
     return result;
   } catch (err) {
     console.error('[STRATEGY:CHIEF] Chief Strategist failed — falling back to statistical model:', err.message);
-    const fallbackWinner = stat.statWinner === 'team1' ? team1 : stat.statWinner === 'team2' ? team2 : 'draw';
+    const fallbackWinner = stat.statWinner === 'team1' ? team1
+      : stat.statWinner === 'team2' ? team2
+      : knockout ? (stat.winProb1 >= stat.winProb2 ? team1 : team2) : 'draw';
     return {
       winner:               fallbackWinner,
       confidence:           stat.statConfidence,

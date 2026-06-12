@@ -497,7 +497,6 @@ async function start() {
   await loadFixtures();
 
   const { countdown } = getOpeningMatchCountdown();
-  const sentAlerts = Object.keys(require('./services/alertService').isAlertSent ? {} : {});
 
   console.log(`[SCHEDULER] Opening match: ${OPENING_MATCH.team1} vs ${OPENING_MATCH.team2} — 12 Jun 2026, 01:00 SGT`);
   console.log(`[SCHEDULER] Countdown: ${countdown.text}`);
@@ -505,6 +504,7 @@ async function start() {
   console.log(`  - Midnight Countdown:  every day at 00:00 SGT`);
   console.log(`  - Daily Digest:        every day at ${DIGEST_TIME_SGT} SGT`);
   console.log(`  - News Alerts:         every 4 hours (FIFA Top Stories → Telegram + Obsidian)`);
+  console.log(`  - Fixture Reload:      every hour (time changes + knockout fixtures)`);
   console.log(`  - 3-Hour Alerts:       checking every 15 minutes`);
   console.log(`  - 1-Day Alerts:        checking every hour`);
   console.log(`  - Live Match Polling:  every 1min during match windows (kickoff/goal/HT alerts)`);
@@ -519,6 +519,10 @@ async function start() {
 
   // News check every 4 hours — fetches FIFA top stories, posts new ones to Telegram, updates Obsidian
   cron.schedule('0 */4 * * *', checkNewsUpdates, { timezone: 'Asia/Singapore' });
+
+  // Reload fixtures hourly — picks up re-synced kickoff times and
+  // knockout fixtures added by the server once teams are determined
+  cron.schedule('10 * * * *', loadFixtures, { timezone: 'Asia/Singapore' });
 
   // 3-hour previews — check every 15 minutes so the kickoff window is never missed
   cron.schedule('*/15 * * * *', checkThreeHourAlerts, { timezone: 'Asia/Singapore' });
