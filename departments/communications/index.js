@@ -21,7 +21,7 @@
  *   - Daily digests with predictions and news
  *   - Breaking news (FIFA news + team updates)
  *   - Fan chatbot interactions (bilingual EN/ZH)
- *   - Pre-match previews (3-day and 1-day)
+ *   - Pre-match previews (3-hour and 1-day)
  *
  * Usage:
  *   const comms = require('./departments/communications');

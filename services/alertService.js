@@ -89,6 +89,15 @@ async function sendToChannel(message, parseMode = 'MarkdownV2') {
   throw lastErr;
 }
 
+/**
+ * Escaped stage tag for a fixture: "Group D" or a knockout label like "Round of 32".
+ * @param {object} fixture
+ * @returns {string}
+ */
+function stageTag(fixture) {
+  return fixture.stageLabel ? escapeMd(fixture.stageLabel) : `Group ${escapeMd(fixture.group)}`;
+}
+
 // ─── MESSAGE FORMATTERS ─────────────────────────────────────────────────────
 
 /**

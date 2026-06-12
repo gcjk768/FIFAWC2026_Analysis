@@ -367,14 +367,40 @@ function outlookLines(fixture, outlook) {
 }
 
 /**
+ * Build compact live-stats lines for Telegram alerts (escaped).
+ * Mirrors the Google live match panel: possession, shots, on target, corners.
+ * @param {object} fixture
+ * @param {object|null} stats - live ESPN stats
+ * @returns {string[]}
+ */
+function statsLines(fixture, stats) {
+  if (!stats) return [];
+  const hasAny = ['possession1', 'shots1', 'shotsOnTarget1', 'corners1']
+    .some((k) => stats[k] !== null && stats[k] !== undefined);
+  if (!hasAny) return [];
+
+  const v = (a, b, suffix = '') => `${a ?? '—'}${suffix} · ${b ?? '—'}${suffix}`;
+  return [
+    ``,
+    `📊 *${escapeMd(fixture.team1)} · ${escapeMd(fixture.team2)}*`,
+    escapeMd(`Possession   ${v(stats.possession1, stats.possession2, '%')}`),
+    escapeMd(`Shots        ${v(stats.shots1, stats.shots2)}`),
+    escapeMd(`On Target    ${v(stats.shotsOnTarget1, stats.shotsOnTarget2)}`),
+    escapeMd(`Corners      ${v(stats.corners1, stats.corners2)}`),
+    escapeMd(`Saves        ${v(stats.saves1, stats.saves2)}`),
+  ];
+}
+
+/**
  * Detect state transitions vs previous poll and fire Telegram alerts.
  * @param {object} fixture
  * @param {object|null} prev - previous live entry
  * @param {object} live - fresh live data
  * @param {object} outlook - live win-probability outlook
+ * @param {object|null} stats - live ESPN stats (included in goal/HT alerts)
  * @returns {Promise<boolean>} true if a key event happened (kickoff/goal/HT)
  */
-async function alertOnTransitions(fixture, prev, live, outlook) {
+async function alertOnTransitions(fixture, prev, live, outlook, stats) {
   const { matchId, team1, team2, group } = fixture;
   const zh = `${toZh(team1)} vs ${toZh(team2)}`;
   let keyEvent = false;
@@ -404,6 +430,7 @@ async function alertOnTransitions(fixture, prev, live, outlook) {
       `⏱ ${escapeMd(live.minute || live.period || '')}`,
       ``,
       ...outlookLines(fixture, outlook),
+      ...statsLines(fixture, stats),
     ].join('\n'));
   }
 
@@ -415,6 +442,7 @@ async function alertOnTransitions(fixture, prev, live, outlook) {
       `*${scoreLine(fixture, live)}*`,
       ``,
       ...outlookLines(fixture, outlook),
+      ...statsLines(fixture, stats),
     ].join('\n'));
   }
 
@@ -563,7 +591,7 @@ async function pollLiveMatches(fixtures) {
       const stats = inPlay ? await getLiveStats(fixture, live) : null;
       const outlook = computeLiveOutlook(fixture, live, preMatch, stats);
 
-      const keyEvent = await alertOnTransitions(fixture, prev, live, outlook);
+      const keyEvent = await alertOnTransitions(fixture, prev, live, outlook, stats);
       if (analysisDue(fixture.matchId, live.status, keyEvent)) {
         triggerLiveAnalysis(fixture, live, outlook, stats);
       }

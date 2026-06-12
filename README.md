@@ -7,7 +7,7 @@ AI-powered WC2026 assistant running locally on **qwen3.6:35b** via Ollama, with 
 ## What It Does
 
 - **Telegram Chatbot** — Ask anything about WC2026 in English or Chinese, get answers from a local AI
-- **Automated Alerts** — Daily digest, pre-match previews (3-day + 1-day), result notifications — all bilingual (EN + ZH)
+- **Automated Alerts** — Daily digest, pre-match previews (3-hour short English-only + 1-day), result notifications
 - **Auto News** — Fetches WC2026 top stories from FIFA's official website every 4 hours, vets by recency + relevance, posts to Telegram
 - **Match Predictions** — Full AI analysis for all 72 group stage matches
 - **Live Results** — 4-source waterfall (FIFA → ESPN → Sofascore → football-data.org) for live scores, HT scores, stats, and substitutions

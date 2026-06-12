@@ -189,7 +189,7 @@ function generateFixtures() {
         team2,
         matchday,
         dateIso,
-        dateSgt: formatSgt(dateIso),
+        dateSgt: new Date(dateIso).toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' }),
         timeSgt: formatTimeSgt(dateIso),
         venue: VENUES[venueIdx],
       });
@@ -210,7 +210,8 @@ const API_TEAM_NORM = {
   'bosnia-herzegovina': 'Bosnia and Herzegovina', 'united states': 'USA',
   'czech republic': 'Czechia', 'türkiye': 'Turkiye', 'turkey': 'Turkiye',
   "côte d'ivoire": 'Ivory Coast', 'democratic republic of the congo': 'DR Congo',
-  'republic of korea': 'South Korea',
+  'republic of korea': 'South Korea', 'curaçao': 'Curacao',
+  'cape verde islands': 'Cape Verde', 'congo dr': 'DR Congo',
 };
 const normTeam = (n) => API_TEAM_NORM[(n || '').toLowerCase()] || n;
 
@@ -262,8 +263,21 @@ async function syncFixturesFromApi() {
   }
 }
 
+/** API knockout stage → short group code + display label */
+const KO_STAGES = {
+  LAST_32:        { code: 'R32', label: 'Round of 32' },
+  LAST_16:        { code: 'R16', label: 'Round of 16' },
+  QUARTER_FINALS: { code: 'QF',  label: 'Quarter-final' },
+  SEMI_FINALS:    { code: 'SF',  label: 'Semi-final' },
+  THIRD_PLACE:    { code: '3RD', label: 'Third place play-off' },
+  FINAL:          { code: 'F',   label: 'Final' },
+};
+
 /**
  * Apply API match times to our FIXTURES array in-place.
+ * Group-stage matches get their kickoff times corrected; knockout matches
+ * are added as new fixtures once both teams are known (so previews, live
+ * alerts, and results work through the Final).
  * @param {object[]} apiMatches
  */
 function applyApiTimes(apiMatches) {
@@ -271,12 +285,37 @@ function applyApiTimes(apiMatches) {
     if (!apiMatch.utcDate) continue;
     const home = normTeam(apiMatch.homeTeam?.name || '');
     const away = normTeam(apiMatch.awayTeam?.name || '');
+    const d = new Date(apiMatch.utcDate);
+
+    if (apiMatch.stage !== 'GROUP_STAGE') {
+      const stage = KO_STAGES[apiMatch.stage];
+      if (!stage || !home || !away) continue;  // teams not determined yet
+
+      let fixture = FIXTURES.find((f) => f.apiId === apiMatch.id);
+      if (!fixture) {
+        fixture = { matchId: `ko-${apiMatch.id}`, knockout: true };
+        FIXTURES.push(fixture);
+        console.log(`[WC2026] Knockout fixture added: ${home} vs ${away} (${stage.label})`);
+      }
+      Object.assign(fixture, {
+        group: stage.code,
+        stageLabel: stage.label,
+        team1: home,
+        team2: away,
+        venue: fixture.venue || '',
+        dateIso: d.toISOString(),
+        dateSgt: d.toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' }),
+        timeSgt: d.toLocaleTimeString('en-SG', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', hour12: false }),
+        apiId: apiMatch.id,
+      });
+      continue;
+    }
+
     const fixture = FIXTURES.find((f) =>
       (f.team1 === home && f.team2 === away) ||
       (f.team1 === away && f.team2 === home)
     );
     if (!fixture) continue;
-    const d = new Date(apiMatch.utcDate);
     fixture.dateIso = d.toISOString();
     fixture.dateSgt = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
     fixture.timeSgt = d.toLocaleTimeString('en-SG', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', hour12: false });
@@ -1417,6 +1456,8 @@ process.on('SIGTERM', () => handleShutdown('SIGTERM').catch(() => process.exit(1
 app.listen(PORT, () => {
   console.log(`[WC2026] Server running on http://localhost:${PORT}`);
   startupHealthCheck();
-  // Sync real kickoff times from football-data.org API (runs async, non-blocking)
+  // Sync real kickoff times from football-data.org API (runs async, non-blocking).
+  // Re-check every 6 hours — the API is only re-fetched once the cache is >24h old.
   setTimeout(syncFixturesFromApi, 3000);
+  setInterval(syncFixturesFromApi, 6 * 3600000);
 });
