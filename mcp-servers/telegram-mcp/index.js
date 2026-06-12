@@ -192,6 +192,7 @@ function formatAnalysisCard(prediction) {
     team1, team2, group, dateSgt, venue,
     winner, predicted_score, confidence, risk_factor,
     key_factors = [], analysis_summary, score_reasoning,
+    key_factors_zh, analysis_summary_zh,
   } = prediction;
 
   const conf = confidence || 0;
@@ -236,10 +237,14 @@ function formatAnalysisCard(prediction) {
 
   lines.push(div, `_Powered by qwen3\\.6:35b via Ollama_`);
 
-  // Chinese section
+  // Chinese section — uses translated content when available, English otherwise
   const team1Zh = escapeMd(toZh(team1));
   const team2Zh = escapeMd(toZh(team2));
   const winnerZh = winner === 'draw' ? '平局' : escapeMd(toZh(winner));
+  const factorsZh = (Array.isArray(key_factors_zh) && key_factors_zh.length > 0)
+    ? key_factors_zh.slice(0, 3).map((f, i) => `${factorNums[i] || '•'} ${escapeMd(f)}`).join('\n')
+    : factors;
+  const summaryZh = analysis_summary_zh || analysis_summary;
 
   lines.push(
     ``,
@@ -258,12 +263,12 @@ function formatAnalysisCard(prediction) {
     div,
     `🔑 *关键因素*`,
     ``,
-    factors,
+    factorsZh,
     ``,
   );
 
-  if (analysis_summary) {
-    lines.push(div, `📋 *战术分析*`, ``, escapeMd(analysis_summary), ``);
+  if (summaryZh) {
+    lines.push(div, `📋 *战术分析*`, ``, escapeMd(summaryZh), ``);
   }
 
   lines.push(div, `_qwen3\\.6:35b via Ollama 提供支持_`);

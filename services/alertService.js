@@ -37,7 +37,7 @@ function readSentAlerts() {
 
 /**
  * Check if a specific alert has already been sent.
- * @param {string} alertKey - e.g. "3day-a-mexico-vs-south-africa"
+ * @param {string} alertKey - e.g. "3hr-a-mexico-vs-south-africa"
  * @returns {boolean}
  */
 function isAlertSent(alertKey) {
@@ -139,93 +139,42 @@ function buildDailyDigest({ dateSgt, countdownText, calendarSection, newsSection
 }
 
 /**
- * Build the 3-day pre-match preview message.
+ * Build the 3-hour pre-match preview message — short, English-only.
+ * Shows only the key points needed to decide whether to run a full analysis.
  * @param {object} fixture
  * @param {object} prediction
  * @param {string} injurySection
- * @param {string} h2hSection
  * @returns {string}
  */
-function buildThreeDayPreview(fixture, prediction, injurySection, h2hSection) {
+function buildThreeHourPreview(fixture, prediction, injurySection) {
   const { team1, team2, group, dateSgt, timeSgt, venue } = fixture;
   const pred = prediction || {};
 
   const lines = [
-    `🔮 *3\\-DAY MATCH PREVIEW*`,
+    `🔮 *KICKOFF IN \\~3 HOURS*`,
     ``,
     `⚽ *${escapeMd(team1)} vs ${escapeMd(team2)}*`,
-    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| Group ${escapeMd(group)}`,
-    `📍 ${escapeMd(venue)}`,
-    `⏰ 3 days to go`,
+    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
     ``,
-    `─────────────────────────`,
-    `🏆 *AI Prediction \\(qwen3\\.6:35b\\)*`,
+    `🔑 *Key Points*`,
   ];
 
   if (pred.winner) {
     lines.push(
-      `Winner: ${escapeMd(pred.winner)} \\| Score: ${escapeMd(pred.predicted_score || '?-?')}`,
-      `Confidence: ${escapeMd(String(pred.confidence || 0))}% \\| Risk: ${escapeMd(pred.risk_factor || 'unknown')}`,
+      `• AI: *${escapeMd(pred.winner)}* ${escapeMd(pred.predicted_score || '?-?')} \\(${escapeMd(String(pred.confidence || 0))}%, ${escapeMd(pred.risk_factor || 'unknown')} risk\\)`,
     );
+    (pred.key_factors || []).slice(0, 3).forEach((f) => lines.push(`• ${escapeMd(f)}`));
   } else {
-    lines.push(`_Analysis not yet run_`);
+    lines.push(`• _No analysis yet — run it from the dashboard if this match matters_`);
   }
 
-  if (pred.key_factors?.length) {
-    lines.push(``, `─────────────────────────`, `🔑 *Key Factors*`);
-    pred.key_factors.slice(0, 3).forEach((f) => lines.push(`• ${escapeMd(f)}`));
+  const injuryLines = (injurySection || '')
+    .split('\n')
+    .filter((l) => l.includes(team1) || l.includes(team2))
+    .slice(0, 3);
+  if (injuryLines.length) {
+    injuryLines.forEach((l) => lines.push(`• 🚑 ${escapeMd(l.replace(/[|#]/g, ' ').trim())}`));
   }
-
-  lines.push(
-    ``,
-    `─────────────────────────`,
-    `🚑 *Injury \\& Doubt List*`,
-    injurySection ? escapeMd(injurySection) : `_No confirmed injuries_`,
-    ``,
-    `─────────────────────────`,
-    `📊 *Head\\-to\\-Head*`,
-    h2hSection ? escapeMd(h2hSection) : `_No H2H data available_`,
-    ``,
-    `_Analysis by qwen3\\.6:35b via Ollama_`,
-    ``,
-    `━━━━━━━━━━━━━━━━━━━━━━━━━`,
-    `🇨🇳 *赛前3天预览*`,
-    ``,
-    `⚽ *${escapeMd(toZh(team1))} vs ${escapeMd(toZh(team2))}*`,
-    `📅 ${escapeMd(dateSgt)}, ${escapeMd(timeSgt)} SGT \\| ${escapeMd(group)}组`,
-    `📍 ${escapeMd(venue)}`,
-    `⏰ 还有3天`,
-    ``,
-    `─────────────────────────`,
-    `🏆 *AI预测 \\(qwen3\\.6:35b\\)*`,
-  );
-
-  if (pred.winner) {
-    lines.push(
-      `预测赢家：${escapeMd(toZh(pred.winner))} \\| 比分：${escapeMd(pred.predicted_score || '?-?')}`,
-      `置信度：${escapeMd(String(pred.confidence || 0))}% \\| 风险：${escapeMd(pred.risk_factor || '未知')}`,
-    );
-  } else {
-    lines.push(`_尚未运行分析_`);
-  }
-
-  if (pred.key_factors?.length) {
-    lines.push(``, `─────────────────────────`, `🔑 *关键因素*`);
-    pred.key_factors.slice(0, 3).forEach((f) => lines.push(`• ${escapeMd(f)}`));
-  }
-
-  lines.push(
-    ``,
-    `─────────────────────────`,
-    `🚑 *伤病疑问名单*`,
-    injurySection ? escapeMd(injurySection) : `_暂无确认伤情_`,
-    ``,
-    `─────────────────────────`,
-    `📊 *历史交锋*`,
-    h2hSection ? escapeMd(h2hSection) : `_暂无历史交锋数据_`,
-    ``,
-    `_qwen3\\.6:35b via Ollama 提供支持_`,
-  );
 
   return lines.join('\n');
 }
@@ -368,7 +317,7 @@ function buildResultMessage(fixture, result, prediction) {
     ``,
     `⚽ *${escapeMd(team1)} ${score1}:${score2} ${escapeMd(team2)}*`,
     hasHt ? `🕐 *Half Time:* ${htScore1}:${htScore2}` : '',
-    `📅 ${escapeMd(dateSgt)} SGT \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
+    `📅 ${escapeMd(dateSgt)} \\| Group ${escapeMd(group)} \\| ${escapeMd(venue)}`,
     ``,
     `─────────────────────────`,
   ].filter((l) => l !== '');
@@ -424,7 +373,7 @@ function buildResultMessage(fixture, result, prediction) {
     ``,
     `⚽ *${escapeMd(toZh(team1))} ${score1}:${score2} ${escapeMd(toZh(team2))}*`,
     hasHt ? `🕐 *半场：* ${htScore1}:${htScore2}` : '',
-    `📅 ${escapeMd(dateSgt)} SGT \\| ${escapeMd(group)}组 \\| ${escapeMd(venue)}`,
+    `📅 ${escapeMd(dateSgt)} \\| ${escapeMd(group)}组 \\| ${escapeMd(venue)}`,
     ``,
     `─────────────────────────`,
   ].filter((l) => l !== '');
@@ -483,7 +432,7 @@ module.exports = {
   markAlertSent,
   sendToChannel,
   buildDailyDigest,
-  buildThreeDayPreview,
+  buildThreeHourPreview,
   buildOneDayPreview,
   buildResultMessage,
 };

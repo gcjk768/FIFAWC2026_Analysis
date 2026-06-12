@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 
-const { espnNameMatches, espnStat, sofascoreNameMatches } = require('./resultsService');
+const { espnNameMatches, espnStat, sofascoreNameMatches, fifaNameMatches } = require('./resultsService');
 const { escapeMd, isAlertSent, markAlertSent, sendToChannel } = require('./alertService');
 const { toZh } = require('./countryNames');
 const { computeLiveOutlook, refreshLiveAnalysis, readPreMatchPrediction } = require('./livePredictionService');
@@ -152,21 +152,15 @@ async function fetchFifaLive(team1, team2, kickoffSgt) {
       if (!resp.ok) continue;
       const data = await resp.json();
 
-      const looseMatch = (name, ours) => {
-        const n = (name || '').toLowerCase();
-        const o = ours.toLowerCase();
-        return n === o || n.includes(o) || o.includes(n);
-      };
-
       const m = (data.Results || []).find((r) => {
         const home = r.Home?.TeamName?.[0]?.Description || '';
         const away = r.Away?.TeamName?.[0]?.Description || '';
-        return (looseMatch(home, team1) && looseMatch(away, team2)) ||
-               (looseMatch(home, team2) && looseMatch(away, team1));
+        return (fifaNameMatches(home, team1) && fifaNameMatches(away, team2)) ||
+               (fifaNameMatches(home, team2) && fifaNameMatches(away, team1));
       });
       if (!m) continue;
 
-      const isReversed = looseMatch(m.Home?.TeamName?.[0]?.Description || '', team2);
+      const isReversed = fifaNameMatches(m.Home?.TeamName?.[0]?.Description || '', team2);
       const home = m.HomeTeamScore ?? 0;
       const away = m.AwayTeamScore ?? 0;
 

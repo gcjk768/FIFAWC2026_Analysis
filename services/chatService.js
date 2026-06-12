@@ -238,7 +238,7 @@ async function buildFullContext() {
     groupSummary,
     `TODAY (SGT): ${todaySgt}`,
     todayMatches.length ? `TODAY'S MATCHES: ${todayMatches.map((f) => `${f.team1} vs ${f.team2} ${f.timeSgt}`).join(', ')}` : 'NO MATCHES TODAY',
-    recentResults ? `RESULTS: ${recentResults}` : 'NO RESULTS YET — tournament has not started',
+    recentResults ? `RESULTS: ${recentResults}` : 'NO RESULTS SAVED YET — matches may be in progress',
     `TOP TEAMS: ${teamList}`,
     predSummary ? `PREDICTIONS: ${predSummary}` : '',
   ].filter(Boolean).join('\n');

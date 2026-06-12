@@ -7,8 +7,8 @@ const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
 
-const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInNextDays, buildCalendarSection, todaySgt, OPENING_MATCH } = require('./services/countdownService');
-const { isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeDayPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
+const { getCountdown, getOpeningMatchCountdown, getMatchesForDate, getMatchesInNextDays, getUpcomingMatches, buildCalendarSection, todaySgt, OPENING_MATCH } = require('./services/countdownService');
+const { escapeMd, isAlertSent, markAlertSent, sendToChannel, buildDailyDigest, buildThreeHourPreview, buildOneDayPreview, buildResultMessage } = require('./services/alertService');
 const { toZh } = require('./services/countryNames');
 const { fetchWC2026News, fetchTeamNews, fetchTopNews, formatNews, writeNewsToObsidian, isNewsSent, markNewsSent } = require('./services/newsService');
 const { readResults, writeResult, fetchFullMatchData, fetchWeather, fetchTournamentStats, writeResultToObsidian } = require('./services/resultsService');
@@ -168,34 +168,40 @@ async function sendDailyDigest() {
   }
 }
 
-// ─── JOB 2: 3-DAY PRE-MATCH ALERTS ──────────────────────────────────────────
+// ─── JOB 2: 3-HOUR PRE-MATCH ALERTS ─────────────────────────────────────────
 
 /**
- * Check and send 3-day previews for any match 3 days away.
+ * Check and send short 3-hour previews for any match ~3 hours from kickoff.
+ * Does NOT auto-trigger analysis — the preview informs the decision to run one.
  */
-async function checkThreeDayAlerts() {
-  const threeDaysOut = getMatchesInNextDays(FIXTURES, 4).filter((f) => {
-    const daysUntil = (new Date(f.dateIso) - Date.now()) / 86400000;
-    return daysUntil >= 2.5 && daysUntil <= 3.5;
+async function checkThreeHourAlerts() {
+  const threeHoursOut = getMatchesInNextDays(FIXTURES, 1).filter((f) => {
+    const hoursUntil = (new Date(f.dateIso) - Date.now()) / 3600000;
+    return hoursUntil >= 2.5 && hoursUntil <= 3.5;
   });
 
-  for (const fixture of threeDaysOut) {
-    const alertKey = `3day-${fixture.matchId}`;
+  for (const fixture of threeHoursOut) {
+    const alertKey = `3hr-${fixture.matchId}`;
     if (isAlertSent(alertKey)) continue;
 
-    console.log(`[SCHEDULER] Sending 3-day preview: ${fixture.team1} vs ${fixture.team2}`);
-    const prediction = await getPrediction(fixture.matchId);
-    const injuryNote = await readObsidianNote('WC2026/injuries.md');
-    const h2hNote = await readObsidianNote('WC2026/head-to-head.md');
+    console.log(`[SCHEDULER] Sending 3-hour preview: ${fixture.team1} vs ${fixture.team2}`);
 
-    const msg = buildThreeDayPreview(fixture, prediction, injuryNote, h2hNote);
+    // Use stored prediction only — never trigger a full analysis here
+    let prediction = null;
+    try {
+      const resp = await fetch(`${SERVER_URL}/api/predictions/${fixture.matchId}`, { timeout: 5000 });
+      if (resp.ok) prediction = await resp.json();
+    } catch {}
+
+    const injuryNote = await readObsidianNote('WC2026/injuries.md');
+    const msg = buildThreeHourPreview(fixture, prediction, injuryNote);
 
     try {
       await sendToChannel(msg);
       markAlertSent(alertKey);
-      console.log(`[SCHEDULER] 3-day preview sent: ${fixture.matchId}`);
+      console.log(`[SCHEDULER] 3-hour preview sent: ${fixture.matchId}`);
     } catch (err) {
-      console.error(`[SCHEDULER] 3-day preview error: ${err.message}`);
+      console.error(`[SCHEDULER] 3-hour preview error: ${err.message}`);
     }
   }
 }
@@ -247,7 +253,7 @@ async function checkResults() {
   const now = Date.now();
   const activeMatches = FIXTURES.filter((f) => {
     const kickoff = new Date(f.dateIso).getTime();
-    return now >= kickoff && now <= kickoff + 130 * 60000;
+    return now >= kickoff && now <= kickoff + 24 * 60 * 60000;
   });
 
   for (const fixture of activeMatches) {
@@ -418,13 +424,76 @@ function timeToCron(timeStr) {
   return `${mm || 0} ${hh || 8} * * *`;
 }
 
+// ─── STARTUP SHOWCASE ────────────────────────────────────────────────────────
+
+/**
+ * Send a bilingual Telegram showcase of the next upcoming match on every
+ * app start — teams, kickoff countdown (SGT), venue, and the stored AI
+ * prediction if one exists (does NOT trigger analysis to keep startup fast).
+ * @returns {Promise<void>}
+ */
+async function sendStartupShowcase() {
+  const next = getUpcomingMatches(FIXTURES, 1)[0];
+  if (!next) {
+    console.log('[SCHEDULER] Startup showcase skipped — no upcoming matches');
+    return;
+  }
+
+  const countdown = getCountdown(next.dateIso);
+  // dateSgt format varies across fixtures — derive display time from dateIso
+  const kickoff = new Date(next.dateIso);
+  const sgtOpts = { timeZone: 'Asia/Singapore' };
+  const dateStr = kickoff.toLocaleDateString('en-SG', { ...sgtOpts, day: '2-digit', month: 'short', year: 'numeric' });
+  const timeStr = kickoff.toLocaleTimeString('en-SG', { ...sgtOpts, hour: '2-digit', minute: '2-digit', hour12: false });
+  const div = '━━━━━━━━━━━━━━━━━━━━━━━━';
+  const lines = [
+    `🎬 *UP NEXT \\| 下一场比赛*`,
+    div,
+    `⚽ *${escapeMd(next.team1)} vs ${escapeMd(next.team2)}*`,
+    `🇨🇳 *${escapeMd(toZh(next.team1))} vs ${escapeMd(toZh(next.team2))}*`,
+    `📅 ${escapeMd(dateStr)} ${escapeMd(timeStr)} SGT  ·  Group ${escapeMd(next.group)}`,
+    `📍 ${escapeMd(next.venue)}`,
+    `⏳ Kickoff in \\| 距开赛: ${escapeMd(countdown.text)}`,
+  ];
+
+  let prediction = null;
+  try {
+    const resp = await fetch(`${SERVER_URL}/api/predictions/${next.matchId}`, { timeout: 5000 });
+    if (resp.ok) prediction = await resp.json();
+  } catch { /* non-fatal — showcase still goes out without a prediction */ }
+
+  if (prediction) {
+    const winnerEn = prediction.winner === 'draw' ? 'Draw' : prediction.winner;
+    const winnerZh = prediction.winner === 'draw' ? '平局' : toZh(prediction.winner);
+    lines.push(
+      ``,
+      `🤖 *AI PREDICTION \\| AI 预测*`,
+      `🥇 ${escapeMd(winnerEn)} \\(${escapeMd(winnerZh)}\\)  ⚽ ${escapeMd(prediction.predicted_score || '?-?')}`,
+      `📊 Confidence \\| 置信度: ${escapeMd(String(prediction.confidence || 0))}%  ·  Risk \\| 风险: ${escapeMd((prediction.risk_factor || 'unknown').toUpperCase())}`,
+    );
+    const summary = prediction.analysis_summary_zh || prediction.analysis_summary;
+    if (summary) lines.push(``, `📋 ${escapeMd(summary)}`);
+  } else {
+    lines.push(``, `🤖 No prediction yet — analyze from the dashboard \\| 尚未分析`);
+  }
+
+  lines.push(div, `_WC2026 Predictor is online \\| 系统已上线_`);
+
+  try {
+    await sendToChannel(lines.join('\n'));
+    console.log(`[SCHEDULER] Startup showcase sent: ${next.team1} vs ${next.team2} (${dateStr} ${timeStr} SGT)`);
+  } catch (err) {
+    console.error('[SCHEDULER] Startup showcase error (non-fatal):', err.message);
+  }
+}
+
 // ─── STARTUP ─────────────────────────────────────────────────────────────────
 
 async function start() {
   console.log('[SCHEDULER] WC2026 Alert Scheduler starting...');
 
-  // Wait for server to be ready
-  await new Promise((r) => setTimeout(r, 3000));
+  // Wait for server to be ready and fixture sync to complete
+  await new Promise((r) => setTimeout(r, 6000));
   await loadFixtures();
 
   const { countdown } = getOpeningMatchCountdown();
@@ -436,7 +505,7 @@ async function start() {
   console.log(`  - Midnight Countdown:  every day at 00:00 SGT`);
   console.log(`  - Daily Digest:        every day at ${DIGEST_TIME_SGT} SGT`);
   console.log(`  - News Alerts:         every 4 hours (FIFA Top Stories → Telegram + Obsidian)`);
-  console.log(`  - 3-Day Alerts:        checking every hour`);
+  console.log(`  - 3-Hour Alerts:       checking every 15 minutes`);
   console.log(`  - 1-Day Alerts:        checking every hour`);
   console.log(`  - Live Match Polling:  every 1min during match windows (kickoff/goal/HT alerts)`);
   console.log(`  - Result Polling:      every 5min during match windows`);
@@ -451,11 +520,11 @@ async function start() {
   // News check every 4 hours — fetches FIFA top stories, posts new ones to Telegram, updates Obsidian
   cron.schedule('0 */4 * * *', checkNewsUpdates, { timezone: 'Asia/Singapore' });
 
-  // Alert checks every hour
-  cron.schedule('0 * * * *', async () => {
-    await checkThreeDayAlerts();
-    await checkOneDayAlerts();
-  }, { timezone: 'Asia/Singapore' });
+  // 3-hour previews — check every 15 minutes so the kickoff window is never missed
+  cron.schedule('*/15 * * * *', checkThreeHourAlerts, { timezone: 'Asia/Singapore' });
+
+  // 1-day previews — check every hour
+  cron.schedule('0 * * * *', checkOneDayAlerts, { timezone: 'Asia/Singapore' });
 
   // Live match polling every minute — no-op outside match windows
   cron.schedule('* * * * *', () => pollLiveMatches(FIXTURES), { timezone: 'Asia/Singapore' });
@@ -478,6 +547,9 @@ async function start() {
 
   console.log(`  - Knockout Polling: every 5min from Jun 28 onwards`);
 
+  // Showcase the next upcoming match on every start
+  await sendStartupShowcase();
+
   // Seed Obsidian with latest data on startup
   console.log('[SCHEDULER] Seeding Obsidian vault on startup...');
   await Promise.allSettled([
@@ -487,7 +559,7 @@ async function start() {
 
   // Check immediately on startup for any due alerts
   console.log('[SCHEDULER] Checking for due alerts on startup...');
-  await checkThreeDayAlerts();
+  await checkThreeHourAlerts();
   await checkOneDayAlerts();
   await checkResults();
   await pollLiveMatches(FIXTURES);

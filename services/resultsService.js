@@ -53,6 +53,7 @@ const ESPN_NAME_MAP = {
   'turkey':                        'Turkiye',
   'south korea':                   'South Korea',
   'republic of korea':             'South Korea',
+  'korea republic':                'South Korea',
   'bosnia and herzegovina':        'Bosnia and Herzegovina',
   'bosnia-herzegovina':            'Bosnia and Herzegovina',
 };
@@ -264,7 +265,10 @@ async function fetchFifaData(team1, team2, kickoffSgt) {
                 : isOwnGoal                          ? 'OWN_GOAL'
                 : 'REGULAR',
         });
-      } else if (ev.Type === FIFA_TYPE_YELLOW || ev.Type === FIFA_TYPE_RED || ev.Type === FIFA_TYPE_YELLOW_RED) {
+      } else if (
+        (ev.Type === FIFA_TYPE_YELLOW || ev.Type === FIFA_TYPE_RED || ev.Type === FIFA_TYPE_YELLOW_RED) &&
+        !desc.toLowerCase().startsWith('the referee signals')
+      ) {
         cards.push({
           player: parseFifaName(desc),
           team:   ourTeam,
@@ -399,6 +403,7 @@ const SOFASCORE_NAME_MAP = {
   'turkey':                        'Turkiye',
   'south korea':                   'South Korea',
   'republic of korea':             'South Korea',
+  'korea republic':                'South Korea',
   'bosnia and herzegovina':        'Bosnia and Herzegovina',
   'bosnia-herzegovina':            'Bosnia and Herzegovina',
   'new zealand':                   'New Zealand',
@@ -928,6 +933,7 @@ module.exports = {
   espnNameMatches,
   espnStat,
   sofascoreNameMatches,
+  fifaNameMatches,
   fetchFifaData,
   fetchMatchResult,
   fetchSofascoreData,

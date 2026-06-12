@@ -48,7 +48,7 @@ async function handleGroupStandings(text) {
   const played = sorted.some(([, s]) => s.p > 0);
   if (!played) {
     const teamNames = [...allTeams].map((t) => `• ${escapeMd(t)}`).join('\n');
-    return `📊 *Group ${group} — Teams*\n\n${teamNames}\n\n_Tournament starts 12 Jun 2026 — standings update after each match_`;
+    return `📊 *Group ${group} — Teams*\n\n${teamNames}\n\n_No matches played yet in this group \\— standings update after each result_`;
   }
 
   const lines = [`📊 *Group ${group} Standings*\n`];
@@ -79,7 +79,7 @@ async function handleTopScorers() {
   const sorted = Object.entries(scorers).sort((a, b) => b[1] - a[1]).slice(0, 10);
 
   if (sorted.length === 0) {
-    return `🥇 *Top Scorers*\n\n_No goals scored yet — tournament starts 12 Jun 2026\\!_`;
+    return `🥇 *Top Scorers*\n\n_No goals recorded yet \\— check back after results are saved_`;
   }
 
   const lines = [`🥇 *WC2026 Top Scorers*\n`];
@@ -93,7 +93,7 @@ async function handleTopScorers() {
  * Handle all standings query.
  */
 async function handleAllStandings() {
-  return `📊 *WC2026 Group Standings*\n\nUse /group A through /group L to see specific group tables\\.\n\nGroups: A B C D E F G H I J K L\n\n_Tournament starts 12 Jun 2026_`;
+  return `📊 *WC2026 Group Standings*\n\nUse /group A through /group L to see specific group tables\\.\n\nGroups: A B C D E F G H I J K L`;
 }
 
 // Short display names for the group table to keep columns tight
@@ -175,7 +175,7 @@ async function handleTournamentStats() {
   const avg = played > 0 ? (goals / played).toFixed(2) : '—';
 
   if (played === 0) {
-    return `📈 *WC2026 Tournament Stats*\n\n_Tournament starts 12 Jun 2026 — stats will update after each match\\._`;
+    return `📈 *WC2026 Tournament Stats*\n\n_No results saved yet \\— stats will update after each match\\._`;
   }
 
   return [

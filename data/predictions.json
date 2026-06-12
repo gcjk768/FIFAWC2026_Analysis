@@ -286,47 +286,6 @@
     "telegramPosted": true,
     "suppress": false
   },
-  "A-mexico-vs-south-korea": {
-    "matchId": "A-mexico-vs-south-korea",
-    "team1": "Mexico",
-    "team2": "South Korea",
-    "group": "A",
-    "dateSgt": "2026-06-19",
-    "timeSgt": "09:00",
-    "venue": "AT&T Stadium, Dallas",
-    "analyzedAt": "2026-06-10T09:32:12.418Z",
-    "analysisMode": "full",
-    "winner": "Mexico",
-    "confidence": 40,
-    "predicted_score": "1-1",
-    "score_reasoning": "Statistical model fallback (xG 1.42 vs 1.33). Consensus unavailable.",
-    "key_factors": [
-      "xG advantage: 1.42 vs 1.33",
-      "Ranking differential",
-      "Statistical model baseline"
-    ],
-    "analysis_summary": "Statistical model predicts Mexico based on expected goals (1.42 vs 1.33). Full AI synthesis was unavailable due to model error.",
-    "risk_factor": "high",
-    "devil_upset_pct": 25,
-    "devil_upset_scenario": "Unknown — fallback mode.",
-    "agent_votes": {
-      "statistical": "Mexico",
-      "tactical": "neutral",
-      "historical": "neutral",
-      "psychological": "neutral"
-    },
-    "agentVotes": {
-      "statistical": "team1",
-      "tactical": "neutral",
-      "psychological": "neutral",
-      "statXG": {
-        "team1": 1.42,
-        "team2": 1.33
-      }
-    },
-    "telegramPosted": true,
-    "suppress": false
-  },
   "B-qatar-vs-switzerland": {
     "matchId": "B-qatar-vs-switzerland",
     "team1": "Qatar",
@@ -486,47 +445,6 @@
       "statXG": {
         "team1": 1.41,
         "team2": 1.3
-      }
-    },
-    "telegramPosted": true,
-    "suppress": false
-  },
-  "A-south-africa-vs-south-korea": {
-    "matchId": "A-south-africa-vs-south-korea",
-    "team1": "South Africa",
-    "team2": "South Korea",
-    "group": "A",
-    "dateSgt": "2026-06-25",
-    "timeSgt": "09:00",
-    "venue": "Levi's Stadium, San Francisco Bay Area",
-    "analyzedAt": "2026-06-10T11:24:16.157Z",
-    "analysisMode": "full",
-    "winner": "South Korea",
-    "confidence": 57,
-    "predicted_score": "0-1",
-    "score_reasoning": "Statistical model fallback (xG 0.89 vs 1.56). Consensus unavailable.",
-    "key_factors": [
-      "xG advantage: 0.89 vs 1.56",
-      "Ranking differential",
-      "Statistical model baseline"
-    ],
-    "analysis_summary": "Statistical model predicts South Korea based on expected goals (0.89 vs 1.56). Full AI synthesis was unavailable due to model error.",
-    "risk_factor": "high",
-    "devil_upset_pct": 25,
-    "devil_upset_scenario": "Unknown — fallback mode.",
-    "agent_votes": {
-      "statistical": "South Korea",
-      "tactical": "neutral",
-      "historical": "neutral",
-      "psychological": "neutral"
-    },
-    "agentVotes": {
-      "statistical": "team2",
-      "tactical": "neutral",
-      "psychological": "neutral",
-      "statXG": {
-        "team1": 0.89,
-        "team2": 1.56
       }
     },
     "telegramPosted": true,
@@ -745,21 +663,21 @@
     "dateSgt": "2026-06-14",
     "timeSgt": "12:00",
     "venue": "Empower Field, Denver",
-    "analyzedAt": "2026-06-10T16:01:54.884Z",
+    "analyzedAt": "2026-06-11T05:25:39.356Z",
     "analysisMode": "full",
     "winner": "Turkiye",
-    "confidence": 41,
-    "predicted_score": "1-1",
-    "score_reasoning": "Statistical model fallback (xG 1.25 vs 1.44). Consensus unavailable.",
+    "confidence": 72,
+    "predicted_score": "1-2",
+    "score_reasoning": "Why Australia scores 1: Ryan relies on physical presence and set-pieces to break the low block; Duke provides the target for direct counters through pace wingers despite wet conditions. Why Turkiye scores 2: Çalhanoğlu's control in midfield allows Arda Güler to exploit spaces left by Australia's high line, with technical superiority overcoming the altitude fatigue in the final third.",
     "key_factors": [
-      "xG advantage: 1.25 vs 1.44",
-      "Ranking differential",
-      "Statistical model baseline"
+      "Wet pitch and moderate temperature favor Turkiye's higher technical baseline while slightly hindering Australia's aerial dominance.",
+      "Altitude of 1609m accelerates fatigue; Turkiye's deeper squad depth is crucial for maintaining pressing intensity (Çalhanoğlu, Güler) in the second half.",
+      "Australia's playoff-winning resilience and defensive organization under Popovic make them dangerous on the counter, preventing a one-sided rout."
     ],
-    "analysis_summary": "Statistical model predicts Turkiye based on expected goals (1.25 vs 1.44). Full AI synthesis was unavailable due to model error.",
-    "risk_factor": "high",
-    "devil_upset_pct": 25,
-    "devil_upset_scenario": "Unknown — fallback mode.",
+    "analysis_summary": "Türkiye edges this encounter through superior technical quality in midfield driven by Çalhanoğlu and Arda Güler, who will likely break down Australia's compact low block. The wet conditions and altitude present significant physical risks that favor Turkiye's deeper bench over the Socceroos' reliance on Ryan and Duke for physical outlets. While Australia's organized defense under Popovic keeps them in contention for a late goal, Türkiye's creative depth proves decisive.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 28,
+    "devil_upset_scenario": "Australia wins via a controversial set-piece goal from Ryan and a second-half counter-attack strike, capitalizing on Turkiye fatigue due to altitude and wet pitch errors.",
     "agent_votes": {
       "statistical": "Turkiye",
       "tactical": "neutral",
@@ -768,11 +686,611 @@
     },
     "agentVotes": {
       "statistical": "team2",
-      "tactical": "neutral",
+      "tactical": "Turkiye",
       "psychological": "neutral",
       "statXG": {
         "team1": 1.25,
         "team2": 1.44
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "F-japan-vs-sweden": {
+    "matchId": "F-japan-vs-sweden",
+    "team1": "Japan",
+    "team2": "Sweden",
+    "group": "F",
+    "dateSgt": "2026-06-26",
+    "timeSgt": "07:00",
+    "venue": "AT&T Stadium, Dallas",
+    "analyzedAt": "2026-06-11T05:44:55.607Z",
+    "analysisMode": "full",
+    "winner": "Japan",
+    "confidence": 68,
+    "predicted_score": "1-0",
+    "score_reasoning": "Why Japan scores 1: Japan's rapid vertical transitions and ball circulation bypass Sweden's low-block, allowing wingers like Takefusa Kubo or Kaoru Mitoma (if fit) to exploit spaces behind the defense. Why Sweden scores 1: Viktor Gyökeres utilizes his aerial superiority and physical presence against Japan's center-backs to capitalize on set-pieces or counter-attacks when Japan pushes forward.",
+    "key_factors": [
+      "Japan's dominant qualifying campaign (8W-1D-1L, +21 GD) indicates high defensive solidity and attacking efficiency compared to Sweden's playoff route.",
+      "Sweden relies heavily on Viktor Gyökeres (15 qual goals) and Alexander Isak; their two-striker system is potent but susceptible to Japan's pace in transition.",
+      "Draw probability is significant at 27.5% due to tactical neutrality and Sweden's ability to frustrate possession-heavy teams with a compact block."
+    ],
+    "analysis_summary": "Japan holds a slight statistical and ranking edge, driven by superior ball circulation and pace that threatens Sweden's compact defensive structure. The decisive factor will be whether Japan can break down the low-block before Viktor Gyökeres finds space in transition. A 1-1 draw remains a highly probable outcome given Sweden's aerial threat and Japan's potential rotation absences.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 30,
+    "devil_upset_scenario": "Sweden absorbs early pressure and wins via a counter-attack goal from Viktor Gyökeres or an aerial set-piece success against Japan's high line.",
+    "agent_votes": {
+      "statistical": "Japan",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "日本队出色的预选赛表现（8胜1平1负，净胜球+21）表明其防守稳固性和进攻效率均优于瑞典队的附加赛征程。",
+      "瑞典队严重依赖维克托·格克鲁斯（15个预选进球）和亚历山大·伊萨克；双前锋体系威力巨大，但极易受到日本队快速转换的冲击。",
+      "平局概率高达27.5%，这归因于战术上的势均力敌以及瑞典队通过紧凑阵型化解控球优势球队的能力。"
+    ],
+    "analysis_summary_zh": "日本队在统计数据和排名上略占上风，凭借更优越的传球流畅度和速度威胁瑞典队的紧凑防守结构。比赛的关键在于日本队能否在维克托·格克鲁斯利用转换机会前打破低位防线。鉴于瑞典队的头球威胁以及日本队可能因轮换而缺席部分主力，1-1平局仍是极有可能出现的赛果。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Japan",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.3,
+        "team2": 1.11
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "G-belgium-vs-egypt": {
+    "matchId": "G-belgium-vs-egypt",
+    "team1": "Belgium",
+    "team2": "Egypt",
+    "group": "G",
+    "dateSgt": "2026-06-16",
+    "timeSgt": "03:00",
+    "venue": "Allegiant Stadium, Las Vegas",
+    "analyzedAt": "2026-06-11T05:26:39.858Z",
+    "analysisMode": "full",
+    "winner": "Belgium",
+    "confidence": 72,
+    "predicted_score": "2-1",
+    "score_reasoning": "Why Belgium scores 2: Kevin De Bruyne's vision and Thibaut Courtois' reliability allow Belgium to dictate tempo despite the heat, creating high-quality chances. Why Egypt scores 1: Mohamed Salah's individual brilliance exploits the space behind Belgium's aging full-backs (Castagne/Vertonghen) on the counter-attack.",
+    "key_factors": [
+      "Extreme heat (40.6°C) favors Belgium's deeper possession game over Egypt's high-energy pressing in the latter stages",
+      "Morocco's group performance confirms African sides can defend effectively, but Salah remains the sole unpredictable variable",
+      "Belgium's superior xG (1.6 vs 0.96) reflects better chance creation against a structured defense"
+    ],
+    "analysis_summary": "Belgium's possession-based approach under Kevin De Bruyne is best suited to manage the extreme Las Vegas heat, allowing them to control the game's rhythm. However, Egypt's threat rests entirely on Mohamed Salah exploiting the pace behind Belgium's aging defensive line of Jan Vertonghen and Toby Alderweireld. While a draw is statistically plausible (25.2%), Belgium's individual quality in the final third provides just enough edge to secure a narrow victory.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 28,
+    "devil_upset_scenario": "Egypt wins 1-0 or draws if Mohamed Salah is isolated and Belgium's midfield cohesion fails against Egypt's aggressive press in the heat.",
+    "agent_votes": {
+      "statistical": "Belgium",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Belgium",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.6,
+        "team2": 0.96
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "B-bosnia-and-herzegovina-vs-qatar": {
+    "matchId": "B-bosnia-and-herzegovina-vs-qatar",
+    "team1": "Bosnia and Herzegovina",
+    "team2": "Qatar",
+    "group": "B",
+    "dateSgt": "2026-06-25",
+    "timeSgt": "03:00",
+    "venue": "Hard Rock Stadium, Miami",
+    "analyzedAt": "2026-06-11T05:27:37.177Z",
+    "analysisMode": "full",
+    "winner": "Qatar",
+    "confidence": 65,
+    "predicted_score": "1-1",
+    "score_reasoning": "Why Bosnia and Herzegovina scores 1: Demirović capitalizes on the high defensive line of Qatar's center-backs to score a single goal via transition. Why Qatar scores 1: Almoez Ali or Akram Afif find space behind the aging Bosnia defense due to their superior technical cohesion in tight spaces.",
+    "key_factors": [
+      "Qatar's direct qualification and Asian Cup 2023 win indicate higher current form and squad confidence compared to Bosnia's playoff scrap.",
+      "The match will be played in 28-33°C heat with 58% rain probability, heavily favoring Qatar's technical possession style over Bosnia's physical pressing.",
+      "Statistical model gives a slim edge to Bosnia (38.2%), but tactical analysis confirms Qatar can neutralize Bosnia's aggression through short passing combinations."
+    ],
+    "analysis_summary": "Qatar's superior technical cohesion allows them to dictate the tempo against Bosnia's inconsistent structure, with Akram Afif exploiting the midfield gaps. The extreme heat and rain conditions in Miami will fatigue Bosnia's high-energy pressing game, leading to a cagey encounter where Demirović manages one goal but cannot break Qatar's defensive resolve. Despite Bosnia's statistical favoritism based on FIFA ranking, Qatar's recent Asian Cup victory provides the decisive psychological and tactical edge for a draw.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 38,
+    "devil_upset_scenario": "Bosnia wins if they successfully exploit the rain-slicked pitch to turn over Qatar's possession-based defense multiple times in the final third.",
+    "agent_votes": {
+      "statistical": "Bosnia and Herzegovina",
+      "tactical": "Qatar",
+      "historical": "neutral",
+      "psychological": "Qatar"
+    },
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Qatar",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.33,
+        "team2": 1.14
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "G-belgium-vs-iran": {
+    "matchId": "G-belgium-vs-iran",
+    "team1": "Belgium",
+    "team2": "Iran",
+    "group": "G",
+    "dateSgt": "2026-06-22",
+    "timeSgt": "03:00",
+    "venue": "State Farm Stadium, Glendale",
+    "analyzedAt": "2026-06-11T08:00:28.298Z",
+    "analysisMode": "full",
+    "winner": "Belgium",
+    "confidence": 60,
+    "predicted_score": "2-1",
+    "score_reasoning": "Why Belgium scores 2: Kevin De Bruyne's superior vision unlocks Iran's low block for precise final-third passes to Romelu Lukaku, while Thomas Meunier provides width to stretch play. Why Iran scores 1: Mehdi Taremi utilizes his aerial dominance to capitalize on a set-piece opportunity or counter-attack against Belgium's aging high line.",
+    "key_factors": [
+      "Belgium's qualifying attack (2.08 GF/g) vs Iran's disciplined defense (0.70 GA/g) creates a high-quality chance scenario.",
+      "Iran's Taremi (8 goals in qualifying) poses a specific aerial threat that Belgium's aging defenders must manage.",
+      "De Bruyne remains the pivotal creative engine for Belgium to break down compact midfields."
+    ],
+    "analysis_summary": "Kevin De Bruyne's ability to dictate tempo and create chances is the decisive factor in breaking down Iran's structured defense. The match hinges on whether Romelu Lukaku can finish the high-quality opportunities generated by Belgium's attacking trio against Mehdi Taremi's clinical counter-attacking threat. While Iran offers resilience, Belgium's individual quality gives them the edge to secure a narrow victory.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 25,
+    "devil_upset_scenario": "Iran absorbs pressure for 60 minutes and secures a 1-1 draw via a set-piece goal from Taremi or a fast break involving Ali Alipour before Belgium can force the game open.",
+    "agent_votes": {
+      "statistical": "Belgium",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "比利时资格赛期间的进攻火力（场均2.08球）与伊朗严密的防守（场均失0.70球）形成鲜明对比，这将创造出大量高质量得分机会。",
+      "伊朗队的塔雷米（资格赛中打入8球）构成特定的空中威胁，比利时队年迈的后防必须重点防范。",
+      "德布劳内依然是比利时队破解密集中场的关键创造力源泉。"
+    ],
+    "analysis_summary_zh": "德布劳内掌控比赛节奏和创造机会的能力是打破伊朗严密防线的主要因素。比赛结果将取决于卢卡库能否将比利时进攻三叉戟创造的高质量得分机会转化为进球，同时应对塔雷米高效的反击威胁。尽管伊朗队表现出顽强的韧性，但比利时的个人实力优势使他们有望以一球小胜取胜。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Belgium",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.73,
+        "team2": 0.89
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "C-brazil-vs-haiti": {
+    "matchId": "C-brazil-vs-haiti",
+    "team1": "Brazil",
+    "team2": "Haiti",
+    "group": "C",
+    "dateSgt": "2026-06-20",
+    "timeSgt": "08:30",
+    "venue": "Estadio Azteca, Mexico City",
+    "analyzedAt": "2026-06-11T08:01:48.773Z",
+    "analysisMode": "full",
+    "winner": "Brazil",
+    "confidence": 82,
+    "predicted_score": "2-0",
+    "score_reasoning": "Why Brazil scores 2: Vinícius Jr. and Raphinha will exploit the wide spaces against Haiti's compact low block, with Vinícius providing the pace to break lines and Raphinha offering the final pass or second goal from open play. Why Haiti scores 0: Haiti lacks the individual quality in the final third to penetrate Brazil's organized defense, relying on their defensive structure which is unlikely to hold up for the full 90 minutes against such superior technical superiority.",
+    "key_factors": [
+      "Brazil's statistical dominance with an 86% win probability driven by a massive xG differential (2.52 vs 0.59)",
+      "Haiti's historical context as first-time qualifiers since 1974 suggests potential nervousness in high-pressure moments against elite opposition",
+      "Brazil's attacking depth with Vinícius Jr. and Raphinha capable of dismantling low blocks through individual brilliance and width"
+    ],
+    "analysis_summary": "Brazil's superior technical quality, led by the creative duo of Vinícius Jr. and Raphinha, will systematically break down Haiti's deep defensive block through wide attacking threats. The decisive factor is Brazil's ability to convert high xG chances into goals before Haiti's resilience fatigue sets in. While Haiti enters with confidence from their playoff run, the risk of an upset remains low due to Brazil's clear class advantage and historical performance metrics in major tournaments.",
+    "risk_factor": "low",
+    "devil_upset_pct": 15,
+    "devil_upset_scenario": "Haiti secures a surprise draw by maintaining a perfect low block for 80+ minutes and capitalizing on a rare counter-attack or set-piece goal, relying on Brazil's occasional complacency in group stages.",
+    "agent_votes": {
+      "statistical": "Brazil",
+      "tactical": "Brazil",
+      "historical": "neutral",
+      "psychological": "Brazil"
+    },
+    "key_factors_zh": [
+      "巴西队以86%的胜率占据统计优势，这得益于其巨大的预期进球数（xG）差距（2.52对0.59）",
+      "海地自1974年以来首次获得参赛资格，这种历史背景表明他们在面对顶级对手的高压时刻可能会出现紧张情绪",
+      "巴西队拥有深厚的进攻储备，维尼修斯和拉菲尼亚有能力通过个人能力和宽幅拉扯来撕裂低位防线"
+    ],
+    "analysis_summary_zh": "由维尼修斯和拉菲尼亚这对创造核心领衔，巴西队将凭借其 superior 的技术质量，利用边路进攻威胁系统地破解海地队的深度防守体系。决定性因素在于巴西队能否在海地队的韧性耗尽之前，将高预期进球机会转化为进球。尽管海地队带着附加赛征程的信心出战，但由于巴西队在硬实力和大赛历史数据上的明显优势，爆冷的风险依然较低。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Brazil",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 2.52,
+        "team2": 0.59
+      }
+    },
+    "telegramPosted": false,
+    "suppress": false
+  },
+  "G-egypt-vs-iran": {
+    "matchId": "G-egypt-vs-iran",
+    "team1": "Egypt",
+    "team2": "Iran",
+    "group": "G",
+    "dateSgt": "2026-06-27",
+    "timeSgt": "11:00",
+    "venue": "Empower Field, Denver",
+    "analyzedAt": "2026-06-11T11:00:47.999Z",
+    "analysisMode": "full",
+    "winner": "Egypt",
+    "confidence": 75,
+    "predicted_score": "1-0",
+    "score_reasoning": "Why Egypt scores 1: Mo Salah's ability to unlock low blocks via individual brilliance and penalty box refinement makes him the sole credible threat against Iran's compact shape. Why Iran scores 0: Their attacking reliance on Taremi and Azmoun is stifled by Egypt's disciplined defensive transitions and lack of space in final third.",
+    "key_factors": [
+      "Mo Salah's goal-scoring record is the primary driver for Egypt's offensive output; without him, their xG drops significantly.",
+      "Iran's defensive solidity (0.7 GA/g in qualifying) and aerial superiority neutralize conventional Egyptian wing play.",
+      "Tactical stalemate leads to low-event game; cagey style favors the team with better individual execution in high-leverage moments."
+    ],
+    "analysis_summary": "Mo Salah remains Egypt's critical differentiator, capable of producing moments of magic against structured defenses like Iran's. Iran’s disciplined low block and aerial dominance limit Egypt's wing play, forcing a congested midfield battle where neither side gains a tactical edge. The decisive factor is whether Salah can capitalize on rare high-quality chances in a cagey game defined by defensive organization rather than open play.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 28,
+    "devil_upset_scenario": "A late penalty or controversial red card shifts the tight balance, allowing Iran to exploit Egypt's remaining attackers with pace or secure a 1-1 draw through set-piece efficiency.",
+    "agent_votes": {
+      "statistical": "Egypt",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "萨拉赫的进球能力是埃及进攻端的主要驱动力；缺乏他时，球队的预期进球数（xG）将大幅下降。",
+      "伊朗的防守稳固性（预选赛失球0.7个/场）及空中优势抵消了埃及传统的边路进攻。",
+      "战术上的僵局导致比赛节奏沉闷；这种谨慎的风格有利于在关键时刻个人执行力更胜一筹的一方。"
+    ],
+    "analysis_summary_zh": "萨拉赫仍是埃及队的关键差别因素，具备在伊朗式严密防守下创造奇迹的能力。伊朗纪律严明的低位防线和空中统治力限制了埃及的边路发挥，迫使比赛陷入中场绞杀，双方均无法取得战术优势。决定性的因素在于：在这场由组织严密的防守主导而非开放对攻的比赛中，萨拉赫能否抓住少数高价值机会得分。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Iran",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.25,
+        "team2": 1.07
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "H-spain-vs-cape-verde": {
+    "matchId": "H-spain-vs-cape-verde",
+    "team1": "Spain",
+    "team2": "Cape Verde",
+    "group": "H",
+    "dateSgt": "15 Jun 2026, 07:00 SGT",
+    "timeSgt": "07:00",
+    "venue": "Lincoln Financial Field, Philadelphia",
+    "analyzedAt": "2026-06-11T11:01:28.505Z",
+    "analysisMode": "full",
+    "winner": "Spain",
+    "confidence": 82,
+    "score_reasoning": "Why Spain scores X: Spain's superior possession and attacking output will likely overwhelm Cape Verde's defensive structure, with Lamine Yamal utilizing his technical superiority in tight spaces to create high-quality chances. Why Cape Verde scores Y: While unlikely due to Spain's best defensive record in UEFA qualifying (GA/g: 0.67), a goal is possible if Rodrigues exploits rapid transitional errors forced by Spain's high-intensity pressing.",
+    "key_factors": [
+      "Spain's overwhelming qualification dominance with +25 Goal Difference versus Cape Verde's +5",
+      "Lamine Yamal's outstanding performance and fit status providing decisive attacking threat",
+      "Cape Verde's historic first World Cup appearance creating potential psychological pressure despite strong playoff record"
+    ],
+    "analysis_summary": "Spain enters as heavy favorites based on a dominant UEFA qualifying campaign featuring the best defensive record and Lamine Yamal's exceptional form. The tactical battle favors Spain, whose ball retention will likely force Cape Verde into error-prone transitions against their organized defense. While Cape Verde showed resilience in CAF playoffs via Rodrigues, the gap in squad quality and recent performance metrics makes a Spanish victory highly probable.",
+    "risk_factor": "low",
+    "devil_upset_pct": 18,
+    "devil_upset_scenario": "Spain suffers unexpected fatigue or complacency leading to errors that Cape Verde exploits through rapid flank transitions to secure a draw.",
+    "agent_votes": {
+      "statistical": "Spain",
+      "tactical": "Spain",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "predicted_score": "2-0",
+    "key_factors_zh": [
+      "西班牙以净胜球+25的巨大优势强势出线，而佛得角的净胜球仅为+5",
+      "拉明·亚马尔表现出色且身体状况良好，提供了决定性的进攻威胁",
+      "这是佛得角历史上首次闯入世界杯，尽管其附加赛战绩强劲，但仍面临潜在的心理压力"
+    ],
+    "analysis_summary_zh": "西班牙凭借占主导地位的欧足联预选赛征程、最佳的防守记录以及拉明·亚马尔的优异状态，成为夺魁大热门。战术层面也利于西班牙，其控球优势很可能迫使佛得角在对抗其组织严密的防线时出现失误。尽管罗德里格斯帮助佛得角在非洲杯附加赛中展现了韧性，但双方阵容实力和近期表现数据的差距使得西班牙获胜的可能性极高。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Spain",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 2.07,
+        "team2": 0.57
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "H-spain-vs-saudi-arabia": {
+    "matchId": "H-spain-vs-saudi-arabia",
+    "team1": "Spain",
+    "team2": "Saudi Arabia",
+    "group": "H",
+    "dateSgt": "2026-06-22",
+    "timeSgt": "00:00",
+    "venue": "Gillette Stadium, Boston",
+    "analyzedAt": "2026-06-11T14:01:14.968Z",
+    "analysisMode": "full",
+    "winner": "Spain",
+    "confidence": 79,
+    "predicted_score": "2-0",
+    "score_reasoning": "Why Spain scores 2: Lamine Yamal's dribbling against the left flank and Alexander Sørloth's aerial presence dismantle Saudi Arabia's compact mid-block, creating high-value chances that align with the 2.22 xG projection. Why Saudi Arabia scores 0: Their offensive output relies heavily on Al-Dawsari in transition, but Spain's disciplined defensive line (GA/g 0.67 in qualifiers) and high-pressing intensity neutralize counter-attacks before they develop.",
+    "key_factors": [
+      "Spain's overwhelming qualifying dominance (+25 GD) indicates superior squad depth and tactical cohesion compared to Saudi Arabia's playoff qualification.",
+      "Saudi Arabia lacks the midfield control to sustain resistance against Spain's possession circulation, leading to inevitable defensive fatigue.",
+      "The 54-place FIFA ranking gap reflects a significant quality disparity that historical data suggests will be decisive in group stage encounters."
+    ],
+    "analysis_summary": "Lamine Yamal and Alvaro Morata provide the technical edge needed to break down Saudi Arabia's low block, while Al-Dawsari's influence is stifled by Spain's midfield press. The decisive factor is Spain's superior defensive organization (GA/g 0.67) preventing any meaningful Saudi attacks. A primary risk involves potential complacency from Spain in a warm-up match context, though their qualifying form suggests continued seriousness.",
+    "risk_factor": "low",
+    "devil_upset_pct": 22,
+    "devil_upset_scenario": "Saudi Arabia wins or draws by capitalizing on a defensive error from Lamine Yamal during a rare transition, leveraging Al-Dawsari's set-piece expertise to break Spain's high line.",
+    "agent_votes": {
+      "statistical": "Spain",
+      "tactical": "Spain",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "西班牙在预选赛中的压倒性统治力（净胜球+25）表明，与通过附加赛晋级的沙特阿拉伯相比，其阵容深度和战术默契度更高。",
+      "沙特阿拉伯缺乏在中场保持控制力以对抗西班牙传控体系的能力，导致防守必然出现体能透支。",
+      "FIFA排名相差54位反映出巨大的实力差距，历史数据表明这将在小组赛交锋中成为决定性因素。"
+    ],
+    "analysis_summary_zh": "拉明·亚马尔（Lamine Yamal）和阿尔瓦罗·莫拉塔（Alvaro Morata）提供了打破沙特阿拉伯低位防守所需的技术优势，而沙特的萨勒姆·达瓦萨里（Al-Dawsari）则因西班牙的中场逼抢而影响力受阻。决定性因素在于西班牙更出色的防守组织（失球率0.67），成功限制了沙特阿拉伯的任何有效进攻。主要风险在于西班牙可能因热身赛性质而产生轻敌心态，但其预选赛表现表明球队仍会认真对待。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Spain",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 2.22,
+        "team2": 0.57
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "E-ivory-coast-vs-ecuador": {
+    "matchId": "E-ivory-coast-vs-ecuador",
+    "team1": "Ivory Coast",
+    "team2": "Ecuador",
+    "group": "E",
+    "dateSgt": "2026-06-15",
+    "timeSgt": "07:00",
+    "venue": "Estadio Azteca, Mexico City",
+    "analyzedAt": "2026-06-12T03:56:07.789Z",
+    "analysisMode": "full",
+    "winner": "Ecuador",
+    "confidence": 62,
+    "predicted_score": "1-2",
+    "score_reasoning": "Why Ivory Coast scores 1: Ivan Toney or Sébastien Haller capitalizes on a defensive lapse from the high line, using physical hold-up play to settle the ball for a finish. Why Ecuador scores 2: Juan Carlos Paredo and Fidel Martínez exploit the space behind Ivory Coast's fullbacks during transitions, while Moisés Caicedo controls the midfield tempo to sustain pressure in the final third.",
+    "key_factors": [
+      "Ecuador's superior transitional speed and pressing intensity against a high line",
+      "Altitude (2240m) favoring Ecuador's structured physical output over Ivory Coast's stamina in the second half",
+      "72% rain probability reducing technical precision, aiding Ecuador's direct approach"
+    ],
+    "analysis_summary": "Ecuador's midfield trio of Caicedo, Paredó, and Muñoz will dictate the tempo and exploit Ivorian defensive transitions. The decisive factor is altitude management, where Ecuador's recent CONMEBOL experience provides an edge over Ivory Coast's less accustomed physiology. Risk remains medium due to potential fatigue-induced errors for both sides in wet conditions.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 38,
+    "devil_upset_scenario": "Ivory Coast secures a narrow win by scoring first via a set-piece header from Ivan Toney and successfully defending against Ecuador's second-half surges using defensive resilience.",
+    "agent_votes": {
+      "statistical": "Ecuador",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "厄瓜多尔在高压逼抢下的高位防线对抗中展现出更出色的转换速度和压迫强度",
+      "高海拔（2240米）使厄瓜多尔有组织的体能输出在下半场占据优势，对比科特迪瓦的耐力",
+      "降雨概率达72%，技术精度下降，利于厄瓜多尔的直接进攻打法"
+    ],
+    "analysis_summary_zh": "厄瓜多尔的中场三人组凯塞多、帕雷德斯和穆尼奥斯将掌控节奏并利用科特迪瓦防线的转换漏洞。决定性因素在于海拔适应度，厄瓜多尔近期在南美足联合赛中的经验使其在体能上占据优势，而科特迪瓦球员的生理适应性相对较弱。由于湿滑场地可能导致双方因疲劳出现失误，风险等级为中。",
+    "agentVotes": {
+      "statistical": "team2",
+      "tactical": "Ecuador",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.35,
+        "team2": 1.45
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "F-sweden-vs-tunisia": {
+    "matchId": "F-sweden-vs-tunisia",
+    "team1": "Sweden",
+    "team2": "Tunisia",
+    "group": "F",
+    "dateSgt": "2026-06-15",
+    "timeSgt": "10:00",
+    "venue": "Levi's Stadium, San Francisco Bay Area",
+    "analyzedAt": "2026-06-12T03:57:04.293Z",
+    "analysisMode": "full",
+    "winner": "Sweden",
+    "confidence": 68,
+    "predicted_score": "1-0",
+    "score_reasoning": "Why Sweden scores 1: Alexander Isak or Viktor Gyökeres converts a loose ball in the box following a high-cross from a set-piece or direct transition, exploiting gaps left by Tunisia's compact block. Why Tunisia scores 0: Their defensive structure successfully neutralizes Sweden's primary aerial threats for 90 minutes, relying on low-block discipline rather than attacking ambition.",
+    "key_factors": [
+      "Sweden's elite qualifying attack (Gyökeres/Isak) faces a disciplined but physically smaller Tunisian backline vulnerable to aerial duels",
+      "Tunisia's low-scoring qualification campaign suggests a risk-averse, cagey tactical approach favoring a draw over a win",
+      "Weather conditions are clear and warm, preserving pitch quality for Sweden's vertical direct style",
+      "Lack of historical H2H data increases variance but favors the team with superior individual quality in attack"
+    ],
+    "analysis_summary": "Sweden's physical superiority and potent aerial threat pose a significant problem for Tunisia's compact low-block. The match hinges on whether Viktor Gyökeres or Alexander Isak can capitalize on defensive errors from the Tunisian backline. Tunisia will aim to frustrate Sweden with disciplined defending, making a 1-0 scoreline the most probable outcome.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 28,
+    "devil_upset_scenario": "Tunisia's goalkeeper delivers a miraculous performance while Sweden fails to convert clear cut chances against a deep defensive block.",
+    "agent_votes": {
+      "statistical": "Sweden",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "瑞典的精英级进攻端（格耶雷雷斯/伊萨克）将面对一条纪律严明但身体条件处于劣势、且在高空对抗中较为脆弱的突尼斯防线",
+      "突尼斯在预选赛中的进球不多，这暗示了他们采取规避风险、保守谨慎的战术策略，倾向于求平局而非追求胜利",
+      "天气晴朗温暖，球场草皮状况良好，有利于瑞典队发挥其纵向直接的进攻风格"
+    ],
+    "analysis_summary_zh": "瑞典的身体优势和高空威胁对突尼斯的紧凑低位防守构成了重大难题。比赛的关键在于维克托·格耶雷雷斯或亚历山大·伊萨克能否抓住突尼斯后卫线的防守失误。突尼斯将通过纪律严明的防守来挫败瑞典队，因此1-0是最可能出现的比分。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Sweden",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.33,
+        "team2": 0.98
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "H-cape-verde-vs-saudi-arabia": {
+    "matchId": "H-cape-verde-vs-saudi-arabia",
+    "team1": "Cape Verde",
+    "team2": "Saudi Arabia",
+    "group": "H",
+    "dateSgt": "16 Jun 2026, 01:00 SGT",
+    "timeSgt": "01:00",
+    "venue": "Estadio Azteca, Mexico City",
+    "analyzedAt": "2026-06-12T05:00:25.408Z",
+    "analysisMode": "full",
+    "winner": "Cape Verde",
+    "confidence": 68,
+    "predicted_score": "1-0",
+    "score_reasoning": "Why Cape Verde scores 1: Yankuba Minteh or Garry Rodrigues exploit the right flank against Saudi's left side to break the low block. Why Saudi Arabia scores 0: Al-Dawsari is contained by Cape Verde's midfield press, preventing them from creating high-quality chances.",
+    "key_factors": [
+      "Cape Verde's playoff success indicates peak tactical cohesion vs Saudi's structural rigidity",
+      "Saudi Arabia's low-block strategy stifles creativity but fails to generate counter-attacks",
+      "Cagey game style with few clear-cut opportunities favors the team with slightly better xG efficiency"
+    ],
+    "analysis_summary": "Yankuba Minteh and Garry Rodrigues provide the verticality needed to breach Saudi Arabia’s disciplined defense. Al-Dawsari remains nullified by Cape Verde's organized midfield, leading to a stalemate until a moment of individual brilliance decides it. The risk is a 0-0 draw given the low-scoring environment.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 28,
+    "devil_upset_scenario": "Saudi Arabia scores first via a set-piece goal from Al-Bulaihi and holds off Cape Verde's attacks.",
+    "agent_votes": {
+      "statistical": "Cape Verde",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "佛得角在附加赛中的成功表明其战术协同性处于巅峰，而沙特阿拉伯则显得阵型僵化",
+      "沙特阿拉伯的低摆大巴策略虽然扼杀了对手的创造力，却未能有效发动反击",
+      "比赛场面谨慎胶着，机会寥寥，这种情况下xG（预期进球）效率稍高的球队更占优势"
+    ],
+    "analysis_summary_zh": "扬库巴·明特和加里·罗德里格斯为突破沙特阿拉伯严密的防线提供了必要的纵深与冲击力。达萨里在佛得角组织有序的中场围堵下完全失声，导致比赛陷入僵局，最终由个人闪光时刻决定胜负。鉴于低进球的环境，0-0打平的风险依然存在。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Saudi Arabia",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.22,
+        "team2": 1.14
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "H-saudi-arabia-vs-uruguay": {
+    "matchId": "H-saudi-arabia-vs-uruguay",
+    "team1": "Saudi Arabia",
+    "team2": "Uruguay",
+    "group": "H",
+    "dateSgt": "2026-06-16",
+    "timeSgt": "06:00",
+    "venue": "BMO Field, Toronto",
+    "analyzedAt": "2026-06-12T10:00:21.149Z",
+    "analysisMode": "full",
+    "winner": "Uruguay",
+    "confidence": 78,
+    "predicted_score": "1-2",
+    "score_reasoning": "Why Saudi Arabia scores 1: Al-Dawsari finds space in transition against high press; Why Uruguay scores 2: Darwin Núñez converts set-piece opportunity and Valverde controls midfield tempo.",
+    "key_factors": [
+      "Uruguay's superior xG (1.67 vs 0.73) driven by Darwin Núñez's finishing efficiency",
+      "Saudi Arabia's deep block vulnerable to Uruguay's vertical transition speed",
+      "Valverde's midfield dominance allows sustained pressure without excessive fatigue"
+    ],
+    "analysis_summary": "Uruguay's physicality and transitional pace will exploit spaces behind Saudi Arabia's organized but vulnerable defense, with Darwin Núñez leading the line and Valverde controlling the midfield tempo. The decisive factor is Uruguay's ability to convert set-piece opportunities and maintain high press intensity for 90 minutes, forcing errors from Al-Owais' backline. Risk remains medium due to group stage unpredictability and potential Saudi counter-attack success.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 22,
+    "devil_upset_scenario": "Saudi Arabia wins via early goal by Al-Dawsari and maintains defensive discipline throughout, capitalizing on Uruguay's occasional away inconsistency.",
+    "agent_votes": {
+      "statistical": "Uruguay",
+      "tactical": "Uruguay",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "乌拉圭的预期进球数(xG)更高(1.67 vs 0.73)，主要得益于达尔文·努涅斯(Darwin Núñez)高效的终结能力",
+      "沙特阿拉伯的低位防守容易受到乌拉圭纵向转换速度的冲击",
+      "维尼修斯的(Federico Valverde)中场 dominance 使球队能持续施压而无需过度消耗体力"
+    ],
+    "analysis_summary_zh": "乌拉圭的身体对抗和攻防转换速度将利用沙特阿拉伯组织严密但存在漏洞的防线身后的空间，达尔文·努涅斯领衔前锋线，维尼修斯控制中场节奏。胜负的关键在于乌拉圭能否把握定位球机会，并在90分钟内保持高强度压迫，迫使阿尔-奥瓦伊斯的防线出现失误。由于小组赛存在不可预测性以及沙特阿拉伯反击可能成功，风险等级仍为中等。",
+    "agentVotes": {
+      "statistical": "team2",
+      "tactical": "Uruguay",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 0.73,
+        "team2": 1.67
+      }
+    },
+    "telegramPosted": true,
+    "suppress": false
+  },
+  "G-iran-vs-new-zealand": {
+    "matchId": "G-iran-vs-new-zealand",
+    "team1": "Iran",
+    "team2": "New Zealand",
+    "group": "G",
+    "dateSgt": "2026-06-16",
+    "timeSgt": "09:00",
+    "venue": "Hard Rock Stadium, Miami",
+    "analyzedAt": "2026-06-12T13:00:29.085Z",
+    "analysisMode": "full",
+    "winner": "Iran",
+    "confidence": 68,
+    "predicted_score": "1-0",
+    "score_reasoning": "Why Iran scores 1: Taremi or Azmoun capitalizing on set-piece delivery or half-space isolation against New Zealand's defensive line. Why New Zealand scores 0: New Zealand's direct play is neutralized by heavy rain and Iran's organized low block, preventing clear chances.",
+    "key_factors": [
+      "Iran's superior qualifying attack (38 goals) vs New Zealand's OFC opposition strength drop-off",
+      "High humidity and drizzle reducing technical precision, favoring Iran's structured buildup over NZ direct balls",
+      "Poisson model indicates 1-0 and 1-1 as most likely scores, with Iran holding the favorite status"
+    ],
+    "analysis_summary": "Iran enters with significant momentum from a dominant AFC qualifying campaign, featuring key contributors Taremi and Azmoun who provide the necessary finishing edge. The tactical battle hinges on Iran disrupting New Zealand's build-up, where players like Mehdi Taremi will likely exploit spaces left by New Zealand's physical approach in wet conditions. While a draw remains a statistical possibility, Iran's defensive solidity and superior individual quality make them the clear favorite to secure a narrow victory.",
+    "risk_factor": "medium",
+    "devil_upset_pct": 32,
+    "devil_upset_scenario": "New Zealand wins via a high-variance long-ball strategy where Chris Wood holds up play effectively against Iran's defense, capitalizing on a defensive error or set-piece miscue in the heavy rain.",
+    "agent_votes": {
+      "statistical": "Iran",
+      "tactical": "neutral",
+      "historical": "neutral",
+      "psychological": "neutral"
+    },
+    "key_factors_zh": [
+      "伊朗强大的预选赛进攻火力（38粒进球）对比新西兰大洋洲区对手实力的明显下滑",
+      "高湿度和毛毛雨降低了技术精度，有利于伊朗有组织的阵地推进而非新西兰的直接长传",
+      "泊松模型显示1-0和1-1是最可能的比分，伊朗保持热门 favored 地位"
+    ],
+    "analysis_summary_zh": "伊朗带着在亚预赛中的巨大 momentum 而来，此前表现主导了攻势，塔雷米和阿兹蒙等关键球员提供了必要的终结能力。战术博弈的焦点在于伊朗如何破坏新西兰的进攻组织，在多湿条件下，像塔雷米这样的球员有望利用新西兰强硬踢法留下的空当。虽然平局在统计上仍有可能，但伊朗坚实的防守和更优的个人素质使其成为净胜球的明确热门。",
+    "agentVotes": {
+      "statistical": "team1",
+      "tactical": "Iran",
+      "psychological": "neutral",
+      "statXG": {
+        "team1": 1.42,
+        "team2": 0.96
       }
     },
     "telegramPosted": true,

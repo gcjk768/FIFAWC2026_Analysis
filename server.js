@@ -221,19 +221,25 @@ const normTeam = (n) => API_TEAM_NORM[(n || '').toLowerCase()] || n;
  */
 async function syncFixturesFromApi() {
   const apiKey = process.env.FOOTBALL_API_KEY;
-  if (!apiKey) return;
 
-  // Use cache if fresh (< 24h)
+  // Always apply cache if it exists — API key only needed to refresh stale data
   try {
     if (fs.existsSync(FIXTURE_CACHE_FILE)) {
       const cached = JSON.parse(fs.readFileSync(FIXTURE_CACHE_FILE, 'utf8'));
-      if (Date.now() - new Date(cached.syncedAt).getTime() < 86400000) {
+      const cacheAge = Date.now() - new Date(cached.syncedAt).getTime();
+      if (cacheAge < 86400000) {
         applyApiTimes(cached.matches);
         console.log(`[WC2026] Fixture times loaded from cache (${cached.matches.length} matches)`);
-        return;
+        if (!apiKey) return;  // no key — can't refresh, but cache was applied
+        return;               // cache fresh — no need to re-fetch
       }
     }
   } catch {}
+
+  if (!apiKey) {
+    console.warn('[WC2026] No FOOTBALL_API_KEY — fixture times may be approximate');
+    return;
+  }
 
   try {
     const resp = await fetch('https://api.football-data.org/v4/competitions/WC/matches', {
@@ -455,14 +461,16 @@ Respond ONLY with valid JSON, no markdown, no explanation:
  * @returns {Promise<object>}
  */
 async function runOllama(prompt) {
-  const body = { model: OLLAMA_MODEL, prompt, stream: false };
+  // think:false is required — qwen3.6 ignores the /no_think text directive via
+  // /api/generate and burns minutes of hidden thinking tokens without it
+  const body = { model: OLLAMA_MODEL, prompt, stream: false, think: false };
 
   const attempt = async () => {
     const resp = await fetch(`${OLLAMA_HOST}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-      timeout: 120000,
+      timeout: 300000,
     });
     if (!resp.ok) throw new Error(`Ollama HTTP ${resp.status}`);
     const data = await resp.json();
@@ -478,6 +486,43 @@ async function runOllama(prompt) {
   } catch (err) {
     console.log('[WC2026] Ollama retry after error:', err.message);
     return attempt();
+  }
+}
+
+/**
+ * Translate prediction analysis fields to Simplified Chinese for the bilingual
+ * Telegram card. Non-fatal — returns null on any failure so the card falls
+ * back to English content.
+ * @param {object} p - prediction with key_factors + analysis_summary
+ * @returns {Promise<{key_factors_zh: string[], analysis_summary_zh: string}|null>}
+ */
+async function translateAnalysisToZh(p) {
+  const factors = (p.key_factors || []).slice(0, 3);
+  if (factors.length === 0 && !p.analysis_summary) return null;
+
+  const prompt = `/no_think
+Translate the following football match analysis into Simplified Chinese.
+Keep player names in their commonly used Chinese forms (e.g. 三笘薰 for Mitoma) or original spelling if unsure. Keep team names, numbers and scorelines unchanged.
+
+KEY FACTORS:
+${factors.map((f, i) => `${i + 1}. ${f}`).join('\n')}
+
+SUMMARY:
+${p.analysis_summary || ''}
+
+Respond ONLY with valid JSON, no markdown:
+{"key_factors_zh":["译文1","译文2","译文3"],"analysis_summary_zh":"摘要译文"}`;
+
+  try {
+    const result = await runOllama(prompt);
+    if (!Array.isArray(result.key_factors_zh) || !result.analysis_summary_zh) return null;
+    return {
+      key_factors_zh: result.key_factors_zh.slice(0, 3).map(String),
+      analysis_summary_zh: String(result.analysis_summary_zh),
+    };
+  } catch (err) {
+    console.error('[WC2026] ZH translation failed (non-fatal):', err.message);
+    return null;
   }
 }
 
@@ -686,6 +731,10 @@ app.post('/api/analyze/:matchId', async (req, res) => {
 
   // Strip internal agent debug fields before saving
   const { _mode, _agentReports, _statReport, ...cleanResult } = ollamaResult;
+
+  // Translate analysis to Chinese for the bilingual Telegram card (non-fatal)
+  const zh = await translateAnalysisToZh(cleanResult);
+  if (zh) Object.assign(cleanResult, zh);
 
   // Build full prediction object
   const prediction = {
@@ -1048,8 +1097,8 @@ const { isAlertSent } = require('./services/alertService');
 const { readKnockout, writeKnockout } = require('./services/knockoutService');
 const { analyzeKnockoutBracket } = require('./services/knockoutPredictionService');
 const { fetchMatchWeather, buildWeatherContext } = require('./services/weatherService');
-const { runOrchestrator } = require('./services/agents/orchestratorAgent');
-const { computeCalibration, writeCalibrationToObsidian } = require('./services/agents/calibrationAgent');
+const { runOrchestrator } = require('./departments/executive/ceo');
+const { computeCalibration, writeCalibrationToObsidian } = require('./departments/analytics/calibrationDesk');
 
 const RESULTS_FILE = path.join(__dirname, 'data', 'match-results.json');
 const SENT_ALERTS_FILE = path.join(__dirname, 'data', 'sent-alerts.json');
@@ -1090,7 +1139,7 @@ app.post('/api/trigger/digest', async (req, res) => {
   }
 });
 
-/** POST /api/trigger/preview/:matchId — manually fire 3-day preview */
+/** POST /api/trigger/preview/:matchId — manually fire 3-hour preview */
 app.post('/api/trigger/preview/:matchId', async (req, res) => {
   const fixture = FIXTURES.find((f) => f.matchId === req.params.matchId);
   if (!fixture) return res.status(404).json({ error: 'Match not found' });

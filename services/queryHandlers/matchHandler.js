@@ -176,7 +176,7 @@ async function handleResult(text) {
   });
 
   if (!found) {
-    if (played.length === 0) return `🏁 No results yet — tournament starts 12 Jun 2026\\!`;
+    if (played.length === 0) return `🏁 No results yet \\— matches may still be in progress\\.`;
     return `❓ No result found for that team yet\\.`;
   }
 
