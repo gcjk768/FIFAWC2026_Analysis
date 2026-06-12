@@ -1470,11 +1470,32 @@ process.on('SIGTERM', () => handleShutdown('SIGTERM').catch(() => process.exit(1
 
 // ─── START SERVER ──────────────────────────────────────────────────────────
 
+/**
+ * Load cached API fixture times synchronously so FIXTURES are correct
+ * before the first request is served. The async fetch/refresh still runs
+ * after startup to pick up any new data.
+ */
+function loadCachedFixtureTimes() {
+  try {
+    if (fs.existsSync(FIXTURE_CACHE_FILE)) {
+      const cached = JSON.parse(fs.readFileSync(FIXTURE_CACHE_FILE, 'utf8'));
+      if (cached.matches?.length) {
+        applyApiTimes(cached.matches);
+        console.log(`[WC2026] Fixture times pre-loaded from cache (${cached.matches.length} matches)`);
+      }
+    }
+  } catch (err) {
+    console.warn('[WC2026] Could not pre-load fixture cache:', err.message);
+  }
+}
+
+loadCachedFixtureTimes();
+
 app.listen(PORT, () => {
   console.log(`[WC2026] Server running on http://localhost:${PORT}`);
   startupHealthCheck();
-  // Sync real kickoff times from football-data.org API (runs async, non-blocking).
-  // Re-check every 6 hours — the API is only re-fetched once the cache is >24h old.
+  // Refresh from API async — re-fetches once the cache is >24h old, else just re-applies.
+  // Re-check every 6 hours.
   setTimeout(syncFixturesFromApi, 3000);
   setInterval(syncFixturesFromApi, 6 * 3600000);
 });
